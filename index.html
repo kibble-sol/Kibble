@@ -28,7 +28,6 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white bg-[#07050d]">
 
-  <!-- Navbar -->
   <header class="w-full border-b border-purple-900/40 bg-[#0c0817]/95 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-4xl mx-auto px-5 h-16 flex items-center justify-between">
       <div class="flex items-center gap-2">
@@ -43,7 +42,6 @@
   </header>
 
   <main class="flex-grow max-w-4xl mx-auto px-5 w-full">
-    <!-- Hero Section -->
     <section class="pt-12 pb-10 text-center">
       <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-950/80 border border-purple-500/40 text-purple-300 text-xs font-semibold mb-6">
         <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
@@ -62,8 +60,7 @@
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-3 max-w-md mx-auto mb-8">
-        <!-- Coming Soon Buy Button -->
-        <button onclick="alert('Token launch is coming soon! Follow our Telegram and X for the official announcement & DEX link.')" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs md:text-sm shadow-lg shadow-purple-600/30 transition flex items-center gap-2 cursor-pointer">
+        <button onclick="openModal()" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs md:text-sm shadow-lg shadow-purple-600/30 transition flex items-center gap-2 cursor-pointer">
           <span>Buy $KIBBLE</span>
           <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded text-purple-200 font-bold uppercase tracking-wide">Coming Soon</span>
         </button>
@@ -76,7 +73,6 @@
       </div>
     </section>
 
-    <!-- Narrative & The Story -->
     <section class="py-6">
       <div class="grid md:grid-cols-2 gap-5">
         <div class="card-highlight p-6 md:p-7 rounded-3xl flex flex-col justify-between">
@@ -115,7 +111,6 @@
       </div>
     </section>
 
-    <!-- Technical Architecture & Supply (10M Arz / %100 LP) -->
     <section class="py-6">
       <div class="text-center mb-6">
         <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-1">Architecture</div>
@@ -148,7 +143,6 @@
         </div>
       </div>
 
-      <!-- Security Specs -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div class="card-dark p-3.5 rounded-xl flex items-center gap-3">
           <span class="text-emerald-400 text-lg">🛡️</span>
@@ -164,8 +158,7 @@
             <div class="text-[11px] text-gray-400">Wallets cannot be frozen or blacklisted</div>
           </div>
         </div>
-        <!-- Coming Soon DEX Card -->
-        <div onclick="alert('DEX swap & live chart will be active on launch day!')" class="card-dark p-3.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-purple-500/50 transition">
+        <div onclick="openModal()" class="card-dark p-3.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-purple-500/50 transition">
           <div class="flex items-center gap-3">
             <span class="text-purple-400 text-lg">⚡</span>
             <div class="text-left">
@@ -178,7 +171,6 @@
       </div>
     </section>
 
-    <!-- The Feedback Loop & Fund Allocation (Kapalı & Güvenli Dil) -->
     <section class="py-6">
       <div class="card-highlight p-6 md:p-8 rounded-3xl">
         <div class="flex items-center justify-between mb-4">
@@ -217,7 +209,6 @@
       </div>
     </section>
 
-    <!-- Legal Disclaimer -->
     <section class="py-6">
       <div class="p-5 rounded-2xl bg-[#0b0816] border border-purple-900/30 text-[11px] text-gray-400 leading-relaxed">
         <strong class="text-gray-300 uppercase tracking-wider block mb-1">Legal Disclaimer:</strong>
@@ -226,7 +217,6 @@
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="border-t border-purple-900/30 bg-[#07050d] py-6">
     <div class="max-w-4xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
       <div>🐾 2026 Kibble Sol. Built for the paws.</div>
@@ -239,6 +229,45 @@
       </div>
     </div>
   </footer>
+
+  <div id="comingSoonModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-[#0f0a1c] border border-purple-500/40 rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl relative animate-in fade-in zoom-in duration-200">
+      <div class="text-4xl mb-3">🚀</div>
+      <h3 class="text-xl font-black text-white mb-2">Launch Coming Soon!</h3>
+      <p class="text-gray-300 text-xs leading-relaxed mb-6">
+        $KIBBLE is currently in pre-launch stage. Official contract address and DEX swap pools (Raydium / Jupiter) will go live on launch day.
+      </p>
+      
+      <div class="flex flex-col gap-2 mb-4">
+        <a href="https://t.me/kibblesol" target="_blank" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition">
+          Join Telegram for Launch Alerts 💬
+        </a>
+        <a href="https://x.com/kibblesol" target="_blank" class="w-full py-2.5 rounded-xl bg-[#171228] hover:bg-[#201938] border border-purple-500/30 text-white font-bold text-xs transition">
+          Follow on X 🐾
+        </a>
+      </div>
+
+      <button onclick="closeModal()" class="text-gray-400 hover:text-white text-xs font-semibold underline cursor-pointer">
+        Close Window
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('comingSoonModal').classList.remove('hidden');
+    }
+    function closeModal() {
+      document.getElementById('comingSoonModal').classList.add('hidden');
+    }
+    // Dış alana tıklayınca kapatma
+    window.onclick = function(event) {
+      const modal = document.getElementById('comingSoonModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+  </script>
 
 </body>
 </html>
