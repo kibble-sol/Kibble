@@ -28,6 +28,7 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white bg-[#07050d]">
 
+  <!-- Navbar -->
   <header class="w-full border-b border-purple-900/40 bg-[#0c0817]/95 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-4xl mx-auto px-5 h-16 flex items-center justify-between">
       <div class="flex items-center gap-2">
@@ -42,6 +43,7 @@
   </header>
 
   <main class="flex-grow max-w-4xl mx-auto px-5 w-full">
+    <!-- Hero Section -->
     <section class="pt-12 pb-10 text-center">
       <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-950/80 border border-purple-500/40 text-purple-300 text-xs font-semibold mb-6">
         <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
@@ -60,6 +62,7 @@
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-3 max-w-md mx-auto mb-8">
+        <!-- Coming Soon Modal Trigger -->
         <button onclick="openModal()" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs md:text-sm shadow-lg shadow-purple-600/30 transition flex items-center gap-2 cursor-pointer">
           <span>Buy $KIBBLE</span>
           <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded text-purple-200 font-bold uppercase tracking-wide">Coming Soon</span>
@@ -73,6 +76,7 @@
       </div>
     </section>
 
+    <!-- Narrative & The Story -->
     <section class="py-6">
       <div class="grid md:grid-cols-2 gap-5">
         <div class="card-highlight p-6 md:p-7 rounded-3xl flex flex-col justify-between">
@@ -95,22 +99,25 @@
         <div class="card-dark p-6 md:p-7 rounded-3xl flex flex-col justify-between">
           <div>
             <div class="text-xs uppercase font-extrabold text-cyan-400 tracking-wider mb-2">Our Mission</div>
-            <h2 class="text-xl md:text-2xl font-bold text-white mb-3">Uncompromising Transparency</h2>
+            <h2 class="text-xl md:text-2xl font-bold text-white mb-3">On-Chain Transparency</h2>
             <p class="text-gray-300 text-sm leading-relaxed mb-3">
-              Trust in crypto is earned through undeniable visual proof. Every single batch of dry kibble purchased, every street feeding run, and every shelter supported will be documented openly.
+              Trust in Web3 is earned through immutable on-chain data. Every protocol-level allocation, wallet disbursement, and feed execution is public and verifiable directly on Solana explorers.
             </p>
             <p class="text-gray-400 text-xs leading-relaxed">
-              We bridge the gap between blockchain data and real-world results through verified date-stamped video logs, store invoices, and transparent developer expense reports.
+              All ground-level feeding operations, photo drops, and community updates are published exclusively on our official X account for maximum reach and transparency.
             </p>
           </div>
-          <div class="mt-4 pt-4 border-t border-purple-900/40 flex items-center justify-between text-xs font-semibold text-cyan-300">
-            <span>📹 Verified Video Updates</span>
-            <span>🧾 Open Invoice Logs</span>
+          <div class="mt-4 pt-4 border-t border-purple-900/40 flex items-center justify-between text-xs font-semibold">
+            <span class="text-cyan-300 flex items-center gap-1">🔗 Solscan Verified</span>
+            <a href="https://x.com/kibblesol" target="_blank" class="text-purple-300 hover:text-white transition flex items-center gap-1">
+              <span>🐾</span> X Exclusive Proofs ↗
+            </a>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Technical Architecture & Supply (10M Arz / %100 LP) -->
     <section class="py-6">
       <div class="text-center mb-6">
         <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-1">Architecture</div>
@@ -143,6 +150,7 @@
         </div>
       </div>
 
+      <!-- Security Specs -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div class="card-dark p-3.5 rounded-xl flex items-center gap-3">
           <span class="text-emerald-400 text-lg">🛡️</span>
@@ -158,6 +166,7 @@
             <div class="text-[11px] text-gray-400">Wallets cannot be frozen or blacklisted</div>
           </div>
         </div>
+        <!-- DEX Modal Card -->
         <div onclick="openModal()" class="card-dark p-3.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-purple-500/50 transition">
           <div class="flex items-center gap-3">
             <span class="text-purple-400 text-lg">⚡</span>
@@ -171,6 +180,7 @@
       </div>
     </section>
 
+    <!-- The Feedback Loop & Fund Allocation -->
     <section class="py-6">
       <div class="card-highlight p-6 md:p-8 rounded-3xl">
         <div class="flex items-center justify-between mb-4">
@@ -181,34 +191,35 @@
           <span class="text-3xl">🥣</span>
         </div>
         <p class="text-gray-300 text-sm leading-relaxed mb-6">
-          $KIBBLE operates on a sustainable closed-loop mechanism where on-chain volume directly powers tangible feeding initiatives and sends proof back to the community.
+          $KIBBLE operates on a sustainable closed-loop mechanism where on-chain volume directly powers tangible feeding initiatives and sends verifiable proof back to the community.
         </p>
 
         <div class="grid md:grid-cols-3 gap-4">
           <div class="card-dark p-5 rounded-2xl border-t-2 border-emerald-500">
             <div class="text-emerald-400 font-bold text-xs uppercase mb-1">01 • Volume & Protocol Fees</div>
             <p class="text-xs text-gray-300 leading-relaxed">
-              Decentralized trading activity generates developer/creator proceeds. No begging, no donation drives.
+              Decentralized trading activity generates developer proceeds. Zero public donation campaigns.
             </p>
           </div>
 
           <div class="card-dark p-5 rounded-2xl border-t-2 border-cyan-500">
             <div class="text-cyan-400 font-bold text-xs uppercase mb-1">02 • Wholesale Kibble & Shelter Support</div>
             <p class="text-xs text-gray-300 leading-relaxed">
-              Proceeds fund wholesale dry pet food purchases, field feeding routes, and direct shelter supplies.
+              Proceeds fund wholesale dry pet food purchases, street feeding runs, and direct shelter aid.
             </p>
           </div>
 
           <div class="card-dark p-5 rounded-2xl border-t-2 border-purple-500">
-            <div class="text-purple-400 font-bold text-xs uppercase mb-1">03 • Visual Proof & Verification</div>
+            <div class="text-purple-400 font-bold text-xs uppercase mb-1">03 • On-Chain & X Verification</div>
             <p class="text-xs text-gray-300 leading-relaxed">
-              Every feeding operation is recorded in HD video and published along with purchase receipts on Telegram and X.
+              Disbursements are verifiable on Solscan, and all feeding visuals are shared directly on X.
             </p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Legal Disclaimer -->
     <section class="py-6">
       <div class="p-5 rounded-2xl bg-[#0b0816] border border-purple-900/30 text-[11px] text-gray-400 leading-relaxed">
         <strong class="text-gray-300 uppercase tracking-wider block mb-1">Legal Disclaimer:</strong>
@@ -217,6 +228,7 @@
     </section>
   </main>
 
+  <!-- Footer with Email Link -->
   <footer class="border-t border-purple-900/30 bg-[#07050d] py-6">
     <div class="max-w-4xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
       <div>🐾 2026 Kibble Sol. Built for the paws.</div>
@@ -230,6 +242,7 @@
     </div>
   </footer>
 
+  <!-- Coming Soon Pop-up Modal -->
   <div id="comingSoonModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-[#0f0a1c] border border-purple-500/40 rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl relative animate-in fade-in zoom-in duration-200">
       <div class="text-4xl mb-3">🚀</div>
@@ -253,6 +266,7 @@
     </div>
   </div>
 
+  <!-- Modal Script -->
   <script>
     function openModal() {
       document.getElementById('comingSoonModal').classList.remove('hidden');
@@ -260,7 +274,6 @@
     function closeModal() {
       document.getElementById('comingSoonModal').classList.add('hidden');
     }
-    // Dış alana tıklayınca kapatma
     window.onclick = function(event) {
       const modal = document.getElementById('comingSoonModal');
       if (event.target === modal) {
