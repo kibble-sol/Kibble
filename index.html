@@ -25,13 +25,14 @@
       border: 1px solid rgba(168, 85, 247, 0.2);
     }
     .card-highlight {
-      background: linear-gradient(180deg, rgba(26, 17, 48, 0.8) 0%, rgba(15, 10, 28, 0.95) 100%);
+      background: linear-gradient(180deg, rgba(26, 17, 48, 0.85) 0%, rgba(15, 10, 28, 0.95) 100%);
       border: 1px solid rgba(192, 132, 252, 0.35);
     }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white bg-[#07050d]">
 
+  <!-- Navbar -->
   <header class="w-full border-b border-purple-900/40 bg-[#0c0817]/95 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-5xl mx-auto px-5 h-20 flex items-center justify-between">
       <div class="flex items-center gap-2">
@@ -48,10 +49,11 @@
   </header>
 
   <main class="flex-grow">
-    <section class="max-w-4xl mx-auto px-5 pt-14 pb-12 text-center">
+    <!-- Hero Section -->
+    <section class="max-w-4xl mx-auto px-5 pt-14 pb-10 text-center">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-950/80 border border-purple-500/40 text-purple-300 text-xs font-semibold mb-6">
         <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-        Pre-Launch Stage • Solana Ecosystem
+        Pre-Launch Phase • Solana SPL Standard
       </div>
       
       <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-5 leading-tight text-white">
@@ -61,13 +63,13 @@
         </span>
       </h1>
       
-      <p class="text-base md:text-lg text-gray-300 max-w-2xl mx-auto mb-8 leading-relaxed font-normal">
-        Millions of stray animals struggle for survival every single day. $KIBBLE bridges the viral energy of Solana meme culture with tangible real-world relief—converting decentralized momentum into bowls of food, medical care, and shelter support.
+      <p class="text-base md:text-lg text-gray-300 max-w-2xl mx-auto mb-8 leading-relaxed">
+        A community-driven Solana memecoin engineered with a transparent real-world mission. Converting decentralized trading momentum directly into food, rescue, and veterinary care for stray animals.
       </p>
 
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto mb-10">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto mb-6">
         <a href="https://t.me/kibblesol" target="_blank" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm shadow-xl shadow-purple-600/30 transition text-center">
-          Join Early Community 💬
+          Join Telegram 💬
         </a>
         <a href="https://x.com/kibblesol" target="_blank" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#171228] hover:bg-[#201938] border border-purple-500/30 text-white font-bold text-sm transition text-center">
           Follow on X 🐾
@@ -75,176 +77,161 @@
       </div>
     </section>
 
+    <!-- Technical Architecture & Supply Breakdown -->
     <section class="max-w-4xl mx-auto px-5 py-6">
-      <div class="card-highlight p-6 md:p-8 rounded-3xl">
-        <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-2">The Philosophy</div>
-        <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4">Why $KIBBLE Matters</h2>
-        <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
-          Most memecoins exist solely for temporary excitement. At $KIBBLE, we believe meme power can be channeled into an unstoppable force for good without losing the humor and hype that makes crypto fun.
-        </p>
-        <p class="text-gray-400 text-sm leading-relaxed">
-          Around the world, over 200 million stray animals fight hunger and severe conditions daily. By establishing a passionate community and leveraging creator-driven funding mechanics, we prove that Web3 culture can fill real food bowls on the ground.
-        </p>
+      <div class="text-center mb-6">
+        <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-1">Architecture</div>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-white">Tokenomics & Supply Security</h2>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mb-6">
+        <div class="card-dark p-5 rounded-2xl">
+          <div class="text-gray-400 text-xs mb-1">Total Supply</div>
+          <div class="text-xl font-black text-white">10,000,000</div>
+          <div class="text-[11px] text-purple-400 mt-1">10M Fixed Supply</div>
+        </div>
+        <div class="card-dark p-5 rounded-2xl">
+          <div class="text-gray-400 text-xs mb-1">Liquidity (LP)</div>
+          <div class="text-xl font-black text-emerald-400">100% Locked/Burn</div>
+          <div class="text-[11px] text-gray-400 mt-1">Fair Launch Pool</div>
+        </div>
+        <div class="card-dark p-5 rounded-2xl">
+          <div class="text-gray-400 text-xs mb-1">Team Tokens</div>
+          <div class="text-xl font-black text-white">0% (Zero)</div>
+          <div class="text-[11px] text-purple-400 mt-1">No Team Dumps</div>
+        </div>
+        <div class="card-dark p-5 rounded-2xl">
+          <div class="text-gray-400 text-xs mb-1">Presale</div>
+          <div class="text-xl font-black text-white">0% (None)</div>
+          <div class="text-[11px] text-purple-400 mt-1">Equal Opportunity</div>
+        </div>
+      </div>
+
+      <!-- Contract Security Specs -->
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="card-dark p-4 rounded-2xl flex items-center gap-3">
+          <span class="text-emerald-400 text-xl font-bold">✓</span>
+          <div>
+            <div class="text-xs font-bold text-white">Mint Authority Revoked</div>
+            <div class="text-[11px] text-gray-400">No new tokens can ever be minted</div>
+          </div>
+        </div>
+        <div class="card-dark p-4 rounded-2xl flex items-center gap-3">
+          <span class="text-emerald-400 text-xl font-bold">✓</span>
+          <div>
+            <div class="text-xs font-bold text-white">Freeze Authority Revoked</div>
+            <div class="text-[11px] text-gray-400">User balances cannot be frozen</div>
+          </div>
+        </div>
+        <div class="card-dark p-4 rounded-2xl flex items-center gap-3">
+          <span class="text-emerald-400 text-xl font-bold">✓</span>
+          <div>
+            <div class="text-xs font-bold text-white">Contract Address</div>
+            <div class="text-[11px] text-purple-300">Announced on Launch Day</div>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- The Mechanism: Fee & Fund Allocation -->
+    <section class="max-w-4xl mx-auto px-5 py-6">
+      <div class="card-highlight p-6 md:p-8 rounded-3xl">
+        <div class="text-xs uppercase font-extrabold text-cyan-400 tracking-wider mb-2">The Mechanism</div>
+        <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-3">How Creator Initiatives Fund Stray Animals</h2>
+        <p class="text-gray-300 text-sm leading-relaxed mb-6">
+          $KIBBLE does not rely on traditional donation drives. Instead, creator/developer revenue generated through volume is strictly and voluntarily channeled into verified animal welfare initiatives.
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-5">
+          <div class="card-dark p-5 rounded-2xl border-t-2 border-emerald-500">
+            <div class="text-2xl font-black text-emerald-400 mb-1">60%</div>
+            <h4 class="text-sm font-bold text-white mb-2">Direct Kibble & Feeding</h4>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Purchasing wholesale pet food (kibble) in bulk and organizing field feeding routes in high-density stray areas.
+            </p>
+          </div>
+          <div class="card-dark p-5 rounded-2xl border-t-2 border-cyan-500">
+            <div class="text-2xl font-black text-cyan-400 mb-1">25%</div>
+            <h4 class="text-sm font-bold text-white mb-2">Medical & Shelter Aid</h4>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Covering emergency veterinary surgeries, vaccinations, parasite treatments, and essential shelter repairs.
+            </p>
+          </div>
+          <div class="card-dark p-5 rounded-2xl border-t-2 border-purple-500">
+            <div class="text-2xl font-black text-purple-400 mb-1">15%</div>
+            <h4 class="text-sm font-bold text-white mb-2">Documentation & Growth</h4>
+            <p class="text-xs text-gray-300 leading-relaxed">
+              High-quality video recording, on-site proof documentation, social marketing, and awareness expansion.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Proof of Impact & Transparency -->
     <section class="max-w-4xl mx-auto px-5 py-6">
       <div class="grid md:grid-cols-2 gap-5">
         <div class="card-dark p-6 rounded-2xl">
-          <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-2">Core Narrative</div>
-          <h3 class="text-xl font-bold text-white mb-3">Meme Culture Meets Action</h3>
+          <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-2">Verification</div>
+          <h3 class="text-xl font-bold text-white mb-3">Proof of Impact (PoI)</h3>
           <p class="text-gray-300 text-sm leading-relaxed mb-4">
-            We don't ask users for traditional donations. Instead, we foster an organic, fast-paced meme economy. As trading enthusiasm and awareness grow, project creator revenues are directed toward feeding runs and local shelter support.
+            Every dollar allocated toward stray animals will be backed by publicly accessible proof. Complete on-the-ground transparency is non-negotiable.
           </p>
-          <ul class="text-xs text-purple-300 space-y-1.5 font-medium">
-            <li>✓ Community-first decentralized approach</li>
-            <li>✓ No empty promises—just pure action</li>
-            <li>✓ Fun, viral and impactful storytelling</li>
-          </ul>
+          <div class="space-y-2 text-xs text-purple-300">
+            <div>📹 <strong>Video Logs:</strong> Timestamped feeding runs shared on X and Telegram.</div>
+            <div>🧾 <strong>Receipts:</strong> Verifiable pet food purchase invoices published openly.</div>
+            <div>🔗 <strong>On-Chain Tracing:</strong> Developer wallet disbursements trackable on Solscan.</div>
+          </div>
         </div>
 
         <div class="card-dark p-6 rounded-2xl">
-          <div class="text-xs uppercase font-extrabold text-cyan-400 tracking-wider mb-2">Our Execution</div>
-          <h3 class="text-xl font-bold text-white mb-3">Radical Transparency</h3>
+          <div class="text-xs uppercase font-extrabold text-cyan-400 tracking-wider mb-2">Top Security</div>
+          <h3 class="text-xl font-bold text-white mb-3">Zero Rugpull Architecture</h3>
           <p class="text-gray-300 text-sm leading-relaxed mb-4">
-            Trust is earned through visual proof. Every bag of food purchased, every injured animal treated, and every shelter visit conducted through developer initiatives will be documented with high-definition videos, receipts, and public logs.
+            Built following the highest standards of the Solana memecoin ecosystem. Designed to protect the community while maximizing social impact.
           </p>
-          <ul class="text-xs text-cyan-300 space-y-1.5 font-medium">
-            <li>✓ Verified video and photo updates on X/TG</li>
-            <li>✓ Transparent expense reporting</li>
-            <li>✓ Direct partnerships with grassroots volunteers</li>
-          </ul>
+          <div class="space-y-2 text-xs text-cyan-300">
+            <div>🔒 100% Initial Liquidity permanently burned/locked on DEX listing.</div>
+            <div>🚫 No team token unlocks or hidden creator reserves.</div>
+            <div>🛡️ Open and verifiable on Solana blockchain explorers.</div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="max-w-4xl mx-auto px-5 py-8">
-      <div class="text-center mb-8">
-        <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-1">Workflow</div>
-        <h2 class="text-2xl font-bold text-white">How The Mechanism Operates</h2>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-5">
-        <div class="card-dark p-6 rounded-2xl border-t-2 border-purple-500">
-          <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 font-black flex items-center justify-center mb-4 text-sm">01</div>
-          <h4 class="text-base font-bold text-white mb-2">Join & Spread</h4>
-          <p class="text-xs text-gray-300 leading-relaxed">
-            The community joins Telegram, shares memes, and builds organic virality across social platforms leading up to the Solana launch.
-          </p>
-        </div>
-        <div class="card-dark p-6 rounded-2xl border-t-2 border-cyan-500">
-          <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 font-black flex items-center justify-center mb-4 text-sm">02</div>
-          <h4 class="text-base font-bold text-white mb-2">Protocol Action</h4>
-          <p class="text-xs text-gray-300 leading-relaxed">
-            Upon token launch, protocol activity generates momentum. Developer reserves and creator fees fund real-world pet food distributions.
-          </p>
-        </div>
-        <div class="card-dark p-6 rounded-2xl border-t-2 border-indigo-500">
-          <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 font-black flex items-center justify-center mb-4 text-sm">03</div>
-          <h4 class="text-base font-bold text-white mb-2">Proof & Impact</h4>
-          <p class="text-xs text-gray-300 leading-relaxed">
-            Every feeding operation is recorded on video and published directly to the community, closing the loop between Web3 and reality.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="max-w-4xl mx-auto px-5 py-8">
+    <!-- FAQ Section -->
+    <section class="max-w-4xl mx-auto px-5 py-6">
       <div class="text-center mb-6">
-        <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-1">Architecture</div>
-        <h2 class="text-2xl font-bold text-white">Tokenomics Overview</h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-        <div class="card-dark p-5 rounded-2xl">
-          <div class="text-gray-400 text-xs mb-1">Blockchain</div>
-          <div class="text-lg font-bold text-white">Solana (SPL Standard)</div>
-          <div class="text-[11px] text-gray-500 mt-1">Ultra-fast & Low Gas Fees</div>
-        </div>
-        <div class="card-dark p-5 rounded-2xl">
-          <div class="text-gray-400 text-xs mb-1">Launch Status</div>
-          <div class="text-lg font-bold text-yellow-400">Pre-Launch Community</div>
-          <div class="text-[11px] text-gray-500 mt-1">Targeting Fair Launch</div>
-        </div>
-        <div class="card-dark p-5 rounded-2xl">
-          <div class="text-gray-400 text-xs mb-1">Contract Address</div>
-          <div class="text-sm font-semibold text-purple-300">Announced on Launch Day</div>
-          <div class="text-[11px] text-gray-500 mt-1">Verify only via official channels</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="max-w-4xl mx-auto px-5 py-8">
-      <div class="text-center mb-8">
-        <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-1">Milestones</div>
-        <h2 class="text-2xl font-bold text-white">Detailed Roadmap</h2>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-5">
-        <div class="card-dark p-6 rounded-2xl border-t-2 border-purple-500">
-          <div class="text-xs font-bold text-purple-400">PHASE 1</div>
-          <h4 class="text-base font-bold text-white my-2">The Foundation</h4>
-          <ul class="text-xs text-gray-300 space-y-2 leading-relaxed">
-            <li>• Telegram & X community deployment</li>
-            <li>• Official landing page & brand identity</li>
-            <li>• Early meme campaigns & awareness push</li>
-            <li>• Initial volunteer outreach</li>
-          </ul>
-        </div>
-        <div class="card-dark p-6 rounded-2xl border-t-2 border-cyan-500">
-          <div class="text-xs font-bold text-cyan-400">PHASE 2</div>
-          <h4 class="text-base font-bold text-white my-2">The First Bowl</h4>
-          <ul class="text-xs text-gray-300 space-y-2 leading-relaxed">
-            <li>• Fair token launch on Solana DEXs</li>
-            <li>• DexScreener & CoinGecko fast-track</li>
-            <li>• 1st documented street feeding run</li>
-            <li>• Publication of video proofs & invoices</li>
-          </ul>
-        </div>
-        <div class="card-dark p-6 rounded-2xl border-t-2 border-indigo-500">
-          <div class="text-xs font-bold text-indigo-400">PHASE 3</div>
-          <h4 class="text-base font-bold text-white my-2">Global Impact</h4>
-          <ul class="text-xs text-gray-300 space-y-2 leading-relaxed">
-            <li>• Formal shelter partnerships & veterinary aid</li>
-            <li>• Global community feeding initiatives</li>
-            <li>• Centralized Exchange (CEX) listings</li>
-            <li>• Automated community grant voting</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="max-w-4xl mx-auto px-5 py-8">
-      <div class="text-center mb-8">
         <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-1">Clarifications</div>
         <h2 class="text-2xl font-bold text-white">Frequently Asked Questions</h2>
       </div>
 
-      <div class="space-y-4">
+      <div class="space-y-3">
         <div class="card-dark p-5 rounded-2xl">
-          <h4 class="text-sm font-bold text-purple-300 mb-1">Is $KIBBLE a registered charity?</h4>
+          <h4 class="text-sm font-bold text-purple-300 mb-1">Is $KIBBLE asking for donations?</h4>
           <p class="text-xs text-gray-300 leading-relaxed">
-            No. $KIBBLE is a decentralized, community-driven cryptocurrency token. It does not solicit or collect charitable donations directly. All animal welfare contributions, kibble distribution, and shelter sponsorships are funded and executed voluntarily by the developer team from protocol allocations.
+            No. $KIBBLE does not collect public donations. All feeding operations and shelter sponsorships are funded voluntarily by the developers from collected protocol fees and creator revenue.
           </p>
         </div>
 
         <div class="card-dark p-5 rounded-2xl">
-          <h4 class="text-sm font-bold text-purple-300 mb-1">How do I verify the feeding proofs?</h4>
+          <h4 class="text-sm font-bold text-purple-300 mb-1">Where will the feeding operations take place?</h4>
           <p class="text-xs text-gray-300 leading-relaxed">
-            Every animal feeding run, kibble purchase, and shelter aid operation will be recorded and shared publicly on our official Telegram and X accounts with date timestamps and clear documentation.
+            Operations begin with grassroots street feeding runs and local shelter support, expanding internationally with documented video proofs as the community and protocol resources grow.
           </p>
         </div>
 
         <div class="card-dark p-5 rounded-2xl">
-          <h4 class="text-sm font-bold text-purple-300 mb-1">When will the token launch?</h4>
+          <h4 class="text-sm font-bold text-purple-300 mb-1">How can I join early?</h4>
           <p class="text-xs text-gray-300 leading-relaxed">
-            We are currently in the pre-launch phase, building an organic, strong, and dedicated community. The exact launch date and contract address will be announced well in advance exclusively on our official channels.
+            Join our official Telegram group and follow our X account to stay updated on community milestones, launch timing, and upcoming feeding campaigns.
           </p>
         </div>
       </div>
     </section>
 
-    <section class="max-w-4xl mx-auto px-5 py-8">
+    <!-- Legal Disclaimer -->
+    <section class="max-w-4xl mx-auto px-5 py-6">
       <div class="p-5 rounded-2xl bg-[#0b0816] border border-purple-900/30 text-[11px] text-gray-400 leading-relaxed">
         <div class="font-bold text-gray-300 uppercase tracking-wider mb-2 text-center">Legal Disclaimer</div>
         <p>
@@ -254,6 +241,7 @@
     </section>
   </main>
 
+  <!-- Footer -->
   <footer class="border-t border-purple-900/30 bg-[#07050d] py-6">
     <div class="max-w-4xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
       <div>🐾 2026 Kibble Sol. Built for the paws.</div>
