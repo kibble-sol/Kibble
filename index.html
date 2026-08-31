@@ -25,7 +25,7 @@
       border: 1px solid rgba(192, 132, 252, 0.35);
     }
 
-    /* Oyun / Sayaç Özel Animasyonları */
+    /* Animasyonlar */
     .mascot-img-active {
       transform: scale(1.08);
       filter: brightness(1.2);
@@ -47,11 +47,30 @@
         opacity: 0;
       }
     }
+
+    /* 1.000 Tıkta Açılan Konfeti Efekti */
+    .confetti {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      animation: confettiPop 1.2s ease-out forwards;
+    }
+    @keyframes confettiPop {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white bg-[#07050d]">
 
   <main class="flex-grow max-w-4xl mx-auto px-5 w-full">
+    <!-- Hero Section -->
     <section class="pt-16 pb-8 text-center">
       <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-950/80 border border-purple-500/40 text-purple-300 text-xs font-semibold mb-6">
         <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
@@ -70,6 +89,7 @@
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-3 max-w-md mx-auto mb-8">
+        <!-- Coming Soon Modal Trigger -->
         <button onclick="openModal()" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs md:text-sm shadow-lg shadow-purple-600/30 transition flex items-center gap-2 cursor-pointer">
           <span>Buy $KIBBLE</span>
           <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded text-purple-200 font-bold uppercase tracking-wide">Coming Soon</span>
@@ -83,34 +103,44 @@
       </div>
     </section>
 
+    <!-- FEED THE PUP INTERACTIVE SECTION -->
     <section class="py-6 flex justify-center">
       <div class="w-full max-w-md bg-[#0f0a1c]/90 border border-purple-500/30 rounded-3xl p-6 md:p-8 shadow-2xl shadow-purple-950/50 text-center relative backdrop-blur-xl">
         
+        <!-- Üst Yaş Mama Rozeti -->
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-[11px] font-bold mb-3">
+          <span>🥫</span> <span id="pouch-count">0</span> Wet Food Pouches Unlocked!
+        </div>
+
         <div class="text-[11px] uppercase tracking-widest font-extrabold text-purple-400 mb-1">Total Kibble Served</div>
         <div id="total-val" class="text-4xl md:text-5xl font-black text-cyan-400 mb-4 tracking-tight drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]">0</div>
 
+        <!-- Maskot Görseli -->
         <div class="w-36 h-36 mx-auto mb-5 relative">
           <img src="maskot.jpg" alt="$KIBBLE Pup" id="mascot-pic" class="w-full h-full object-cover rounded-full border-4 border-purple-400/80 shadow-[0_0_25px_rgba(192,132,252,0.35)] transition-all duration-100 ease-out select-none pointer-events-none" />
         </div>
 
+        <!-- Kase Doldur Butonu -->
         <button id="feed-action" class="w-full max-w-xs mx-auto py-3.5 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 active:scale-95 text-white font-black text-sm tracking-wide shadow-lg shadow-purple-600/40 transition flex items-center justify-center gap-2 cursor-pointer border border-purple-400/30 mb-5">
           <span>🥣</span> FILL THE BOWL (+1)
         </button>
 
+        <!-- Yatay İlerleme Çubuğu (Yaş Mama Hedefi) -->
         <div class="w-full text-left">
           <div class="flex justify-between text-xs font-semibold text-gray-300 mb-2">
-            <span>Shelter Bag Goal</span>
-            <span id="target-pct" class="text-purple-300 font-bold">0%</span>
+            <span>Next Wet Food Pouch 🥫</span>
+            <span id="target-pct" class="text-emerald-400 font-bold">0%</span>
           </div>
           <div class="w-full h-3 bg-purple-950/60 rounded-full overflow-hidden border border-purple-500/20">
-            <div id="bar-fill" class="h-full bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full transition-all duration-150 shadow-[0_0_10px_rgba(34,211,238,0.5)]" style="width: 0%;"></div>
+            <div id="bar-fill" class="h-full bg-gradient-to-r from-purple-500 to-emerald-400 rounded-full transition-all duration-150 shadow-[0_0_10px_rgba(52,211,153,0.5)]" style="width: 0%;"></div>
           </div>
-          <div id="rem-text" class="text-center text-[11px] text-gray-400 mt-2 font-medium">1,000 kibbles left for next shelter bag 🐾</div>
+          <div id="rem-text" class="text-center text-[11px] text-gray-400 mt-2 font-medium">1,000 kibbles left for next wet food pouch 🐾</div>
         </div>
 
       </div>
     </section>
 
+    <!-- Narrative & The Story -->
     <section class="py-6">
       <div class="grid md:grid-cols-2 gap-5">
         <div class="card-highlight p-6 md:p-7 rounded-3xl flex flex-col justify-between">
@@ -151,6 +181,7 @@
       </div>
     </section>
 
+    <!-- Technical Architecture & Supply (10M Arz / %100 LP) -->
     <section class="py-6">
       <div class="text-center mb-6">
         <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-1">Architecture</div>
@@ -183,6 +214,7 @@
         </div>
       </div>
 
+      <!-- Security Specs -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div class="card-dark p-3.5 rounded-xl flex items-center gap-3">
           <span class="text-emerald-400 text-lg">🛡️</span>
@@ -198,6 +230,7 @@
             <div class="text-[11px] text-gray-400">Wallets cannot be frozen or blacklisted</div>
           </div>
         </div>
+        <!-- DEX Modal Card -->
         <div onclick="openModal()" class="card-dark p-3.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-purple-500/50 transition">
           <div class="flex items-center gap-3">
             <span class="text-purple-400 text-lg">⚡</span>
@@ -211,6 +244,7 @@
       </div>
     </section>
 
+    <!-- The Feedback Loop & Fund Allocation -->
     <section class="py-6">
       <div class="card-highlight p-6 md:p-8 rounded-3xl">
         <div class="flex items-center justify-between mb-4">
@@ -249,6 +283,7 @@
       </div>
     </section>
 
+    <!-- Legal Disclaimer -->
     <section class="py-6">
       <div class="p-5 rounded-2xl bg-[#0b0816] border border-purple-900/30 text-[11px] text-gray-400 leading-relaxed">
         <strong class="text-gray-300 uppercase tracking-wider block mb-1">Legal Disclaimer:</strong>
@@ -257,6 +292,7 @@
     </section>
   </main>
 
+  <!-- Footer with Email Link -->
   <footer class="border-t border-purple-900/30 bg-[#07050d] py-6">
     <div class="max-w-4xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
       <div>🐾 2026 Kibble Sol. Built for the paws.</div>
@@ -270,6 +306,7 @@
     </div>
   </footer>
 
+  <!-- Coming Soon Pop-up Modal -->
   <div id="comingSoonModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-[#0f0a1c] border border-purple-500/40 rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl relative animate-in fade-in zoom-in duration-200">
       <div class="text-4xl mb-3">🚀</div>
@@ -293,6 +330,7 @@
     </div>
   </div>
 
+  <!-- Modal Script & Game Logic Script -->
   <script>
     // Modal Kontrolleri
     function openModal() {
@@ -313,6 +351,7 @@
     let score = parseInt(localStorage.getItem('kibbleTotalScore')) || 0;
 
     const totalEl = document.getElementById('total-val');
+    const pouchCountEl = document.getElementById('pouch-count');
     const barFill = document.getElementById('bar-fill');
     const targetPct = document.getElementById('target-pct');
     const remText = document.getElementById('rem-text');
@@ -322,13 +361,18 @@
     function renderGame() {
       if (!totalEl) return;
       totalEl.innerText = score.toLocaleString();
+      
+      // Yaş mama paket sayısı hesabı (Her 1000 tık = 1 paket)
+      const unlockedPouches = Math.floor(score / TARGET);
+      pouchCountEl.innerText = unlockedPouches.toLocaleString();
+
       const current = score % TARGET;
       const pct = Math.floor((current / TARGET) * 100);
       const left = TARGET - current;
 
       barFill.style.width = `${pct}%`;
       targetPct.innerText = `${pct}%`;
-      remText.innerText = `${left.toLocaleString()} kibbles left for next shelter bag 🐾`;
+      remText.innerText = `${left.toLocaleString()} kibbles left for next wet food pouch 🐾`;
     }
 
     renderGame();
@@ -337,13 +381,19 @@
       feedBtn.addEventListener('click', (e) => {
         score++;
         localStorage.setItem('kibbleTotalScore', score);
+        
+        // 1000'in katına tam ulaşıldığında sessiz konfeti patlaması
+        if (score > 0 && score % TARGET === 0) {
+          triggerCelebration(e.clientX, e.clientY);
+        }
+
         renderGame();
 
-        // Maskot Zıplama & Parlama Efekti
+        // Maskot Zıplama Efekti
         mascot.classList.add('mascot-img-active');
         setTimeout(() => mascot.classList.remove('mascot-img-active'), 140);
 
-        // Mama Yağmuru Efekti
+        // Mama Yağmuru
         dropKibble(e.clientX, e.clientY);
       });
     }
@@ -359,7 +409,28 @@
       document.body.appendChild(p);
       setTimeout(() => p.remove(), 700);
     }
+
+    // 1000'e ulaşıldığında çalışan görsel konfeti
+    function triggerCelebration(x, y) {
+      const items = ['🎉', '🥫', '✨', '🐾', '🎊'];
+      for (let i = 0; i < 20; i++) {
+        const c = document.createElement('div');
+        c.classList.add('confetti');
+        c.innerText = items[Math.floor(Math.random() * items.length)];
+        c.style.left = `${x}px`;
+        c.style.top = `${y}px`;
+        
+        const tx = (Math.random() - 0.5) * 300;
+        const ty = (Math.random() - 0.7) * 300;
+        c.style.setProperty('--tx', `${tx}px`);
+        c.style.setProperty('--ty', `${ty}px`);
+
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 1200);
+      }
+    }
   </script>
 
 </body>
 </html>
+
