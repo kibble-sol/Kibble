@@ -60,7 +60,7 @@
       line-height: 1.2;
     }
 
-    /* Ana Kart Tasarımı (Ana sayfadaki Felsefe kutusu ile aynı stil) */
+    /* Ana Kart Tasarımı */
     .game-card {
       width: 100%;
       max-width: 380px;
@@ -94,7 +94,7 @@
     .mascot-box {
       width: 150px;
       height: 150px;
-      margin: 20px auto;
+      margin: 18px auto;
       position: relative;
     }
     .mascot-box img {
@@ -111,26 +111,34 @@
       filter: brightness(1.2);
     }
 
-    /* Tıklama Butonu (Kase) */
+    /* Modern Geniş Tıklama Butonu */
     .bowl-btn {
-      background: linear-gradient(135deg, #9333EA, #4F46E5);
+      background: linear-gradient(135deg, #9333EA 0%, #4F46E5 100%);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      width: 76px;
-      height: 76px;
-      border-radius: 50%;
-      font-size: 2.2rem;
+      width: 100%;
+      max-width: 280px;
+      padding: 15px 20px;
+      border-radius: 9999px;
+      font-size: 1rem;
+      font-weight: 800;
+      color: #FFFFFF;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 25px rgba(147, 51, 234, 0.5);
-      transition: transform 0.08s ease, box-shadow 0.08s ease;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(147, 51, 234, 0.45);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.08s ease;
       outline: none;
-      margin-bottom: 22px;
+      margin: 8px auto 22px auto;
+      letter-spacing: 0.5px;
+    }
+    .bowl-btn:hover {
+      filter: brightness(1.1);
     }
     .bowl-btn:active {
-      transform: scale(0.9);
-      box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+      transform: scale(0.95);
+      box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
     }
 
     /* Yatay İlerleme Çubuğu */
@@ -204,7 +212,10 @@
       <img src="maskot.jpg" alt="$KIBBLE Pup" id="mascot-pic" />
     </div>
 
-    <button class="bowl-btn" id="feed-action" title="Kaseyi Doldur">🥣</button>
+    <!-- Yeni Modern Aksiyon Butonu -->
+    <button class="bowl-btn" id="feed-action">
+      <span>🥣</span> KASEYİ DOLDUR (+1)
+    </button>
 
     <div class="progress-box">
       <div class="progress-header">
