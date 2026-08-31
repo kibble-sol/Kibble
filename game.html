@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>$KIBBLE - Click & Feed The Pup</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+      color: #fff;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      user-select: none;
+      padding: 20px;
+    }
+
+    /* Üst Geri Dönüş Linki */
+    .back-link {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+    .back-link:hover {
+      color: #38bdf8;
+    }
+
+    /* Ana Kart */
+    .game-card {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 28px;
+      padding: 30px 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(16px);
+      text-align: center;
+    }
+
+    /* Toplam Skor Alanı */
+    .score-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #94a3b8;
+      margin-bottom: 6px;
+    }
+    .score-val {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #10b981;
+      text-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+      line-height: 1;
+    }
+
+    /* Maskot Çerçevesi */
+    .mascot-box {
+      width: 160px;
+      height: 160px;
+      margin: 20px auto;
+      position: relative;
+    }
+    .mascot-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #f59e0b;
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+      transition: transform 0.1s ease, filter 0.1s ease;
+    }
+    .mascot-box img.active {
+      transform: scale(1.08);
+      filter: brightness(1.2);
+    }
+
+    /* Tıklama Butonu (Kase) */
+    .bowl-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border: none;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      font-size: 2.2rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+      outline: none;
+      margin-bottom: 20px;
+    }
+    .bowl-btn:active {
+      transform: scale(0.9);
+      box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2);
+    }
+
+    /* Yatay İlerleme Çubuğu */
+    .progress-box {
+      width: 100%;
+      text-align: left;
+    }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .progress-track {
+      width: 100%;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #10b981, #34d399);
+      border-radius: 12px;
+      transition: width 0.15s ease-out;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+    }
+    .progress-sub {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-top: 10px;
+    }
+
+    /* Dökülen Tanecik Animasyonu */
+    .particle {
+      position: fixed;
+      font-size: 1.6rem;
+      pointer-events: none;
+      animation: fall 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      z-index: 9999;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(0) scale(0.7) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(180px) scale(1.1) rotate(60deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ana Sayfaya Dönüş Butonu -->
+  <a href="index.html" class="back-link">← Ana Sayfaya Dön</a>
+
+  <div class="game-card">
+    <!-- Toplam Doldurulan Mama -->
+    <div class="score-title">Toplam Doldurulan Mama</div>
+    <div class="score-val" id="total-val">0</div>
+
+    <!-- Maskot -->
+    <div class="mascot-box">
+      <img src="maskot.jpg" alt="$KIBBLE Pup" id="mascot-pic" />
+    </div>
+
+    <!-- Kase Tıklama Butonu -->
+    <button class="bowl-btn" id="feed-action" title="Kaseyi Doldur">🥣</button>
+
+    <!-- Yatay İbre & Barınak Hedefi -->
+    <div class="progress-box">
+      <div class="progress-header">
+        <span>Barınak Çuval Hedefi</span>
+        <span id="target-pct">%0</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-bar" id="bar-fill"></div>
+      </div>
+      <div class="progress-sub" id="rem-text">Yeni barınak çuvalına son: 1,000 mama 🐾</div>
+    </div>
+  </div>
+
+  <script>
+    const TARGET = 1000;
+    let score = parseInt(localStorage.getItem('kibbleTotalScore')) || 0;
+
+    const totalEl = document.getElementById('total-val');
+    const barFill = document.getElementById('bar-fill');
+    const targetPct = document.getElementById('target-pct');
+    const remText = document.getElementById('rem-text');
+    const feedBtn = document.getElementById('feed-action');
+    const mascot = document.getElementById('mascot-pic');
+
+    function render() {
+      totalEl.innerText = score.toLocaleString();
+      const current = score % TARGET;
+      const pct = Math.floor((current / TARGET) * 100);
+      const left = TARGET - current;
+
+      barFill.style.width = `${pct}%`;
+      targetPct.innerText = `%${pct}`;
+      remText.innerText = `Yeni barınak çuvalına son: ${left.toLocaleString()} mama 🐾`;
+    }
+
+    render();
+
+    feedBtn.addEventListener('click', (e) => {
+      score++;
+      localStorage.setItem('kibbleTotalScore', score);
+      render();
+
+      mascot.classList.add('active');
+      setTimeout(() => mascot.classList.remove('active'), 140);
+
+      dropKibble(e.clientX, e.clientY);
+    });
+
+    function dropKibble(x, y) {
+      const p = document.createElement('div');
+      p.classList.add('particle');
+      const icons = ['🟤', '🦴', '🥩', '✨'];
+      p.innerText = icons[Math.floor(Math.random() * icons.length)];
+      const randX = (Math.random() - 0.5) * 60;
+      p.style.left = `${x + randX}px`;
+      p.style.top = `${y - 100}px`;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 700);
+    }
+  </script>
+</body>
+</html>
+
