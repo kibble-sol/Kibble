@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>$KIBBLE - Köpeği Besle</title>
+  <title>$KIBBLE - Feed The Pup</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,7 +12,7 @@
     }
 
     body {
-      background: #090613; /* Ana sayfadaki derin koyu mor arka plan */
+      background: #090613; /* Deep purple background */
       color: #FFFFFF;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       min-height: 100vh;
@@ -25,7 +25,7 @@
       padding: 20px;
     }
 
-    /* Üst Rozet & Geri Dönüş Linki */
+    /* Top Badge & Back Link */
     .top-badge {
       display: inline-flex;
       align-items: center;
@@ -46,7 +46,7 @@
       color: #FFFFFF;
     }
 
-    /* Ana Başlık */
+    /* Main Title */
     .title-gradient {
       font-size: 1.8rem;
       font-weight: 800;
@@ -60,7 +60,7 @@
       line-height: 1.2;
     }
 
-    /* Ana Kart Tasarımı */
+    /* Game Card */
     .game-card {
       width: 100%;
       max-width: 380px;
@@ -73,7 +73,7 @@
       text-align: center;
     }
 
-    /* Toplam Skor Alanı */
+    /* Total Score */
     .score-title {
       font-size: 0.75rem;
       text-transform: uppercase;
@@ -90,7 +90,7 @@
       line-height: 1;
     }
 
-    /* Maskot Çerçevesi */
+    /* Mascot Frame */
     .mascot-box {
       width: 150px;
       height: 150px;
@@ -111,7 +111,7 @@
       filter: brightness(1.2);
     }
 
-    /* Modern Geniş Tıklama Butonu */
+    /* Modern Action Button */
     .bowl-btn {
       background: linear-gradient(135deg, #9333EA 0%, #4F46E5 100%);
       border: 1px solid rgba(255, 255, 255, 0.2);
@@ -141,7 +141,7 @@
       box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
     }
 
-    /* Yatay İlerleme Çubuğu */
+    /* Horizontal Progress Bar */
     .progress-box {
       width: 100%;
       text-align: left;
@@ -177,7 +177,7 @@
       margin-top: 10px;
     }
 
-    /* Dökülen Tanecik Animasyonu */
+    /* Falling Kibble Animation */
     .particle {
       position: fixed;
       font-size: 1.6rem;
@@ -199,33 +199,33 @@
 </head>
 <body>
 
-  <!-- Ana Sayfaya Dön Rozeti -->
-  <a href="index.html" class="top-badge">← Ana Sayfaya Dön</a>
+  <!-- Back Link Badge -->
+  <a href="index.html" class="top-badge">← Back to Main Site</a>
 
-  <div class="title-gradient">KÖPEĞİ BESLE</div>
+  <div class="title-gradient">FEED THE PUP</div>
 
   <div class="game-card">
-    <div class="score-title">Toplam Doldurulan Mama</div>
+    <div class="score-title">Total Kibble Served</div>
     <div class="score-val" id="total-val">0</div>
 
     <div class="mascot-box">
       <img src="maskot.jpg" alt="$KIBBLE Pup" id="mascot-pic" />
     </div>
 
-    <!-- Yeni Modern Aksiyon Butonu -->
+    <!-- Action Button -->
     <button class="bowl-btn" id="feed-action">
-      <span>🥣</span> KASEYİ DOLDUR (+1)
+      <span>🥣</span> FILL THE BOWL (+1)
     </button>
 
     <div class="progress-box">
       <div class="progress-header">
-        <span>Barınak Çuval Hedefi</span>
-        <span id="target-pct">%0</span>
+        <span>Shelter Bag Goal</span>
+        <span id="target-pct">0%</span>
       </div>
       <div class="progress-track">
         <div class="progress-bar" id="bar-fill"></div>
       </div>
-      <div class="progress-sub" id="rem-text">Yeni barınak çuvalına son: 1,000 mama 🐾</div>
+      <div class="progress-sub" id="rem-text">1,000 kibbles left for next shelter bag 🐾</div>
     </div>
   </div>
 
@@ -247,8 +247,8 @@
       const left = TARGET - current;
 
       barFill.style.width = `${pct}%`;
-      targetPct.innerText = `%${pct}`;
-      remText.innerText = `Yeni barınak çuvalına son: ${left.toLocaleString()} mama 🐾`;
+      targetPct.innerText = `${pct}%`;
+      remText.innerText = `${left.toLocaleString()} kibbles left for next shelter bag 🐾`;
     }
 
     render();
