@@ -330,7 +330,11 @@
     </div>
   </div>
 
-  <!-- Modal Script & Game Logic Script -->
+  <!-- Firebase SDK Kütüphaneleri -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+  <!-- Modal Script & Global Firebase Game Logic Script -->
   <script>
     // Modal Kontrolleri
     function openModal() {
@@ -346,9 +350,25 @@
       }
     }
 
-    // FEED THE PUP OYUN SİSTEMİ
+    // FIREBASE YAPILANDIRMASI
+    const firebaseConfig = {
+      apiKey: "AIzaSyAdnz_l6Q-E3TpqQCV4x037qNRd2s93XA4",
+      authDomain: "kibble-tracker.firebaseapp.com",
+      databaseURL: "https://kibble-tracker-default-rtdb.firebaseio.com",
+      projectId: "kibble-tracker",
+      storageBucket: "kibble-tracker.firebasestorage.app",
+      messagingSenderId: "969620731918",
+      appId: "1:969620731918:web:88d59753499e2aec04645f",
+      measurementId: "G-XYSJCYTWFF"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    const clickRef = database.ref('global_kibble_clicks');
+
+    // FEED THE PUP GLOBAL OYUN SİSTEMİ
     const TARGET = 1000;
-    let score = parseInt(localStorage.getItem('kibbleTotalScore')) || 0;
+    let currentGlobalScore = 0;
 
     const totalEl = document.getElementById('total-val');
     const pouchCountEl = document.getElementById('pouch-count');
@@ -358,7 +378,7 @@
     const feedBtn = document.getElementById('feed-action');
     const mascot = document.getElementById('mascot-pic');
 
-    function renderGame() {
+    function renderGame(score) {
       if (!totalEl) return;
       totalEl.innerText = score.toLocaleString();
       
@@ -375,19 +395,24 @@
       remText.innerText = `${left.toLocaleString()} kibbles left for next wet food pouch 🐾`;
     }
 
-    renderGame();
+    // Global Canlı Dinleme: Dünyanın neresinden tık gelirse gelsin tüm kullanıcılarda anında güncellenir
+    clickRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      currentGlobalScore = data !== null ? data : 0;
+      renderGame(currentGlobalScore);
+    });
 
     if (feedBtn) {
       feedBtn.addEventListener('click', (e) => {
-        score++;
-        localStorage.setItem('kibbleTotalScore', score);
-        
-        // 1000'in katına tam ulaşıldığında sessiz konfeti patlaması
-        if (score > 0 && score % TARGET === 0) {
+        // Firebase Transaction ile güvenli +1 global artırım
+        clickRef.transaction((score) => {
+          return (score || 0) + 1;
+        });
+
+        // 1000'in katına ulaşıldığında konfeti patlaması
+        if ((currentGlobalScore + 1) > 0 && (currentGlobalScore + 1) % TARGET === 0) {
           triggerCelebration(e.clientX, e.clientY);
         }
-
-        renderGame();
 
         // Maskot Zıplama Efekti
         mascot.classList.add('mascot-img-active');
