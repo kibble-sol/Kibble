@@ -42,7 +42,7 @@
 
 - [ ] **Phase 3: Token-2022 Devnet Testing**
   - Testing transfer fee extensions that divert transaction fees into the food treasury.
-  - Defining the math for converting tap points into token balances.
+  - Testing automated fee collection and revoking mint/freeze authorities.
 
 - [ ] **Phase 4: DEX Liquidity & Real-World Food Distribution**
   - Opening the first micro liquidity pool (LP) on Raydium/Meteora for live trading.
