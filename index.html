@@ -69,9 +69,22 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white bg-[#07050d]">
 
+  <!-- Top Navigation Bar: Cüzdan Bağlantısı -->
+  <header class="w-full max-w-4xl mx-auto px-5 pt-6 flex justify-between items-center z-20">
+    <div class="flex items-center gap-2 font-black tracking-tight text-white text-lg">
+      <span>🐾</span> KIBBLE
+    </div>
+    <div class="flex items-center gap-3">
+      <button id="wallet-btn" onclick="connectWallet()" class="px-4 py-2 rounded-xl bg-purple-950/80 border border-purple-500/50 hover:bg-purple-900/80 text-purple-200 text-xs font-bold transition flex items-center gap-2 cursor-pointer shadow-lg shadow-purple-950/50">
+        <span id="wallet-dot" class="w-2 h-2 rounded-full bg-purple-400"></span>
+        <span id="wallet-label">Connect Wallet</span>
+      </button>
+    </div>
+  </header>
+
   <main class="flex-grow max-w-4xl mx-auto px-5 w-full">
     <!-- Hero Section -->
-    <section class="pt-16 pb-8 text-center">
+    <section class="pt-10 pb-8 text-center">
       <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-950/80 border border-purple-500/40 text-purple-300 text-xs font-semibold mb-6">
         <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
         Pre-Launch Stage • Solana SPL Standard
@@ -104,7 +117,9 @@
     </section>
 
     <!-- FEED THE PUP INTERACTIVE SECTION -->
-    <section class="py-6 flex justify-center">
+    <section class="py-6 flex flex-col md:flex-row items-center justify-center gap-6">
+      
+      <!-- Ana Tıklama Kartı -->
       <div class="w-full max-w-md bg-[#0f0a1c]/90 border border-purple-500/30 rounded-3xl p-6 md:p-8 shadow-2xl shadow-purple-950/50 text-center relative backdrop-blur-xl">
         
         <!-- Üst Yaş Mama Rozeti -->
@@ -121,9 +136,20 @@
         </div>
 
         <!-- Kase Doldur Butonu -->
-        <button id="feed-action" class="w-full max-w-xs mx-auto py-3.5 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 active:scale-95 text-white font-black text-sm tracking-wide shadow-lg shadow-purple-600/40 transition flex items-center justify-center gap-2 cursor-pointer border border-purple-400/30 mb-5">
+        <button id="feed-action" class="w-full max-w-xs mx-auto py-3.5 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 active:scale-95 text-white font-black text-sm tracking-wide shadow-lg shadow-purple-600/40 transition flex items-center justify-center gap-2 cursor-pointer border border-purple-400/30 mb-3">
           <span>🥣</span> FILL THE BOWL (+1)
         </button>
+
+        <!-- Günlük 200 Hak & Canlı UTC Geri Sayım Kutusu -->
+        <div class="p-2.5 rounded-xl bg-purple-950/40 border border-purple-500/20 text-xs mb-4 text-gray-300 flex items-center justify-between font-medium">
+          <div class="flex items-center gap-1.5">
+            <span>⚡ Hak:</span>
+            <span id="daily-clicks-left" class="text-purple-300 font-bold">200 / 200</span>
+          </div>
+          <div class="text-[11px] text-gray-400">
+            Yenilenme: <span id="reset-timer" class="text-cyan-400 font-mono font-bold">--:--:--</span>
+          </div>
+        </div>
 
         <!-- Yatay İlerleme Çubuğu (Yaş Mama Hedefi) -->
         <div class="w-full text-left">
@@ -138,6 +164,46 @@
         </div>
 
       </div>
+
+      <!-- Haftalık İlk 3 (Leaderboard) & Kullanıcı Skor Paneli -->
+      <div class="w-full max-w-xs flex flex-col gap-4">
+        
+        <!-- İlk 3 Sıralama -->
+        <div class="card-dark p-5 rounded-3xl border border-purple-500/30 shadow-xl backdrop-blur-xl">
+          <div class="flex items-center justify-between mb-3 border-b border-purple-900/40 pb-2">
+            <div class="text-xs uppercase font-extrabold text-purple-300 tracking-wider flex items-center gap-1.5">
+              <span>🏆</span> Weekly Top 3
+            </div>
+            <span class="text-[10px] bg-purple-950 border border-purple-500/30 px-2 py-0.5 rounded text-purple-400 font-bold">UTC Week</span>
+          </div>
+
+          <div id="leaderboard-list" class="flex flex-col gap-2.5 text-xs">
+            <div class="flex items-center justify-between p-2 rounded-xl bg-purple-950/30 border border-purple-500/10">
+              <span class="flex items-center gap-2 text-yellow-300 font-bold">🥇 <span class="font-mono text-gray-300 font-normal">--</span></span>
+              <span class="font-bold text-gray-400">0 Mama</span>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-xl bg-purple-950/30 border border-purple-500/10">
+              <span class="flex items-center gap-2 text-gray-300 font-bold">🥈 <span class="font-mono text-gray-300 font-normal">--</span></span>
+              <span class="font-bold text-gray-400">0 Mama</span>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-xl bg-purple-950/30 border border-purple-500/10">
+              <span class="flex items-center gap-2 text-amber-600 font-bold">🥉 <span class="font-mono text-gray-300 font-normal">--</span></span>
+              <span class="font-bold text-gray-400">0 Mama</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kullanıcının Kendi Haftalık Skoru -->
+        <div class="card-highlight p-4 rounded-2xl border border-purple-500/30 text-xs">
+          <div class="text-[11px] text-gray-400 font-semibold mb-1">Senin Haftalık Katkın</div>
+          <div class="flex items-center justify-between">
+            <span id="user-weekly-score" class="text-xl font-black text-emerald-400">0 Tık</span>
+            <span id="user-wallet-status" class="text-[10px] text-purple-300 bg-purple-950/80 px-2 py-1 rounded border border-purple-500/30">Cüzdan Bağlı Değil</span>
+          </div>
+        </div>
+
+      </div>
+
     </section>
 
     <!-- Narrative & The Story -->
@@ -308,7 +374,7 @@
 
   <!-- Coming Soon Pop-up Modal -->
   <div id="comingSoonModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-[#0f0a1c] border border-purple-500/40 rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl relative animate-in fade-in zoom-in duration-200">
+    <div class="bg-[#0f0a1c] border border-purple-500/40 rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl relative">
       <div class="text-4xl mb-3">🚀</div>
       <h3 class="text-xl font-black text-white mb-2">Launch Coming Soon!</h3>
       <p class="text-gray-300 text-xs leading-relaxed mb-6">
@@ -334,7 +400,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
-  <!-- Modal Script & Global Firebase Game Logic Script -->
+  <!-- Solana Cüzdan & Oyun Mantığı Scripti -->
   <script>
     // Modal Kontrolleri
     function openModal() {
@@ -368,7 +434,9 @@
 
     // FEED THE PUP GLOBAL OYUN SİSTEMİ
     const TARGET = 1000;
+    const MAX_DAILY_CLICKS = 200;
     let currentGlobalScore = 0;
+    let connectedWalletAddress = null;
 
     const totalEl = document.getElementById('total-val');
     const pouchCountEl = document.getElementById('pouch-count');
@@ -377,12 +445,98 @@
     const remText = document.getElementById('rem-text');
     const feedBtn = document.getElementById('feed-action');
     const mascot = document.getElementById('mascot-pic');
+    const dailyClicksEl = document.getElementById('daily-clicks-left');
+    const resetTimerEl = document.getElementById('reset-timer');
+    const userWeeklyEl = document.getElementById('user-weekly-score');
+    const userWalletStatusEl = document.getElementById('user-wallet-status');
 
+    // LONDRA / UTC TARİH VE HAFTA YARDIMCILARI
+    function getUTCDayKey() {
+      const now = new Date();
+      return `${now.getUTCFullYear()}-${now.getUTCMonth() + 1}-${now.getUTCDate()}`;
+    }
+
+    function getUTCWeekKey() {
+      const now = new Date();
+      const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+      const dayNum = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+      return `${d.getUTCFullYear()}-W${weekNo}`;
+    }
+
+    // GÜNLÜK TIKLAMA HAKKI KONTROLÜ
+    function getTodayClicks() {
+      const todayKey = getUTCDayKey();
+      const stored = localStorage.getItem('kibble_daily_log');
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (parsed.date === todayKey) {
+            return parsed.clicks || 0;
+          }
+        } catch (e) {}
+      }
+      return 0;
+    }
+
+    function recordClick() {
+      const todayKey = getUTCDayKey();
+      let current = getTodayClicks();
+      current++;
+      localStorage.setItem('kibble_daily_log', JSON.stringify({ date: todayKey, clicks: current }));
+      updateDailyUI();
+      return current;
+    }
+
+    function updateDailyUI() {
+      const used = getTodayClicks();
+      const remaining = Math.max(0, MAX_DAILY_CLICKS - used);
+      if (dailyClicksEl) {
+        dailyClicksEl.innerText = `${remaining} / ${MAX_DAILY_CLICKS}`;
+      }
+      if (remaining <= 0) {
+        feedBtn.disabled = true;
+        feedBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        feedBtn.innerHTML = `<span>⏳</span> GÜNLÜK HAK DOLDU`;
+      } else {
+        feedBtn.disabled = false;
+        feedBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        feedBtn.innerHTML = `<span>🥣</span> FILL THE BOWL (+1)`;
+      }
+    }
+
+    // LONDRA / UTC 00:00 CANLI GERİ SAYIM
+    function updateCountdown() {
+      const now = new Date();
+      const nextUTC = new Date();
+      nextUTC.setUTCHours(24, 0, 0, 0); // Bir sonraki UTC 00:00
+
+      const diff = nextUTC - now;
+      if (diff <= 0) {
+        updateDailyUI();
+        return;
+      }
+
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      const pad = (n) => n.toString().padStart(2, '0');
+      if (resetTimerEl) {
+        resetTimerEl.innerText = `${pad(hours)}s ${pad(minutes)}dk ${pad(seconds)}sn`;
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+    updateDailyUI();
+
+    // GLOBAL VERİ RENDER
     function renderGame(score) {
       if (!totalEl) return;
       totalEl.innerText = score.toLocaleString();
       
-      // Yaş mama paket sayısı hesabı (Her 1000 tık = 1 paket)
       const unlockedPouches = Math.floor(score / TARGET);
       pouchCountEl.innerText = unlockedPouches.toLocaleString();
 
@@ -395,26 +549,121 @@
       remText.innerText = `${left.toLocaleString()} kibbles left for next wet food pouch 🐾`;
     }
 
-    // Global Canlı Dinleme: Dünyanın neresinden tık gelirse gelsin tüm kullanıcılarda anında güncellenir
     clickRef.on('value', (snapshot) => {
       const data = snapshot.val();
       currentGlobalScore = data !== null ? data : 0;
       renderGame(currentGlobalScore);
     });
 
+    // CÜZDAN BAĞLAMA (PHANTOM / SOLFLARE)
+    async function connectWallet() {
+      const provider = window.solana || (window.solflare && window.solflare.isSolflare ? window.solflare : null);
+
+      if (!provider) {
+        alert("Lütfen Phantom veya Solflare cüzdan eklentisini yükleyin!");
+        window.open("https://phantom.app/", "_blank");
+        return;
+      }
+
+      try {
+        const resp = await provider.connect();
+        connectedWalletAddress = resp.publicKey.toString();
+        const shortAddr = `${connectedWalletAddress.slice(0, 4)}...${connectedWalletAddress.slice(-4)}`;
+        
+        document.getElementById('wallet-label').innerText = shortAddr;
+        document.getElementById('wallet-dot').className = "w-2 h-2 rounded-full bg-emerald-400";
+        userWalletStatusEl.innerText = shortAddr;
+        userWalletStatusEl.className = "text-[10px] text-emerald-300 bg-emerald-950/80 px-2 py-1 rounded border border-emerald-500/30 font-mono";
+
+        // Kullanıcının haftalık skorunu dinle
+        listenUserWeeklyScore();
+      } catch (err) {
+        console.error("Cüzdan bağlantı hatası:", err);
+      }
+    }
+
+    // KULLANICININ HAFTALIK SKORUNU TAKİP ET
+    function listenUserWeeklyScore() {
+      if (!connectedWalletAddress) return;
+      const weekKey = getUTCWeekKey();
+      const userWeekRef = database.ref(`weekly_leaderboards/${weekKey}/${connectedWalletAddress}`);
+      
+      userWeekRef.on('value', (snap) => {
+        const score = snap.val() || 0;
+        userWeeklyEl.innerText = `${score.toLocaleString()} Tık`;
+      });
+    }
+
+    // HAFTALIK İLK 3 LİDERLİK TABLOSUNU DİNLE
+    function listenLeaderboard() {
+      const weekKey = getUTCWeekKey();
+      const lbRef = database.ref(`weekly_leaderboards/${weekKey}`).orderByValue().limitToLast(3);
+
+      lbRef.on('value', (snap) => {
+        const items = [];
+        snap.forEach((child) => {
+          items.push({ address: child.key, score: child.val() });
+        });
+        items.reverse(); // En yüksek puanı başa al
+
+        const listEl = document.getElementById('leaderboard-list');
+        listEl.innerHTML = '';
+
+        const medals = ['🥇', '🥈', '🥉'];
+        const colors = ['text-yellow-300', 'text-gray-300', 'text-amber-600'];
+
+        for (let i = 0; i < 3; i++) {
+          const item = items[i];
+          const addrText = item ? `${item.address.slice(0, 4)}...${item.address.slice(-4)}` : '--';
+          const scoreText = item ? `${item.score.toLocaleString()} Mama` : '0 Mama';
+
+          const row = document.createElement('div');
+          row.className = "flex items-center justify-between p-2 rounded-xl bg-purple-950/30 border border-purple-500/10";
+          row.innerHTML = `
+            <span class="flex items-center gap-2 ${colors[i]} font-bold">
+              ${medals[i]} <span class="font-mono text-gray-300 font-normal">${addrText}</span>
+            </span>
+            <span class="font-bold text-gray-400">${scoreText}</span>
+          `;
+          listEl.appendChild(row);
+        }
+      });
+    }
+    listenLeaderboard();
+
+    // TIKLAMA OLAYI (ANTİ-BOT & DUAL-TRACKING)
     if (feedBtn) {
       feedBtn.addEventListener('click', (e) => {
-        // Firebase Transaction ile güvenli +1 global artırım
+        // Anti-bot: Script ile tetiklenen yapay tıklamaları engelle
+        if (!e.isTrusted) return;
+
+        // Günlük sınır kontrolü
+        if (getTodayClicks() >= MAX_DAILY_CLICKS) {
+          updateDailyUI();
+          return;
+        }
+
+        // Günlük hakkı azalt & yerel olarak kaydet
+        recordClick();
+
+        // 1. Firebase Global Toplam Artırımı
         clickRef.transaction((score) => {
           return (score || 0) + 1;
         });
 
-        // 1000'in katına ulaşıldığında konfeti patlaması
+        // 2. Cüzdan Bağlıysa Haftalık Skor Tablosuna Ekle
+        if (connectedWalletAddress) {
+          const weekKey = getUTCWeekKey();
+          const userWeekRef = database.ref(`weekly_leaderboards/${weekKey}/${connectedWalletAddress}`);
+          userWeekRef.transaction((sc) => (sc || 0) + 1);
+        }
+
+        // 1000'in katında kutlama
         if ((currentGlobalScore + 1) > 0 && (currentGlobalScore + 1) % TARGET === 0) {
           triggerCelebration(e.clientX, e.clientY);
         }
 
-        // Maskot Zıplama Efekti
+        // Maskot Zıplaması
         mascot.classList.add('mascot-img-active');
         setTimeout(() => mascot.classList.remove('mascot-img-active'), 140);
 
@@ -435,7 +684,6 @@
       setTimeout(() => p.remove(), 700);
     }
 
-    // 1000'e ulaşıldığında çalışan görsel konfeti
     function triggerCelebration(x, y) {
       const items = ['🎉', '🥫', '✨', '🐾', '🎊'];
       for (let i = 0; i < 20; i++) {
@@ -458,4 +706,3 @@
 
 </body>
 </html>
-
