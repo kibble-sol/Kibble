@@ -25,7 +25,7 @@
       border: 1px solid rgba(192, 132, 252, 0.35);
     }
 
-    /* Animasyonlar */
+    /* Animations */
     .mascot-img-active {
       transform: scale(1.08);
       filter: brightness(1.2);
@@ -48,7 +48,7 @@
       }
     }
 
-    /* 1.000 Tıkta Açılan Konfeti Efekti */
+    /* 1,000 Clicks Confetti Effect */
     .confetti {
       position: fixed;
       pointer-events: none;
@@ -69,7 +69,7 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-600 selection:text-white bg-[#07050d]">
 
-  <!-- Top Navigation Bar: Cüzdan Bağlantısı -->
+  <!-- Top Navigation Bar: Wallet Connection -->
   <header class="w-full max-w-4xl mx-auto px-5 pt-6 flex justify-between items-center z-20">
     <div class="flex items-center gap-2 font-black tracking-tight text-white text-lg">
       <span>🐾</span> KIBBLE
@@ -119,10 +119,10 @@
     <!-- FEED THE PUP INTERACTIVE SECTION -->
     <section class="py-6 flex flex-col md:flex-row items-center justify-center gap-6">
       
-      <!-- Ana Tıklama Kartı -->
+      <!-- Main Clicker Card -->
       <div class="w-full max-w-md bg-[#0f0a1c]/90 border border-purple-500/30 rounded-3xl p-6 md:p-8 shadow-2xl shadow-purple-950/50 text-center relative backdrop-blur-xl">
         
-        <!-- Üst Yaş Mama Rozeti -->
+        <!-- Wet Food Pouch Badge -->
         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-[11px] font-bold mb-3">
           <span>🥫</span> <span id="pouch-count">0</span> Wet Food Pouches Unlocked!
         </div>
@@ -130,17 +130,17 @@
         <div class="text-[11px] uppercase tracking-widest font-extrabold text-purple-400 mb-1">Total Kibble Served</div>
         <div id="total-val" class="text-4xl md:text-5xl font-black text-cyan-400 mb-4 tracking-tight drop-shadow-[0_0_15px_rgba(34,211,238,0.4)]">0</div>
 
-        <!-- Maskot Görseli -->
+        <!-- Mascot Image -->
         <div class="w-36 h-36 mx-auto mb-5 relative">
           <img src="maskot.jpg" alt="$KIBBLE Pup" id="mascot-pic" class="w-full h-full object-cover rounded-full border-4 border-purple-400/80 shadow-[0_0_25px_rgba(192,132,252,0.35)] transition-all duration-100 ease-out select-none pointer-events-none" />
         </div>
 
-        <!-- Kase Doldur Butonu -->
+        <!-- Fill Bowl Button -->
         <button id="feed-action" class="w-full max-w-xs mx-auto py-3.5 px-6 rounded-2xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 active:scale-95 text-white font-black text-sm tracking-wide shadow-lg shadow-purple-600/40 transition flex items-center justify-center gap-2 cursor-pointer border border-purple-400/30 mb-3">
           <span>🥣</span> FILL THE BOWL (+1)
         </button>
 
-        <!-- Günlük 200 Hak & Canlı UTC Geri Sayım Kutusu -->
+        <!-- Daily Energy & Reset Timer Box -->
         <div class="p-2.5 rounded-xl bg-purple-950/40 border border-purple-500/20 text-xs mb-4 text-gray-300 flex items-center justify-between font-medium">
           <div class="flex items-center gap-1.5">
             <span>⚡ Energy:</span>
@@ -151,7 +151,7 @@
           </div>
         </div>
 
-        <!-- Yatay İlerleme Çubuğu (Yaş Mama Hedefi) -->
+        <!-- Progress Bar (Wet Food Target) -->
         <div class="w-full text-left">
           <div class="flex justify-between text-xs font-semibold text-gray-300 mb-2">
             <span>Next Wet Food Pouch 🥫</span>
@@ -165,10 +165,10 @@
 
       </div>
 
-      <!-- Haftalık İlk 3 (Leaderboard) & Kullanıcı Skor Paneli -->
+      <!-- Weekly Top 3 & User Score Panel -->
       <div class="w-full max-w-xs flex flex-col gap-4">
         
-        <!-- İlk 3 Sıralama -->
+        <!-- Top 3 Leaderboard -->
         <div class="card-dark p-5 rounded-3xl border border-purple-500/30 shadow-xl backdrop-blur-xl">
           <div class="flex items-center justify-between mb-3 border-b border-purple-900/40 pb-2">
             <div class="text-xs uppercase font-extrabold text-purple-300 tracking-wider flex items-center gap-1.5">
@@ -180,31 +180,31 @@
           <div id="leaderboard-list" class="flex flex-col gap-2.5 text-xs">
             <div class="flex items-center justify-between p-2 rounded-xl bg-purple-950/30 border border-purple-500/10">
               <span class="flex items-center gap-2 text-yellow-300 font-bold">🥇 <span class="font-mono text-gray-300 font-normal">--</span></span>
-              <span class="font-bold text-gray-400">0 Mama</span>
+              <span class="font-bold text-gray-400">0 Kibble</span>
             </div>
             <div class="flex items-center justify-between p-2 rounded-xl bg-purple-950/30 border border-purple-500/10">
               <span class="flex items-center gap-2 text-gray-300 font-bold">🥈 <span class="font-mono text-gray-300 font-normal">--</span></span>
-              <span class="font-bold text-gray-400">0 Mama</span>
+              <span class="font-bold text-gray-400">0 Kibble</span>
             </div>
             <div class="flex items-center justify-between p-2 rounded-xl bg-purple-950/30 border border-purple-500/10">
               <span class="flex items-center gap-2 text-amber-600 font-bold">🥉 <span class="font-mono text-gray-300 font-normal">--</span></span>
-              <span class="font-bold text-gray-400">0 Mama</span>
+              <span class="font-bold text-gray-400">0 Kibble</span>
             </div>
           </div>
         </div>
 
-        <!-- Kullanıcının Kendi Haftalık Skoru -->
+        <!-- User Weekly Score -->
         <div class="card-highlight p-4 rounded-2xl border border-purple-500/30 text-xs">
-          <div class="text-[11px] text-gray-400 font-semibold mb-1">Senin Haftalık Katkın</div>
+          <div class="text-[11px] text-gray-400 font-semibold mb-1">Your Weekly Contribution</div>
           <div class="flex items-center justify-between gap-2">
             <div>
-              <span id="user-weekly-score" class="text-xl font-black text-emerald-400">0 Tık</span>
+              <span id="user-weekly-score" class="text-xl font-black text-emerald-400">0 Clicks</span>
               <div id="wallet-connect-hint" class="text-[10px] text-purple-400 mt-0.5 font-medium">
-                Sıralamaya girmek için cüzdanını bağla 🐾
+                Connect wallet to join the leaderboard 🐾
               </div>
             </div>
             <button id="user-wallet-btn" onclick="connectWallet()" class="text-[11px] text-purple-200 bg-purple-900/60 hover:bg-purple-800/80 active:scale-95 px-3 py-1.5 rounded-xl border border-purple-500/40 font-bold transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap shadow-md shadow-purple-950/40">
-              <span>👛</span> <span id="user-wallet-status">Cüzdan Bağla</span>
+              <span>👛</span> <span id="user-wallet-status">Connect Wallet</span>
             </button>
           </div>
         </div>
@@ -254,11 +254,11 @@
       </div>
     </section>
 
-    <!-- Technical Architecture & Supply (10M Arz / %100 LP) -->
+    <!-- Technical Architecture & Supply (10M Supply / 100% LP) -->
     <section class="py-6">
       <div class="text-center mb-6">
         <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-1">Architecture</div>
-        <h2 class="text-2xl font-bold text-white">Tokenomics & Supply Security</h2>
+        <h2 class="2xl font-bold text-white">Tokenomics & Supply Security</h2>
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center mb-4">
@@ -403,13 +403,13 @@
     </div>
   </div>
 
-  <!-- Firebase SDK Kütüphaneleri -->
+  <!-- Firebase SDK Libraries -->
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
-  <!-- Solana Cüzdan & Oyun Mantığı Scripti -->
+  <!-- Solana Wallet & Game Engine Script -->
   <script>
-    // Modal Kontrolleri
+    // Modal Controls
     function openModal() {
       document.getElementById('comingSoonModal').classList.remove('hidden');
     }
@@ -423,7 +423,7 @@
       }
     }
 
-    // FIREBASE YAPILANDIRMASI
+    // FIREBASE CONFIGURATION
     const firebaseConfig = {
       apiKey: "AIzaSyAdnz_l6Q-E3TpqQCV4x037qNRd2s93XA4",
       authDomain: "kibble-tracker.firebaseapp.com",
@@ -439,7 +439,7 @@
     const database = firebase.database();
     const clickRef = database.ref('global_kibble_clicks');
 
-    // FEED THE PUP GLOBAL OYUN SİSTEMİ
+    // FEED THE PUP GLOBAL GAME ENGINE
     const TARGET = 1000;
     const MAX_DAILY_CLICKS = 200;
     let currentGlobalScore = 0;
@@ -459,7 +459,7 @@
     const walletHintEl = document.getElementById('wallet-connect-hint');
     const userWalletBtn = document.getElementById('user-wallet-btn');
 
-    // LONDRA / UTC TARİH VE HAFTA YARDIMCILARI
+    // UTC HELPERS
     function getUTCDayKey() {
       const now = new Date();
       return `${now.getUTCFullYear()}-${now.getUTCMonth() + 1}-${now.getUTCDate()}`;
@@ -475,7 +475,7 @@
       return `${d.getUTCFullYear()}-W${weekNo}`;
     }
 
-    // GÜNLÜK TIKLAMA HAKKI KONTROLÜ
+    // DAILY ENERGY TRACKING
     function getTodayClicks() {
       const todayKey = getUTCDayKey();
       const stored = localStorage.getItem('kibble_daily_log');
@@ -508,7 +508,7 @@
       if (remaining <= 0) {
         feedBtn.disabled = true;
         feedBtn.classList.add('opacity-50', 'cursor-not-allowed');
-        feedBtn.innerHTML = `<span>⏳</span> GÜNLÜK HAK DOLDU`;
+        feedBtn.innerHTML = `<span>⏳</span> DAILY LIMIT REACHED`;
       } else {
         feedBtn.disabled = false;
         feedBtn.classList.remove('opacity-50', 'cursor-not-allowed');
@@ -516,11 +516,11 @@
       }
     }
 
-    // LONDRA / UTC 00:00 CANLI GERİ SAYIM
+    // UTC 00:00 COUNTDOWN
     function updateCountdown() {
       const now = new Date();
       const nextUTC = new Date();
-      nextUTC.setUTCHours(24, 0, 0, 0); // Bir sonraki UTC 00:00
+      nextUTC.setUTCHours(24, 0, 0, 0);
 
       const diff = nextUTC - now;
       if (diff <= 0) {
@@ -534,14 +534,14 @@
 
       const pad = (n) => n.toString().padStart(2, '0');
       if (resetTimerEl) {
-        resetTimerEl.innerText = `${pad(hours)}s ${pad(minutes)}dk ${pad(seconds)}sn`;
+        resetTimerEl.innerText = `${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`;
       }
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
     updateDailyUI();
 
-    // GLOBAL VERİ RENDER
+    // GLOBAL DATA RENDER
     function renderGame(score) {
       if (!totalEl) return;
       totalEl.innerText = score.toLocaleString();
@@ -564,12 +564,12 @@
       renderGame(currentGlobalScore);
     });
 
-    // CÜZDAN BAĞLAMA (PHANTOM / SOLFLARE)
+    // WALLET CONNECTION (PHANTOM / SOLFLARE)
     async function connectWallet() {
       const provider = window.solana || (window.solflare && window.solflare.isSolflare ? window.solflare : null);
 
       if (!provider) {
-        alert("Lütfen Phantom veya Solflare cüzdan eklentisini yükleyin!");
+        alert("Please install Phantom or Solflare wallet extension!");
         window.open("https://phantom.app/", "_blank");
         return;
       }
@@ -579,29 +579,27 @@
         connectedWalletAddress = resp.publicKey.toString();
         const shortAddr = `${connectedWalletAddress.slice(0, 4)}...${connectedWalletAddress.slice(-4)}`;
         
-        // Üst Header Cüzdan Butonu
+        // Header Wallet Button
         document.getElementById('wallet-label').innerText = shortAddr;
         document.getElementById('wallet-dot').className = "w-2 h-2 rounded-full bg-emerald-400";
 
-        // Alt Karttaki Buton & Uyarı Metni
+        // Score Card Button & Hint
         if (userWalletStatusEl) userWalletStatusEl.innerText = shortAddr;
         if (userWalletBtn) {
           userWalletBtn.className = "text-[10px] text-emerald-300 bg-emerald-950/80 px-2.5 py-1 rounded-lg border border-emerald-500/40 font-mono font-bold";
         }
         if (walletHintEl) {
-          walletHintEl.innerText = "Cüzdanın bağlı • Skorun sıralamada! 🚀";
+          walletHintEl.innerText = "Wallet connected • You are on the leaderboard! 🚀";
           walletHintEl.className = "text-[10px] text-emerald-400 mt-0.5 font-medium";
         }
 
-        // Cüzdan bağlanınca yerelde biriken puanları adrese aktar ve dinle
         syncLocalToWalletScore();
         listenUserWeeklyScore();
       } catch (err) {
-        console.error("Cüzdan bağlantı hatası:", err);
+        console.error("Wallet connection error:", err);
       }
     }
 
-    // Anonimken yapılan tıklamaları cüzdan bağlandığında adrese aktarma
     function syncLocalToWalletScore() {
       if (!connectedWalletAddress) return;
       const weekKey = getUTCWeekKey();
@@ -615,25 +613,25 @@
       }
     }
 
-    // KULLANICININ HAFTALIK SKORUNU TAKİP ET
+    // TRACK USER WEEKLY SCORE
     function listenUserWeeklyScore() {
       const weekKey = getUTCWeekKey();
       if (!connectedWalletAddress) {
         const localWeekKey = `kibble_anon_week_${weekKey}`;
         const localScore = parseInt(localStorage.getItem(localWeekKey) || "0", 10);
-        userWeeklyEl.innerText = `${localScore.toLocaleString()} Tık`;
+        userWeeklyEl.innerText = `${localScore.toLocaleString()} Clicks`;
         return;
       }
 
       const userWeekRef = database.ref(`weekly_leaderboards/${weekKey}/${connectedWalletAddress}`);
       userWeekRef.on('value', (snap) => {
         const score = snap.val() || 0;
-        userWeeklyEl.innerText = `${score.toLocaleString()} Tık`;
+        userWeeklyEl.innerText = `${score.toLocaleString()} Clicks`;
       });
     }
     listenUserWeeklyScore();
 
-    // HAFTALIK İLK 3 LİDERLİK TABLOSUNU DİNLE
+    // LISTEN WEEKLY LEADERBOARD
     function listenLeaderboard() {
       const weekKey = getUTCWeekKey();
       const lbRef = database.ref(`weekly_leaderboards/${weekKey}`).orderByValue().limitToLast(3);
@@ -654,7 +652,7 @@
         for (let i = 0; i < 3; i++) {
           const item = items[i];
           const addrText = item ? `${item.address.slice(0, 4)}...${item.address.slice(-4)}` : '--';
-          const scoreText = item ? `${item.score.toLocaleString()} Kibble` : '0 Mama';
+          const scoreText = item ? `${item.score.toLocaleString()} Kibble` : '0 Kibble';
 
           const row = document.createElement('div');
           row.className = "flex items-center justify-between p-2 rounded-xl bg-purple-950/30 border border-purple-500/10";
@@ -670,27 +668,22 @@
     }
     listenLeaderboard();
 
-    // TIKLAMA OLAYI (ANTİ-BOT & DUAL-TRACKING)
+    // CLICK EVENT (ANTI-BOT & TRACKING)
     if (feedBtn) {
       feedBtn.addEventListener('click', (e) => {
-        // Anti-bot: Script ile tetiklenen yapay tıklamaları engelle
         if (!e.isTrusted) return;
 
-        // Günlük sınır kontrolü
         if (getTodayClicks() >= MAX_DAILY_CLICKS) {
           updateDailyUI();
           return;
         }
 
-        // Günlük hakkı azalt & kaydet
         recordClick();
 
-        // 1. Firebase Global Toplam Artırımı
         clickRef.transaction((score) => {
           return (score || 0) + 1;
         });
 
-        // 2. Haftalık Skor Ekleme
         const weekKey = getUTCWeekKey();
         if (connectedWalletAddress) {
           const userWeekRef = database.ref(`weekly_leaderboards/${weekKey}/${connectedWalletAddress}`);
@@ -699,19 +692,16 @@
           const localWeekKey = `kibble_anon_week_${weekKey}`;
           let localScore = parseInt(localStorage.getItem(localWeekKey) || "0", 10) + 1;
           localStorage.setItem(localWeekKey, localScore);
-          userWeeklyEl.innerText = `${localScore.toLocaleString()} Tık`;
+          userWeeklyEl.innerText = `${localScore.toLocaleString()} Clicks`;
         }
 
-        // 1000'in katında kutlama
         if ((currentGlobalScore + 1) > 0 && (currentGlobalScore + 1) % TARGET === 0) {
           triggerCelebration(e.clientX, e.clientY);
         }
 
-        // Maskot Zıplaması
         mascot.classList.add('mascot-img-active');
         setTimeout(() => mascot.classList.remove('mascot-img-active'), 140);
 
-        // Mama Yağmuru
         dropKibble(e.clientX, e.clientY);
       });
     }
