@@ -36,7 +36,7 @@
   - Lightweight web dApp where screen taps fill the food bowl.
   - Live on GitHub Pages with responsive mobile design, tap counter, and animations.
 
-- [ ] **Phase 2: Phantom & Solflare Wallet Integration**
+- [x] **Phase 2: Phantom & Solflare Wallet Integration**
   - Moving scores from local browser storage to linked wallet addresses.
   - Basic anti-bot limits to protect point fairness.
 
