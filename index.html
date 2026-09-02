@@ -196,9 +196,16 @@
         <!-- Kullanıcının Kendi Haftalık Skoru -->
         <div class="card-highlight p-4 rounded-2xl border border-purple-500/30 text-xs">
           <div class="text-[11px] text-gray-400 font-semibold mb-1">Senin Haftalık Katkın</div>
-          <div class="flex items-center justify-between">
-            <span id="user-weekly-score" class="text-xl font-black text-emerald-400">0 Tık</span>
-            <span id="user-wallet-status" class="text-[10px] text-purple-300 bg-purple-950/80 px-2 py-1 rounded border border-purple-500/30">Cüzdan Bağlı Değil</span>
+          <div class="flex items-center justify-between gap-2">
+            <div>
+              <span id="user-weekly-score" class="text-xl font-black text-emerald-400">0 Tık</span>
+              <div id="wallet-connect-hint" class="text-[10px] text-purple-400 mt-0.5 font-medium">
+                Sıralamaya girmek için cüzdanını bağla 🐾
+              </div>
+            </div>
+            <button id="user-wallet-btn" onclick="connectWallet()" class="text-[11px] text-purple-200 bg-purple-900/60 hover:bg-purple-800/80 active:scale-95 px-3 py-1.5 rounded-xl border border-purple-500/40 font-bold transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap shadow-md shadow-purple-950/40">
+              <span>👛</span> <span id="user-wallet-status">Cüzdan Bağla</span>
+            </button>
           </div>
         </div>
 
@@ -449,6 +456,8 @@
     const resetTimerEl = document.getElementById('reset-timer');
     const userWeeklyEl = document.getElementById('user-weekly-score');
     const userWalletStatusEl = document.getElementById('user-wallet-status');
+    const walletHintEl = document.getElementById('wallet-connect-hint');
+    const userWalletBtn = document.getElementById('user-wallet-btn');
 
     // LONDRA / UTC TARİH VE HAFTA YARDIMCILARI
     function getUTCDayKey() {
@@ -570,29 +579,59 @@
         connectedWalletAddress = resp.publicKey.toString();
         const shortAddr = `${connectedWalletAddress.slice(0, 4)}...${connectedWalletAddress.slice(-4)}`;
         
+        // Üst Header Cüzdan Butonu
         document.getElementById('wallet-label').innerText = shortAddr;
         document.getElementById('wallet-dot').className = "w-2 h-2 rounded-full bg-emerald-400";
-        userWalletStatusEl.innerText = shortAddr;
-        userWalletStatusEl.className = "text-[10px] text-emerald-300 bg-emerald-950/80 px-2 py-1 rounded border border-emerald-500/30 font-mono";
 
-        // Kullanıcının haftalık skorunu dinle
+        // Alt Karttaki Buton & Uyarı Metni
+        if (userWalletStatusEl) userWalletStatusEl.innerText = shortAddr;
+        if (userWalletBtn) {
+          userWalletBtn.className = "text-[10px] text-emerald-300 bg-emerald-950/80 px-2.5 py-1 rounded-lg border border-emerald-500/40 font-mono font-bold";
+        }
+        if (walletHintEl) {
+          walletHintEl.innerText = "Cüzdanın bağlı • Skorun sıralamada! 🚀";
+          walletHintEl.className = "text-[10px] text-emerald-400 mt-0.5 font-medium";
+        }
+
+        // Cüzdan bağlanınca yerelde biriken puanları adrese aktar ve dinle
+        syncLocalToWalletScore();
         listenUserWeeklyScore();
       } catch (err) {
         console.error("Cüzdan bağlantı hatası:", err);
       }
     }
 
-    // KULLANICININ HAFTALIK SKORUNU TAKİP ET
-    function listenUserWeeklyScore() {
+    // Anonimken yapılan tıklamaları cüzdan bağlandığında adrese aktarma
+    function syncLocalToWalletScore() {
       if (!connectedWalletAddress) return;
       const weekKey = getUTCWeekKey();
+      const localWeekKey = `kibble_anon_week_${weekKey}`;
+      const localScore = parseInt(localStorage.getItem(localWeekKey) || "0", 10);
+
+      if (localScore > 0) {
+        const userWeekRef = database.ref(`weekly_leaderboards/${weekKey}/${connectedWalletAddress}`);
+        userWeekRef.transaction((sc) => (sc || 0) + localScore);
+        localStorage.removeItem(localWeekKey);
+      }
+    }
+
+    // KULLANICININ HAFTALIK SKORUNU TAKİP ET
+    function listenUserWeeklyScore() {
+      const weekKey = getUTCWeekKey();
+      if (!connectedWalletAddress) {
+        const localWeekKey = `kibble_anon_week_${weekKey}`;
+        const localScore = parseInt(localStorage.getItem(localWeekKey) || "0", 10);
+        userWeeklyEl.innerText = `${localScore.toLocaleString()} Tık`;
+        return;
+      }
+
       const userWeekRef = database.ref(`weekly_leaderboards/${weekKey}/${connectedWalletAddress}`);
-      
       userWeekRef.on('value', (snap) => {
         const score = snap.val() || 0;
         userWeeklyEl.innerText = `${score.toLocaleString()} Tık`;
       });
     }
+    listenUserWeeklyScore();
 
     // HAFTALIK İLK 3 LİDERLİK TABLOSUNU DİNLE
     function listenLeaderboard() {
@@ -604,7 +643,7 @@
         snap.forEach((child) => {
           items.push({ address: child.key, score: child.val() });
         });
-        items.reverse(); // En yüksek puanı başa al
+        items.reverse();
 
         const listEl = document.getElementById('leaderboard-list');
         listEl.innerHTML = '';
@@ -643,7 +682,7 @@
           return;
         }
 
-        // Günlük hakkı azalt & yerel olarak kaydet
+        // Günlük hakkı azalt & kaydet
         recordClick();
 
         // 1. Firebase Global Toplam Artırımı
@@ -651,11 +690,16 @@
           return (score || 0) + 1;
         });
 
-        // 2. Cüzdan Bağlıysa Haftalık Skor Tablosuna Ekle
+        // 2. Haftalık Skor Ekleme
+        const weekKey = getUTCWeekKey();
         if (connectedWalletAddress) {
-          const weekKey = getUTCWeekKey();
           const userWeekRef = database.ref(`weekly_leaderboards/${weekKey}/${connectedWalletAddress}`);
           userWeekRef.transaction((sc) => (sc || 0) + 1);
+        } else {
+          const localWeekKey = `kibble_anon_week_${weekKey}`;
+          let localScore = parseInt(localStorage.getItem(localWeekKey) || "0", 10) + 1;
+          localStorage.setItem(localWeekKey, localScore);
+          userWeeklyEl.innerText = `${localScore.toLocaleString()} Tık`;
         }
 
         // 1000'in katında kutlama
