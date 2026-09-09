@@ -17,7 +17,9 @@ PHOTO_URL = "https://kibble-sol.github.io/Kibble/assets/logo.png"
 TWITTER_URL = "https://x.com/kibblesol"
 TELEGRAM_URL = "https://t.me/kibblesol"
 WEBSITE_URL = "https://kibble-sol.github.io/Kibble/"
-CA_ADDRESS = "GÜNCELLENECEK_SOLANA_CA_ADRESI"
+
+# Kontrat Adresi (Token çıktığında tırnak içine yapıştırılacak)
+CA_ADDRESS = "TBA (To Be Announced)"
 
 WELCOME_CAPTION = (
     "🐾 *Welcome to Kibble!* 🦴\n\n"
@@ -49,11 +51,21 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 async def ca(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     text = (
-        "📄 *Official Contract Address (CA):*\n\n"
-        f"`{CA_ADDRESS}`\n\n"
-        "⚠️ _Always verify links and addresses through official Kibble channels._"
+        "🦴 *$KIBBLE Official Contract Address*\n\n"
+        "⚡ *Status:* `Stealth Launch Pending`\n"
+        "📍 *Network:* `Solana (SOL)`\n\n"
+        f"Contract Address:\n`{CA_ADDRESS}`\n\n"
+        "🚨 *Security Alert:*\n"
+        "$KIBBLE is not tradable yet. Never purchase tokens from unverified pools or unannounced contracts. Always cross-check via our official channels!"
     )
-    await update.message.reply_text(text=text, parse_mode="Markdown")
+    keyboard = [
+        [
+            InlineKeyboardButton("🐦 Follow on X", url=TWITTER_URL),
+            InlineKeyboardButton("💬 Join Telegram", url=TELEGRAM_URL)
+        ]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text(text=text, reply_markup=reply_markup, parse_mode="Markdown")
 
 async def links(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     text = (
@@ -102,7 +114,7 @@ def main() -> None:
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("ca", ca))
     app.add_handler(CommandHandler("links", links))
-    app.add_handler(CommandHandler("link", links))  # /link ve /links ikisini de yakalar
+    app.add_handler(CommandHandler("link", links))
     app.add_handler(InlineQueryHandler(inline_query))
 
     logger.info("Kibble Bot başarıyla başlatıldı.")
