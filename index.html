@@ -937,15 +937,19 @@
       renderGame(currentGlobalScore);
     });
 
-    // DIRECT PHANTOM APP CONNECT & TELEGRAM REDIRECT
-    const APP_URL = "https://kibble-sol.github.io/Kibble/";
-    const TELEGRAM_BOT_URL = "https://t.me/kibblesol_bot/app";
+    // DYNAMIC PHANTOM ROUTING (WEB -> PHANTOM -> WEB | TG -> PHANTOM -> TG)
+    const WEB_APP_URL = "https://kibble-sol.github.io/Kibble/";
+    const TG_APP_URL = "https://t.me/kibblesol_bot/app";
+
+    function isRunningInTelegram() {
+      return !!(window.Telegram && window.Telegram.WebApp && (window.Telegram.WebApp.initData || window.Telegram.WebApp.platform !== "unknown"));
+    }
 
     async function connectWallet() {
       const provider = window.solana || (window.solflare && window.solflare.isSolflare ? window.solflare : null);
 
-      // 1. Masaüstü Tarayıcıda Eklenti Varsa (Chrome Phantom Eklentisi)
-      if (provider) {
+      // 1. Masaüstü Tarayıcıda Eklenti Varsa Doğrudan Bağlan
+      if (provider && provider.isPhantom) {
         try {
           const resp = await provider.connect();
           setConnectedWallet(resp.publicKey.toString());
@@ -956,29 +960,28 @@
         }
       }
 
-      // 2. Mobil / Telegram İçindeyse: Phantom Uygulamasına Yönlendir ve Onay İste
-      const redirectLink = encodeURIComponent(TELEGRAM_BOT_URL);
-      const appMetaData = encodeURIComponent(APP_URL);
-      
-      // Phantom Universal Connect Linki
+      // 2. Mobil Tarayıcı veya Telegram Ortamı: Dinamik Dönüş Linki Belirle
+      const inTelegram = isRunningInTelegram();
+      const targetReturnUrl = inTelegram ? TG_APP_URL : WEB_APP_URL;
+
+      const redirectLink = encodeURIComponent(targetReturnUrl);
+      const appMetaData = encodeURIComponent(WEB_APP_URL);
       const phantomDeepLink = `https://phantom.app/ul/v1/connect?app_url=${appMetaData}&redirect_link=${redirectLink}`;
 
-      // Telegram WebApp API açıksa doğrudan dış bağlantıyı tetikle, değilse sayfayı yönlendir
-      if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openLink) {
+      if (inTelegram && window.Telegram.WebApp.openLink) {
         window.Telegram.WebApp.openLink(phantomDeepLink);
       } else {
         window.location.href = phantomDeepLink;
       }
     }
 
-    // Phantom onayından Telegram'a dönüldüğünde gelen parametreyi kontrol et
+    // Phantom onayından dönüldüğünde adresi al ve kaydet
     function checkPhantomReturn() {
       const urlParams = new URLSearchParams(window.location.search);
       const phantomAccount = urlParams.get('phantom_encryption_public_key') || urlParams.get('user_public_key');
       
       if (phantomAccount) {
         setConnectedWallet(phantomAccount);
-        // URL'i temizle
         window.history.replaceState({}, document.title, window.location.pathname);
       }
     }
@@ -1008,7 +1011,7 @@
       listenUserWeeklyScore();
     }
 
-    // Initial Wallet / Telegram Sync Check
+    // Initial Sync Check
     if (connectedWalletAddress) {
       setConnectedWallet(connectedWalletAddress);
     } else if (telegramUser && telegramUser.username) {
