@@ -526,7 +526,7 @@
 
       <!-- Narrative & The Story -->
       <section class="py-6">
-        <div class="grid md:grid-cols-2 gap-5">
+        <div class="grid md:grid-cells gap-5">
           <div class="card-highlight p-6 md:p-7 rounded-3xl flex flex-col justify-between">
             <div>
               <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-2">The Philosophy</div>
@@ -935,13 +935,19 @@
       renderGame(currentGlobalScore);
     });
 
-    // ROBUST SOLANA WALLET CONNECTION (EXTENSION / PHANTOM IN-APP BROWSER)
+    // ROBUST SOLANA WALLET CONNECTION & TOGGLE DISCONNECT
     const SITE_URL = "https://kibble-sol.github.io/Kibble/";
 
     async function connectWallet() {
+      // 1. Zaten bağlıysa: Bağlantıyı kes (Disconnect)
+      if (connectedWalletAddress) {
+        disconnectWallet();
+        return;
+      }
+
       const provider = window.solana || (window.solflare && window.solflare.isSolflare ? window.solflare : null);
 
-      // 1. Masaüstü Tarayıcı Eklentisi veya Phantom'un Kendi Dahili Tarayıcısı İçi
+      // 2. Masaüstü Tarayıcı Eklentisi veya Phantom Dahili Tarayıcısı İçi
       if (provider) {
         try {
           const resp = await provider.connect();
@@ -953,7 +959,7 @@
         }
       }
 
-      // 2. Mobil / Telegram Ortamı: Döngüye girmeden Phantom'un güvenli Web3 tarayıcısında açtır
+      // 3. Mobil / Telegram Ortamı: Phantom'un güvenli Web3 tarayıcısında açtır
       const encodedUrl = encodeURIComponent(SITE_URL);
       const phantomBrowserDeepLink = `https://phantom.app/ul/browse/${encodedUrl}?ref=${encodedUrl}`;
 
@@ -964,6 +970,41 @@
       }
     }
 
+    function disconnectWallet() {
+      const provider = window.solana || (window.solflare && window.solflare.isSolflare ? window.solflare : null);
+      if (provider && provider.disconnect) {
+        try {
+          provider.disconnect();
+        } catch (e) {}
+      }
+
+      connectedWalletAddress = null;
+      localStorage.removeItem('kibble_saved_wallet');
+
+      // Üst Cüzdan Butonunu Başlangıç Haline Döndür
+      const headerWalletBtn = document.getElementById('headerWalletBtn');
+      if (headerWalletBtn) {
+        headerWalletBtn.classList.remove('bg-emerald-950', 'border-emerald-500/50', 'text-emerald-400');
+        headerWalletBtn.removeAttribute('title');
+      }
+
+      // Alt Skor Kartı Butonunu Başlangıç Haline Döndür
+      if (userWalletStatusEl) userWalletStatusEl.innerText = "Connect Wallet";
+      if (userWalletBtn) {
+        userWalletBtn.className = "text-[11px] text-purple-200 bg-purple-900/60 hover:bg-purple-800/80 active:scale-95 px-3 py-1.5 rounded-xl border border-purple-500/40 font-bold transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap shadow-md shadow-purple-950/40";
+      }
+      if (walletHintEl) {
+        if (telegramUser && telegramUser.username) {
+          walletHintEl.innerText = `Welcome @${telegramUser.username}! Connect wallet to sync 🐾`;
+        } else {
+          walletHintEl.innerText = "Connect wallet to join the leaderboard 🐾";
+        }
+        walletHintEl.className = "text-[10px] text-purple-400 mt-0.5 font-medium";
+      }
+
+      listenUserWeeklyScore();
+    }
+
     function setConnectedWallet(address) {
       connectedWalletAddress = address;
       localStorage.setItem('kibble_saved_wallet', address);
@@ -972,7 +1013,7 @@
       const headerWalletBtn = document.getElementById('headerWalletBtn');
       if (headerWalletBtn) {
         headerWalletBtn.classList.add('bg-emerald-950', 'border-emerald-500/50', 'text-emerald-400');
-        headerWalletBtn.title = address;
+        headerWalletBtn.title = `${address} (Click to disconnect)`;
       }
 
       if (userWalletStatusEl) userWalletStatusEl.innerText = shortAddr;
