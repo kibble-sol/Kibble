@@ -2,12 +2,22 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Kibble ($KIBBLE) | Feed the Dog</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+    }
+  </script>
+
   <style>
     :root {
       --sidebar-bg: #0d091a;
@@ -561,7 +571,7 @@
       <section class="py-6">
         <div class="text-center mb-6">
           <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-1">Architecture</div>
-          <h2 class="2xl font-bold text-white">Tokenomics & Supply Security</h2>
+          <h2 class="text-2xl font-bold text-white">Tokenomics & Supply Security</h2>
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center mb-4">
@@ -683,6 +693,37 @@
     </footer>
   </div>
 
+  <!-- Solana Wallet Modal (Prevents Telegram Crash) -->
+  <div id="walletModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-[#0f0a1c] border border-purple-500/40 rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl relative">
+      <div class="text-3xl mb-2">👛</div>
+      <h3 class="text-lg font-black text-white mb-1">Connect Solana Wallet</h3>
+      <p class="text-gray-300 text-xs leading-relaxed mb-4">
+        Connect your wallet or save your address to join the weekly Kibble leaderboard.
+      </p>
+
+      <div class="flex flex-col gap-2.5 mb-4 text-left">
+        <button onclick="handleBrowserWalletConnect()" class="w-full py-3 px-4 rounded-xl bg-purple-600/90 hover:bg-purple-600 text-white font-bold text-xs transition flex items-center justify-between border border-purple-400/30">
+          <span class="flex items-center gap-2"><span>⚡</span> Extension / App Connect</span>
+          <span class="text-[10px] bg-black/30 px-2 py-0.5 rounded">Auto</span>
+        </button>
+
+        <div class="text-[11px] text-gray-400 font-semibold text-center mt-1">OR ENTER ADDRESS DIRECTLY</div>
+
+        <div class="flex flex-col gap-2">
+          <input type="text" id="manualSolAddress" placeholder="Paste Solana Address (e.g. 7xKX...)" class="w-full bg-[#17102b] border border-purple-500/30 rounded-xl px-3 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-purple-400 font-mono" />
+          <button onclick="saveManualSolAddress()" class="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition shadow-lg shadow-emerald-950/40">
+            Save Address & Join 🐾
+          </button>
+        </div>
+      </div>
+
+      <button onclick="closeWalletModal()" class="text-gray-400 hover:text-white text-xs font-semibold underline cursor-pointer">
+        Cancel
+      </button>
+    </div>
+  </div>
+
   <!-- Launch Coming Soon Modal -->
   <div id="comingSoonModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-[#0f0a1c] border border-purple-500/40 rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl relative">
@@ -776,8 +817,10 @@
     window.onclick = function(event) {
       const modal1 = document.getElementById('comingSoonModal');
       const modal2 = document.getElementById('featureComingSoonModal');
+      const modal3 = document.getElementById('walletModal');
       if (event.target === modal1) closeModal();
       if (event.target === modal2) closeFeatureModal();
+      if (event.target === modal3) closeWalletModal();
     };
 
     // FIREBASE CONFIGURATION
@@ -800,7 +843,13 @@
     const TARGET = 1000;
     const MAX_DAILY_CLICKS = 200;
     let currentGlobalScore = 0;
-    let connectedWalletAddress = null;
+    let connectedWalletAddress = localStorage.getItem('kibble_saved_wallet') || null;
+    let telegramUser = null;
+
+    // Telegram User Recognition
+    if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
+      telegramUser = window.Telegram.WebApp.initDataUnsafe.user;
+    }
 
     const totalEl = document.getElementById('total-val');
     const pouchCountEl = document.getElementById('pouch-count');
@@ -921,42 +970,82 @@
       renderGame(currentGlobalScore);
     });
 
-    // WALLET CONNECTION (PHANTOM / SOLFLARE)
-    async function connectWallet() {
-      const provider = window.solana || (window.solflare && window.solflare.isSolflare ? window.solflare : null);
+    // SMART SOLANA WALLET CONNECTION (CRASH-FREE FOR TELEGRAM)
+    function openWalletModal() {
+      document.getElementById('walletModal').classList.remove('hidden');
+    }
+    function closeWalletModal() {
+      document.getElementById('walletModal').classList.add('hidden');
+    }
 
+    function connectWallet() {
+      // Eğer zaten eklenti mevcutsa doğrudan bağlanmayı dene, değilse modali aç
+      const provider = window.solana || (window.solflare && window.solflare.isSolflare ? window.solflare : null);
+      if (provider) {
+        handleBrowserWalletConnect();
+      } else {
+        openWalletModal();
+      }
+    }
+
+    async function handleBrowserWalletConnect() {
+      const provider = window.solana || (window.solflare && window.solflare.isSolflare ? window.solflare : null);
       if (!provider) {
-        alert("Please install Phantom or Solflare wallet extension!");
-        window.open("https://phantom.app/", "_blank");
+        // Telegram içindeyken harici sayfaya yönlendirip botu kapatmak yerine modalı göster
+        openWalletModal();
         return;
       }
 
       try {
         const resp = await provider.connect();
-        connectedWalletAddress = resp.publicKey.toString();
-        const shortAddr = `${connectedWalletAddress.slice(0, 4)}...${connectedWalletAddress.slice(-4)}`;
-        
-        // Minimal Top Header Wallet Indicator
-        const headerWalletBtn = document.getElementById('headerWalletBtn');
-        if (headerWalletBtn) {
-          headerWalletBtn.classList.add('bg-emerald-950', 'border-emerald-500/50', 'text-emerald-400');
-          headerWalletBtn.title = connectedWalletAddress;
-        }
-
-        // Score Card Button & Hint
-        if (userWalletStatusEl) userWalletStatusEl.innerText = shortAddr;
-        if (userWalletBtn) {
-          userWalletBtn.className = "text-[10px] text-emerald-300 bg-emerald-950/80 px-2.5 py-1 rounded-lg border border-emerald-500/40 font-mono font-bold";
-        }
-        if (walletHintEl) {
-          walletHintEl.innerText = "Wallet connected • You are on the leaderboard! 🚀";
-          walletHintEl.className = "text-[10px] text-emerald-400 mt-0.5 font-medium";
-        }
-
-        syncLocalToWalletScore();
-        listenUserWeeklyScore();
+        setConnectedWallet(resp.publicKey.toString());
+        closeWalletModal();
       } catch (err) {
         console.error("Wallet connection error:", err);
+      }
+    }
+
+    function saveManualSolAddress() {
+      const addrInput = document.getElementById('manualSolAddress');
+      const val = addrInput ? addrInput.value.trim() : '';
+      if (val.length < 32 || val.length > 44) {
+        alert("Please enter a valid Solana wallet address (32-44 characters)!");
+        return;
+      }
+      setConnectedWallet(val);
+      closeWalletModal();
+    }
+
+    function setConnectedWallet(address) {
+      connectedWalletAddress = address;
+      localStorage.setItem('kibble_saved_wallet', address);
+      const shortAddr = `${address.slice(0, 4)}...${address.slice(-4)}`;
+      
+      const headerWalletBtn = document.getElementById('headerWalletBtn');
+      if (headerWalletBtn) {
+        headerWalletBtn.classList.add('bg-emerald-950', 'border-emerald-500/50', 'text-emerald-400');
+        headerWalletBtn.title = address;
+      }
+
+      if (userWalletStatusEl) userWalletStatusEl.innerText = shortAddr;
+      if (userWalletBtn) {
+        userWalletBtn.className = "text-[10px] text-emerald-300 bg-emerald-950/80 px-2.5 py-1 rounded-lg border border-emerald-500/40 font-mono font-bold";
+      }
+      if (walletHintEl) {
+        walletHintEl.innerText = "Wallet connected • You are on the leaderboard! 🚀";
+        walletHintEl.className = "text-[10px] text-emerald-400 mt-0.5 font-medium";
+      }
+
+      syncLocalToWalletScore();
+      listenUserWeeklyScore();
+    }
+
+    // Load saved wallet on boot if available
+    if (connectedWalletAddress) {
+      setConnectedWallet(connectedWalletAddress);
+    } else if (telegramUser && telegramUser.username) {
+      if (walletHintEl) {
+        walletHintEl.innerText = `Welcome @${telegramUser.username}! Connect wallet to sync 🐾`;
       }
     }
 
@@ -1028,7 +1117,7 @@
     }
     listenLeaderboard();
 
-    // CLICK EVENT (ANTI-BOT & TRACKING)
+    // CLICK EVENT (HAPTIC FEEDBACK & TRACKING)
     if (feedBtn) {
       feedBtn.addEventListener('click', (e) => {
         if (!e.isTrusted) return;
@@ -1036,6 +1125,11 @@
         if (getTodayClicks() >= MAX_DAILY_CLICKS) {
           updateDailyUI();
           return;
+        }
+
+        // Telegram Native Haptic Vibration
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
+          window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
         }
 
         recordClick();
@@ -1099,3 +1193,4 @@
   </script>
 </body>
 </html>
+
