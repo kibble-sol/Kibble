@@ -289,7 +289,6 @@
     <div class="sidebar-header">
       <div class="logo-badge">
         <div class="logo-icon-pill">
-          <!-- Mascot Logo Replacement -->
           <img src="maskot.jpg" alt="Kibble Mascot" />
         </div>
         <span>KIBBLE</span>
@@ -302,7 +301,7 @@
     </div>
 
     <div class="sidebar-content">
-      <!-- 1. Login & Profile (Starts directly at the top) -->
+      <!-- 1. Login & Profile -->
       <a href="#profile" class="nav-item active" onclick="closeSidebarDrawer()">
         <div class="nav-left">
           <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
@@ -415,7 +414,6 @@
         </p>
 
         <div class="flex flex-wrap items-center justify-center gap-3 max-w-md mx-auto mb-8">
-          <!-- Coming Soon Modal Trigger -->
           <button onclick="openModal()" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs md:text-sm shadow-lg shadow-purple-600/30 transition flex items-center gap-2 cursor-pointer">
             <span>Buy $KIBBLE</span>
             <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded text-purple-200 font-bold uppercase tracking-wide">Coming Soon</span>
@@ -937,55 +935,34 @@
       renderGame(currentGlobalScore);
     });
 
-    // DYNAMIC PHANTOM ROUTING (WEB -> PHANTOM -> WEB | TG -> PHANTOM -> TG)
-    const WEB_APP_URL = "https://kibble-sol.github.io/Kibble/";
-    const TG_APP_URL = "https://t.me/kibblesol_bot/app";
-
-    function isRunningInTelegram() {
-      return !!(window.Telegram && window.Telegram.WebApp && (window.Telegram.WebApp.initData || window.Telegram.WebApp.platform !== "unknown"));
-    }
+    // ROBUST SOLANA WALLET CONNECTION (EXTENSION / PHANTOM IN-APP BROWSER)
+    const SITE_URL = "https://kibble-sol.github.io/Kibble/";
 
     async function connectWallet() {
       const provider = window.solana || (window.solflare && window.solflare.isSolflare ? window.solflare : null);
 
-      // 1. Masaüstü Tarayıcıda Eklenti Varsa Doğrudan Bağlan
-      if (provider && provider.isPhantom) {
+      // 1. Masaüstü Tarayıcı Eklentisi veya Phantom'un Kendi Dahili Tarayıcısı İçi
+      if (provider) {
         try {
           const resp = await provider.connect();
           setConnectedWallet(resp.publicKey.toString());
           return;
         } catch (err) {
-          console.error("Extension connect error:", err);
+          console.error("Wallet connection rejected:", err);
           return;
         }
       }
 
-      // 2. Mobil Tarayıcı veya Telegram Ortamı: Dinamik Dönüş Linki Belirle
-      const inTelegram = isRunningInTelegram();
-      const targetReturnUrl = inTelegram ? TG_APP_URL : WEB_APP_URL;
+      // 2. Mobil / Telegram Ortamı: Döngüye girmeden Phantom'un güvenli Web3 tarayıcısında açtır
+      const encodedUrl = encodeURIComponent(SITE_URL);
+      const phantomBrowserDeepLink = `https://phantom.app/ul/browse/${encodedUrl}?ref=${encodedUrl}`;
 
-      const redirectLink = encodeURIComponent(targetReturnUrl);
-      const appMetaData = encodeURIComponent(WEB_APP_URL);
-      const phantomDeepLink = `https://phantom.app/ul/v1/connect?app_url=${appMetaData}&redirect_link=${redirectLink}`;
-
-      if (inTelegram && window.Telegram.WebApp.openLink) {
-        window.Telegram.WebApp.openLink(phantomDeepLink);
+      if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openLink) {
+        window.Telegram.WebApp.openLink(phantomBrowserDeepLink);
       } else {
-        window.location.href = phantomDeepLink;
+        window.location.href = phantomBrowserDeepLink;
       }
     }
-
-    // Phantom onayından dönüldüğünde adresi al ve kaydet
-    function checkPhantomReturn() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const phantomAccount = urlParams.get('phantom_encryption_public_key') || urlParams.get('user_public_key');
-      
-      if (phantomAccount) {
-        setConnectedWallet(phantomAccount);
-        window.history.replaceState({}, document.title, window.location.pathname);
-      }
-    }
-    checkPhantomReturn();
 
     function setConnectedWallet(address) {
       connectedWalletAddress = address;
@@ -1098,7 +1075,7 @@
           return;
         }
 
-        // Telegram Haptic Feedback
+        // Telegram Native Haptic Vibration
         if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
           window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
         }
@@ -1164,4 +1141,3 @@
   </script>
 </body>
 </html>
-
