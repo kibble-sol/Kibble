@@ -44,10 +44,10 @@
 - [x] **4. Devnet Phase 1: Pool & Liquidity Tests**
   - Initial testing of decentralized pool architecture and token deployment.
 
-- [x] **5. Kibble Terminal Web Update**
+- [ ] **5. Kibble Terminal Web Update** ⏳
   - Redesigning the web interface with modular tabs, live feed counter, and community hub.
 
-- [ ] **6. Telegram Mini App (TMA) Integration (Current Focus)** ⏳
+- [ ] **6. Telegram Mini App (TMA) Integration (Current Focus)** 
   - Porting the Tap-to-Feed dApp directly into Telegram for seamless mobile access.
 
 - [ ] **7. Devnet Phase 2: Transfer Fee Verification**
