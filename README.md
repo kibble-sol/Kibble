@@ -65,7 +65,7 @@
 - [ ] **11. DEX & Terminal Integrations**
   - Liquidity bootstrapping and tracking integrations on Raydium, Meteora, Birdeye, and DEXScreener.
 
-- [ ] **12. First On-Chain Protocol Kibble Distribution** 🚀
+- [ ] **12. First On-Chain Protocol Kibble Distribution** 
   - Live on-chain treasury funds converted into physical food, distributed, and verified via video proof.
 
 ---
