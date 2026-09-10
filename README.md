@@ -47,10 +47,10 @@
 - [x] **5. Kibble Terminal Web Update**
   - Redesigning the web interface with modular tabs, live feed counter, and community hub.
 
-- [ ] **6. Telegram Mini App (TMA) Integration**
+- [ ] **6. Telegram Mini App (TMA) Integration (Current Focus)** ⏳
   - Porting the Tap-to-Feed dApp directly into Telegram for seamless mobile access.
 
-- [ ] **7. Devnet Phase 2: Transfer Fee Verification (Current Focus)** ⏳
+- [ ] **7. Devnet Phase 2: Transfer Fee Verification**
   - Rigorous testing of Token-2022 transfer fee collection mechanisms into the feeding treasury.
 
 - [ ] **8. Devnet Phase 3: Public Testnet**
