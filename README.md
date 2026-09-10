@@ -30,23 +30,43 @@
 
 ---
 
-## 🚀 Roadmap
+## 🚀 Roadmap #1
 
-- [x] **Phase 1: Live MVP**
-  - Lightweight web dApp where screen taps fill the food bowl.
-  - Live on GitHub Pages with responsive mobile design, tap counter, and animations.
+- [x] **1. Community Channels Setup**
+  - Official X (Twitter), Telegram, and communication channels established.
 
-- [x] **Phase 2: Phantom & Solflare Wallet Integration**
-  - Moving scores from local browser storage to linked wallet addresses.
-  - Basic anti-bot limits to protect point fairness.
+- [x] **2. Kibble Mini Game Integration**
+  - Interactive Tap-to-Feed mechanic live on GitHub Pages with responsive UI.
 
-- [ ] **Phase 3: Token-2022 Devnet Testing**
-  - Testing transfer fee extensions that divert transaction fees into the food treasury.
-  - Testing automated fee collection and revoking mint/freeze authorities.
+- [x] **3. First Field Kibble Distribution**
+  - Initial real-world feeding drive executed and documented.
 
-- [ ] **Phase 4: DEX Liquidity & Real-World Food Distribution**
-  - Opening the first micro liquidity pool (LP) on Raydium/Meteora for live trading.
-  - Purchasing physical kibble bags with collected fees, distributing them on the streets, and posting video proof.
+- [x] **4. Devnet Phase 1: Pool & Liquidity Tests**
+  - Initial testing of decentralized pool architecture and token deployment.
+
+- [x] **5. Kibble Terminal Web Update**
+  - Redesigning the web interface with modular tabs, live feed counter, and community hub.
+
+- [ ] **6. Telegram Mini App (TMA) Integration**
+  - Porting the Tap-to-Feed dApp directly into Telegram for seamless mobile access.
+
+- [ ] **7. Devnet Phase 2: Transfer Fee Verification (Current Focus)** ⏳
+  - Rigorous testing of Token-2022 transfer fee collection mechanisms into the feeding treasury.
+
+- [ ] **8. Devnet Phase 3: Public Testnet**
+  - Opening the test environment to the community for load testing and feedback.
+
+- [ ] **9. Bubblemaps Transparency Integration**
+  - Integrating on-chain wallet clustering visualizations to prove fair supply distribution.
+
+- [ ] **10. Official Mainnet Token Launch**
+  - Deploying the immutable Token-2022 contract on Solana Mainnet.
+
+- [ ] **11. DEX & Terminal Integrations**
+  - Liquidity bootstrapping and tracking integrations on Raydium, Meteora, Birdeye, and DEXScreener.
+
+- [ ] **12. First On-Chain Protocol Kibble Distribution** 🚀
+  - Live on-chain treasury funds converted into physical food, distributed, and verified via video proof.
 
 ---
 
