@@ -12,33 +12,42 @@
 
 **Kibble** is an impact-first tap-to-feed dApp built on Solana. Users tap to feed stray animals, while transactions and engagement generate protocol-driven funding via **Token-2022** transfer fees to buy and distribute physical food on the streets.
 
-- 🌐 **Live Web dApp:** [kibble-sol.github.io/Kibble/](https://kibble-sol.github.io/Kibble/)
-- ✈️ **Telegram Hub:** [@kibblesol](https://t.me/kibblesol)
-- 🐦 **X (Twitter):** [@kibblesol](https://x.com/kibblesol)
+* 🌐 **Live Web dApp:** [kibble-sol.github.io/Kibble/](https://kibble-sol.github.io/Kibble/)
+* ✈️ **Telegram Hub:** [@kibblesol](https://t.me/kibblesol)
+* 🐦 **X (Twitter):** [@kibblesol](https://x.com/kibblesol)
 
 ---
 
 ## ⚙️ Core Architecture & Mechanics
 
 1. **Tap-to-Feed Engine:** 
-   - Simple, lightweight web interface. Users tap to generate feeding points that convert into real-world food supplies.
+   Simple, lightweight web interface. Users tap to generate feeding points that convert into real-world food supplies.
 
 2. **Token-2022 Transfer Fee:**
-   - Native transfer fee extension automatically collects protocol revenue from transactions and sends it directly to the animal feeding treasury.
+   Native transfer fee extension automatically collects protocol revenue from transactions and sends it directly to the animal feeding treasury.
 
 3. **Proof of Feed (Real Impact):**
-   - Accumulated funds are converted into physical kibble bags, distributed to street animals, and verified on-chain and via video documentation.
+   Accumulated funds are converted into physical kibble bags, distributed to street animals, and verified on-chain and via video documentation.
 
 ---
 
 ## 📂 Repository Structure
 
-```text
-Kibble/
-├── assets/             # Brand identity, icons, and media files
-├── bot/                # Telegram automation engine & requirements
-├── CONTRIBUTING.md     # Open-source contribution guidelines
-├── LICENSE             # MIT License
-├── README.md           # Project documentation
-├── SECURITY.md         # Responsible disclosure policy
-└── index.html          # Web dApp interface & Web3 client logic
+* `assets/` - Brand identity, icons, and media files
+* `bot/` - Telegram automation engine & requirements
+* `CONTRIBUTING.md` - Open-source contribution guidelines
+* `LICENSE` - MIT License
+* `README.md` - Project documentation
+* `SECURITY.md` - Responsible disclosure policy
+* `index.html` - Web dApp interface & Web3 client logic
+
+---
+
+## 🚀 Quickstart & Local Setup
+
+Run the dApp locally in seconds without complex toolchains:
+
+```bash
+git clone https://github.com/kibble-sol/Kibble.git
+cd Kibble
+open index.html
