@@ -13,6 +13,7 @@
 **Kibble** is an impact-first tap-to-feed dApp built on Solana. Users tap to feed stray animals, while transactions and engagement generate protocol-driven funding via **Token-2022** transfer fees to buy and distribute physical food on the streets.
 
 - 🌐 **Live Web dApp:** [kibble-sol.github.io/Kibble/](https://kibble-sol.github.io/Kibble/)
+- ✈️ **Telegram Hub:** [@kibblesol](https://t.me/kibblesol)
 - 🐦 **X (Twitter):** [@kibblesol](https://x.com/kibblesol)
 
 ---
@@ -30,50 +31,14 @@
 
 ---
 
-## 🚀 Roadmap #1
+## 📂 Repository Structure
 
-- [x] **1. Community Channels Setup**
-  - Official X (Twitter), Telegram, and communication channels established.
-
-- [x] **2. Kibble Mini Game Integration**
-  - Interactive Tap-to-Feed mechanic live on GitHub Pages with responsive UI.
-
-- [x] **3. First Field Kibble Distribution**
-  - Initial real-world feeding drive executed and documented.
-
-- [x] **4. Devnet Phase 1: Pool & Liquidity Tests**
-  - Initial testing of decentralized pool architecture and token deployment.
-
-- [ ] **5. Kibble Terminal Web Update** ⏳
-  - Redesigning the web interface with modular tabs, live feed counter, and community hub.
-
-- [ ] **6. Telegram Mini App (TMA) Integration (Current Focus)** 
-  - Porting the Tap-to-Feed dApp directly into Telegram for seamless mobile access.
-
-- [ ] **7. Devnet Phase 2: Transfer Fee Verification**
-  - Rigorous testing of Token-2022 transfer fee collection mechanisms into the feeding treasury.
-
-- [ ] **8. Devnet Phase 3: Public Testnet**
-  - Opening the test environment to the community for load testing and feedback.
-
-- [ ] **9. Bubblemaps Transparency Integration**
-  - Integrating on-chain wallet clustering visualizations to prove fair supply distribution.
-
-- [ ] **10. Official Mainnet Token Launch**
-  - Deploying the immutable Token-2022 contract on Solana Mainnet.
-
-- [ ] **11. DEX & Terminal Integrations**
-  - Liquidity bootstrapping and tracking integrations on Raydium, Meteora, Birdeye, and DEXScreener.
-
-- [ ] **12. First On-Chain Protocol Kibble Distribution** 
-  - Live on-chain treasury funds converted into physical food, distributed, and verified via video proof.
-
----
-
-## 🛠 Tech Stack
-
-- **Blockchain:** Solana (Token-2022 Program)
-- **Frontend:** Vanilla HTML5 / CSS3 / JavaScript (Zero dependencies, fast load)
-- **Deployment:** GitHub Pages
-
-*Built with ❤️ for stray animals.*
+```text
+Kibble/
+├── assets/             # Brand identity, icons, and media files
+├── bot/                # Telegram automation engine & requirements
+├── CONTRIBUTING.md     # Open-source contribution guidelines
+├── LICENSE             # MIT License
+├── README.md           # Project documentation
+├── SECURITY.md         # Responsible disclosure policy
+└── index.html          # Web dApp interface & Web3 client logic
