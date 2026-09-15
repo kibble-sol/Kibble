@@ -33,6 +33,15 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
+    
+    /* Üst üste binme ve çakışmaları kesin olarak önleyen düzeltmeler */
+    .hidden {
+      display: none !important;
+    }
+    #tracker-view .flex-grow {
+      min-width: 0;
+    }
+
     .glow-purple { text-shadow: 0 0 35px rgba(168, 85, 247, 0.5); }
     .card-dark {
       background-color: #0f0a1c;
@@ -289,7 +298,7 @@
     <div class="sidebar-header">
       <div class="logo-badge notranslate" translate="no">
         <div class="logo-icon-pill">
-          <img src="assets/maskot0.png" alt="Kibble Mascot" />
+          <img src="assets/maskot_sifir.png" alt="Kibble Mascot" />
         </div>
         <span>KIBBLE</span>
       </div>
@@ -309,7 +318,7 @@
         </div>
       </a>
 
-      <!-- 2. Live Kibble Tracker (Artık Aktif Sayfa) -->
+      <!-- 2. Live Kibble Tracker -->
       <a href="#tracker" id="nav-tracker" class="nav-item" onclick="switchView('tracker')">
         <div class="nav-left">
           <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -390,7 +399,7 @@
     </div>
   </aside>
 
-  <!-- 1. HOME VIEW (Sadece Proje Tanıtımı & Tokenomics) -->
+  <!-- 1. HOME VIEW -->
   <div id="home-view" class="w-full flex-grow flex flex-col justify-between">
     <main class="flex-grow max-w-4xl mx-auto px-5 w-full">
       <!-- Hero Section -->
@@ -467,7 +476,7 @@
         </div>
       </section>
 
-      <!-- Technical Architecture & Supply (10M Supply / 100% LP) -->
+      <!-- Technical Architecture & Supply -->
       <section class="py-6">
         <div class="text-center mb-6">
           <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-1">Architecture</div>
@@ -516,7 +525,6 @@
               <div class="text-[11px] text-gray-400">Wallets cannot be frozen or blacklisted</div>
             </div>
           </div>
-          <!-- DEX Modal Card -->
           <div onclick="openModal()" class="card-dark p-3.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-purple-500/50 transition">
             <div class="flex items-center gap-3">
               <span class="text-purple-400 text-lg">⚡</span>
@@ -530,7 +538,7 @@
         </div>
       </section>
 
-      <!-- The Feedback Loop & Fund Allocation -->
+      <!-- The Feedback Loop -->
       <section class="py-6">
         <div class="card-highlight p-6 md:p-8 rounded-3xl">
           <div class="flex items-center justify-between mb-4">
@@ -594,7 +602,7 @@
     </footer>
   </div>
 
-  <!-- 2. LIVE KIBBLE TRACKER VIEW (Oyunun ve Canlı Sayacın Yeni Yeri) -->
+  <!-- 2. LIVE KIBBLE TRACKER VIEW -->
   <div id="tracker-view" class="w-full flex-grow flex flex-col justify-between hidden">
     <main class="flex-grow max-w-4xl mx-auto px-5 w-full py-8">
       
@@ -617,7 +625,7 @@
         <p class="text-gray-400 text-xs mt-1">Tap to feed, unlock wet food pouches, and climb the weekly leaderboard.</p>
       </div>
 
-      <!-- FEED THE PUP INTERACTIVE SECTION (Tamamen buraya taşındı) -->
+      <!-- FEED THE PUP INTERACTIVE SECTION -->
       <section class="py-2 flex flex-col md:flex-row items-center justify-center gap-6">
         
         <!-- Main Clicker Card -->
@@ -633,7 +641,7 @@
 
           <!-- Mascot Image -->
           <div class="w-36 h-36 mx-auto mb-5 relative">
-            <img src="assets/maskot0.png" alt="$KIBBLE Pup" id="mascot-pic" class="w-full h-full object-cover rounded-full border-4 border-purple-400/80 shadow-[0_0_25px_rgba(192,132,252,0.35)] transition-all duration-100 ease-out select-none pointer-events-none" />
+            <img src="assets/maskot_sifir.png" alt="$KIBBLE Pup" id="mascot-pic" class="w-full h-full object-cover rounded-full border-4 border-purple-400/80 shadow-[0_0_25px_rgba(192,132,252,0.35)] transition-all duration-100 ease-out select-none pointer-events-none" />
           </div>
 
           <!-- Fill Bowl Button -->
@@ -652,7 +660,7 @@
             </div>
           </div>
 
-          <!-- Progress Bar (Wet Food Target) -->
+          <!-- Progress Bar -->
           <div class="w-full text-left">
             <div class="flex justify-between text-xs font-semibold text-gray-300 mb-2">
               <span>Next Wet Food Pouch 🥫</span>
@@ -728,7 +736,7 @@
     </footer>
   </div>
 
-  <!-- 3. COMMUNITY & CONTACT VIEW (Ayrı İletişim Sayfası) -->
+  <!-- 3. COMMUNITY & CONTACT VIEW -->
   <div id="contact-view" class="w-full flex-grow flex flex-col justify-between hidden">
     <main class="flex-grow max-w-3xl mx-auto px-5 w-full py-10">
       
@@ -753,9 +761,8 @@
         </p>
       </div>
 
-      <!-- Official Channels Cards (Telegram & X Only) -->
+      <!-- Official Channels Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-        <!-- Telegram -->
         <a href="https://t.me/kibblesol" target="_blank" class="card-dark p-5 rounded-2xl flex flex-col items-center text-center hover:border-purple-500/60 transition group">
           <div class="w-12 h-12 rounded-xl bg-[#229ED9]/10 border border-[#229ED9]/30 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">
             ✈️
@@ -767,7 +774,6 @@
           </span>
         </a>
 
-        <!-- X (Twitter) -->
         <a href="https://x.com/kibblesol" target="_blank" class="card-dark p-5 rounded-2xl flex flex-col items-center text-center hover:border-purple-500/60 transition group">
           <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/20 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">
             🐾
@@ -780,7 +786,7 @@
         </a>
       </div>
 
-      <!-- Direct Message Form & Official Sponsorship Email Box -->
+      <!-- Direct Message Form -->
       <div class="card-highlight p-6 md:p-8 rounded-3xl">
         <div class="flex items-center gap-2 mb-2">
           <span class="text-xl">📩</span>
@@ -790,7 +796,6 @@
           Write your feedback, questions, or collaboration inquiry below. It will be delivered directly to our team inbox.
         </p>
 
-        <!-- Official Inquiries & Sponsorship Highlight -->
         <div class="p-3.5 rounded-2xl bg-[#0f0a1c] border border-purple-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
           <div class="flex items-center gap-2.5">
             <span class="text-base">💼</span>
@@ -836,7 +841,7 @@
     </footer>
   </div>
 
-  <!-- Launch Coming Soon Modal -->
+  <!-- Modals -->
   <div id="comingSoonModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-[#0f0a1c] border border-purple-500/40 rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl relative">
       <div class="text-4xl mb-3">🚀</div>
@@ -844,7 +849,6 @@
       <p class="text-gray-300 text-xs leading-relaxed mb-6">
         <span class="notranslate font-semibold" translate="no">$KIBBLE</span> is currently in pre-launch stage. Official contract address and DEX swap pools (<span class="notranslate" translate="no">Raydium / Jupiter</span>) will go live on launch day.
       </p>
-      
       <div class="flex flex-col gap-2 mb-4">
         <a href="https://t.me/kibblesol" target="_blank" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition">
           Join Telegram for Launch Alerts 💬
@@ -853,14 +857,12 @@
           Follow on X 🐾
         </a>
       </div>
-
       <button onclick="closeModal()" class="text-gray-400 hover:text-white text-xs font-semibold underline cursor-pointer">
         Close Window
       </button>
     </div>
   </div>
 
-  <!-- General Feature Coming Soon Modal for Sidebar Items -->
   <div id="featureComingSoonModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-[#0f0a1c] border border-purple-500/40 rounded-3xl p-6 md:p-8 max-w-sm w-full text-center shadow-2xl relative">
       <div class="text-4xl mb-3">🛠️</div>
@@ -868,13 +870,11 @@
       <p class="text-gray-300 text-xs leading-relaxed mb-6">
         This module is actively being developed and tested by the core engineering team. It will be unlocked with the mainnet release!
       </p>
-      
       <div class="flex flex-col gap-2 mb-4">
         <a href="https://t.me/kibblesol" target="_blank" class="w-full py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition">
           Join Telegram for Development Updates 💬
         </a>
       </div>
-
       <button onclick="closeFeatureModal()" class="text-gray-400 hover:text-white text-xs font-semibold underline cursor-pointer">
         Close Window
       </button>
@@ -885,9 +885,9 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
-  <!-- Navigation, Drawer & App Scripts -->
+  <!-- Scripts -->
   <script>
-    // View Switcher (Home vs Live Kibble Tracker vs Community & Contact)
+    // Güvenli View Switcher (Çakışma önleyici display yönetimiyle)
     function switchView(viewName) {
       closeSidebarDrawer();
       const homeView = document.getElementById('home-view');
@@ -899,31 +899,41 @@
       const navContact = document.getElementById('nav-contact');
 
       // Önce tüm görünümleri gizle
-      if (homeView) homeView.classList.add('hidden');
-      if (trackerView) trackerView.classList.add('hidden');
-      if (contactView) contactView.classList.add('hidden');
+      [homeView, trackerView, contactView].forEach(v => {
+        if (v) {
+          v.classList.add('hidden');
+          v.style.display = 'none';
+        }
+      });
 
       // Menü aktifliklerini sıfırla
-      if (navHome) navHome.classList.remove('active');
-      if (navTracker) navTracker.classList.remove('active');
-      if (navContact) navContact.classList.remove('active');
+      [navHome, navTracker, navContact].forEach(n => {
+        if (n) n.classList.remove('active');
+      });
 
       // İstenen görünüme geç
+      let targetView = homeView;
+      let targetNav = navHome;
+
       if (viewName === 'tracker') {
-        if (trackerView) trackerView.classList.remove('hidden');
-        if (navTracker) navTracker.classList.add('active');
+        targetView = trackerView;
+        targetNav = navTracker;
       } else if (viewName === 'contact') {
-        if (contactView) contactView.classList.remove('hidden');
-        if (navContact) navContact.classList.add('active');
-      } else {
-        if (homeView) homeView.classList.remove('hidden');
-        if (navHome) navHome.classList.add('active');
+        targetView = contactView;
+        targetNav = navContact;
+      }
+
+      if (targetView) {
+        targetView.classList.remove('hidden');
+        targetView.style.display = 'flex';
+      }
+      if (targetNav) {
+        targetNav.classList.add('active');
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Direct Web3Forms Submission (Sends email straight to contact.kibblesol@gmail.com)
     async function handleContactSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('contact-email').value.trim();
@@ -975,7 +985,6 @@
       }
     }
 
-    // Sidebar Drawer Controls
     const openMenuBtn = document.getElementById('openMenuBtn');
     const closeMenuBtn = document.getElementById('closeMenuBtn');
     const sidebar = document.getElementById('sidebar');
@@ -997,7 +1006,6 @@
     closeMenuBtn.addEventListener('click', closeSidebarDrawer);
     overlay.addEventListener('click', closeSidebarDrawer);
 
-    // Modal Handlers
     function openModal() {
       document.getElementById('comingSoonModal').classList.remove('hidden');
     }
@@ -1037,14 +1045,12 @@
     const database = firebase.database();
     const clickRef = database.ref('global_kibble_clicks');
 
-    // FEED THE PUP GLOBAL GAME ENGINE
     const TARGET = 1000;
     const MAX_DAILY_CLICKS = 200;
     let currentGlobalScore = 0;
     let connectedWalletAddress = localStorage.getItem('kibble_saved_wallet') || null;
     let telegramUser = null;
 
-    // Telegram User Recognition
     if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe) {
       telegramUser = window.Telegram.WebApp.initDataUnsafe.user;
     }
@@ -1063,7 +1069,6 @@
     const walletHintEl = document.getElementById('wallet-connect-hint');
     const userWalletBtn = document.getElementById('user-wallet-btn');
 
-    // UTC HELPERS
     function getUTCDayKey() {
       const now = new Date();
       return `${now.getUTCFullYear()}-${now.getUTCMonth() + 1}-${now.getUTCDate()}`;
@@ -1079,7 +1084,6 @@
       return `${d.getUTCFullYear()}-W${weekNo}`;
     }
 
-    // DAILY ENERGY TRACKING
     function getTodayClicks() {
       const todayKey = getUTCDayKey();
       const stored = localStorage.getItem('kibble_daily_log');
@@ -1120,7 +1124,6 @@
       }
     }
 
-    // UTC 00:00 COUNTDOWN
     function updateCountdown() {
       const now = new Date();
       const nextUTC = new Date();
@@ -1145,7 +1148,6 @@
     updateCountdown();
     updateDailyUI();
 
-    // GLOBAL DATA RENDER
     function renderGame(score) {
       if (!totalEl) return;
       totalEl.innerText = score.toLocaleString();
@@ -1168,11 +1170,9 @@
       renderGame(currentGlobalScore);
     });
 
-    // ROBUST SOLANA WALLET CONNECTION & TOGGLE DISCONNECT
     const SITE_URL = "https://kibble-sol.github.io/Kibble/";
 
     async function connectWallet() {
-      // 1. Zaten bağlıysa: Bağlantıyı kes (Disconnect)
       if (connectedWalletAddress) {
         disconnectWallet();
         return;
@@ -1180,7 +1180,6 @@
 
       const provider = window.solana || (window.solflare && window.solflare.isSolflare ? window.solflare : null);
 
-      // 2. Masaüstü Tarayıcı Eklentisi veya Phantom Dahili Tarayıcısı İçi
       if (provider) {
         try {
           const resp = await provider.connect();
@@ -1192,7 +1191,6 @@
         }
       }
 
-      // 3. Mobil / Telegram Ortamı: Phantom'un güvenli Web3 tarayıcısında açtır
       const encodedUrl = encodeURIComponent(SITE_URL);
       const phantomBrowserDeepLink = `https://phantom.app/ul/browse/${encodedUrl}?ref=${encodedUrl}`;
 
@@ -1214,14 +1212,12 @@
       connectedWalletAddress = null;
       localStorage.removeItem('kibble_saved_wallet');
 
-      // Üst Cüzdan Butonunu Başlangıç Haline Döndür
       const headerWalletBtn = document.getElementById('headerWalletBtn');
       if (headerWalletBtn) {
         headerWalletBtn.classList.remove('bg-emerald-950', 'border-emerald-500/50', 'text-emerald-400');
         headerWalletBtn.removeAttribute('title');
       }
 
-      // Alt Skor Kartı Butonunu Başlangıç Haline Döndür
       if (userWalletStatusEl) userWalletStatusEl.innerText = "Connect Wallet";
       if (userWalletBtn) {
         userWalletBtn.className = "text-[11px] text-purple-200 bg-purple-900/60 hover:bg-purple-800/80 active:scale-95 px-3 py-1.5 rounded-xl border border-purple-500/40 font-bold transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap shadow-md shadow-purple-950/40";
@@ -1262,7 +1258,6 @@
       listenUserWeeklyScore();
     }
 
-    // Initial Sync Check
     if (connectedWalletAddress) {
       setConnectedWallet(connectedWalletAddress);
     } else if (telegramUser && telegramUser.username) {
@@ -1284,7 +1279,6 @@
       }
     }
 
-    // TRACK USER WEEKLY SCORE
     function listenUserWeeklyScore() {
       const weekKey = getUTCWeekKey();
       if (!connectedWalletAddress) {
@@ -1302,7 +1296,6 @@
     }
     listenUserWeeklyScore();
 
-    // LISTEN WEEKLY LEADERBOARD
     function listenLeaderboard() {
       const weekKey = getUTCWeekKey();
       const lbRef = database.ref(`weekly_leaderboards/${weekKey}`).orderByValue().limitToLast(3);
@@ -1339,7 +1332,6 @@
     }
     listenLeaderboard();
 
-    // CLICK EVENT (HAPTIC FEEDBACK & TRACKING)
     if (feedBtn) {
       feedBtn.addEventListener('click', (e) => {
         if (!e.isTrusted) return;
@@ -1349,7 +1341,6 @@
           return;
         }
 
-        // Telegram Native Haptic Vibration
         if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.HapticFeedback) {
           window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
         }
