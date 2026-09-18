@@ -79,7 +79,7 @@ Run the dApp locally in seconds without complex toolchains:
 - [ ] **5. Kibble Terminal Web Update** ⏳
   - Redesigning the web interface with modular tabs, live feed counter, and community hub.
 
-- [ ] **6. Telegram Mini App (TMA) Integration (Current Focus)** 
+- [x] **6. Telegram Mini App (TMA) Integration (Current Focus)** 
   - Porting the Tap-to-Feed dApp directly into Telegram for seamless mobile access.
 
 - [ ] **7. Devnet Phase 2: Transfer Fee Verification**
