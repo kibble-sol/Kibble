@@ -34,7 +34,7 @@
       overflow-x: hidden;
     }
     
-    /* Üst üste binme ve çakışmaları kesin olarak önleyen düzeltmeler */
+    /* Layout overlap prevention */
     .hidden {
       display: none !important;
     }
@@ -908,14 +908,14 @@
           <summary class="flex items-center justify-between cursor-pointer list-none select-none">
             <div class="flex items-center gap-3 pr-2">
               <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">01</span>
-              <span class="text-sm md:text-base font-bold text-white">Kibble nedir? (What is Kibble?)</span>
+              <span class="text-sm md:text-base font-bold text-white">What is Kibble?</span>
             </div>
             <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed">
-            Kibble ($KIBBLE), Solana blokzinciri üzerinde inşa edilmiş, Web3 kültürünü ve işlem hacmini doğrudan sokak hayvanlarına ve bakıma muhtaç barınaklara somut gıda (mama) desteğine dönüştüren şeffaf bir sosyal refah projesidir. Tipik, içi boş memecoin'lerin aksine her işlemde gerçek dünyaya pozitif bir ayak izi bırakır.
+            Kibble ($KIBBLE) is an animal welfare-oriented Web3 project built on the Solana blockchain that converts viral meme culture and decentralized trading activity into tangible food aid for street animals and underfunded shelters. Unlike typical speculative memecoins without real-world utility, Kibble channels on-chain volume into verifiable, physical relief.
           </div>
         </details>
 
@@ -924,14 +924,14 @@
           <summary class="flex items-center justify-between cursor-pointer list-none select-none">
             <div class="flex items-center gap-3 pr-2">
               <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">02</span>
-              <span class="text-sm md:text-base font-bold text-white">Bağış barınaklara nasıl ulaşıyor?</span>
+              <span class="text-sm md:text-base font-bold text-white">How do donations reach animal shelters?</span>
             </div>
             <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed">
-            Topluluktan hiçbir zaman manuel para veya bağış toplanmaz. Solana Token-2022 transfer hook mekanizmasıyla her işlemden otomatik ve deterministik olarak kesilen %2'lik pay barınak hazinesinde toplanır. Biriken fonlar periyodik olarak toptan kuru mama alımına aktarılır; faturalar, teslimat kayıtları ve besleme süreçleri <strong class="text-purple-300">"Proof-of-Feed"</strong> video ve fotoğraflarıyla zincir üstü verilerle eş zamanlı yayınlanır.
+            We never conduct manual crowdfunding or solicit public donations. Using the native Solana Token-2022 transfer fee mechanism, a deterministic 2% fee is harvested from every on-chain transfer directly into the protocol shelter treasury. These funds are periodically deployed for wholesale dry kibble purchases. Procurement invoices, distribution routes, and shelter deliveries are publicly documented through video and photo logs (<strong class="text-purple-300">"Proof-of-Feed"</strong>) alongside on-chain transaction hashes.
           </div>
         </details>
 
@@ -940,19 +940,19 @@
           <summary class="flex items-center justify-between cursor-pointer list-none select-none">
             <div class="flex items-center gap-3 pr-2">
               <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">03</span>
-              <span class="text-sm md:text-base font-bold text-white">Kibble sözleşmesi güvenli mi?</span>
+              <span class="text-sm md:text-base font-bold text-white">Is the Kibble smart contract secure?</span>
             </div>
             <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed space-y-2">
-            <p>Evet, sözleşme en katı merkeziyetsiz Web3 güvenlik prensiplerine göre yapılandırılmıştır:</p>
+            <p>Yes. The contract is deployed under immutable and decentralized Web3 architecture:</p>
             <ul class="list-disc list-inside space-y-1 text-gray-400 pl-1">
-              <li><strong class="text-white">Solana Token-2022:</strong> En gelişmiş Solana yerel standart programı.</li>
-              <li><strong class="text-white">Mint Authority Revoked:</strong> Yeni token basma yetkisi kalıcı olarak iptal edilmiştir; arz 10.000.000 ile sınırlıdır ve asla artırılamaz.</li>
-              <li><strong class="text-white">Freeze Authority Revoked:</strong> Cüzdan dondurma veya kara listeye alma yetkisi tamamen kaldırılmıştır.</li>
-              <li><strong class="text-white">%100 LP Burned:</strong> Likidite havuzu oluşturulduğunda LP tokenları yakılır; likiditenin çekilmesi (rug-pull) matematiksel olarak imkansızdır.</li>
+              <li><strong class="text-white">Solana Token-2022 Standard:</strong> Employs Solana's native, battle-tested extensions without third-party proxy risks.</li>
+              <li><strong class="text-white">Mint Authority Revoked:</strong> Token creation privileges are permanently burned. Total supply is mathematically capped at 10,000,000 tokens and can never increase.</li>
+              <li><strong class="text-white">Freeze Authority Revoked:</strong> No administrative entity can freeze holder assets or maintain wallet blacklists.</li>
+              <li><strong class="text-white">100% LP Burned:</strong> Initial liquidity pool tokens are transferred to a dead address at launch, eliminating the possibility of liquidity pull (rug-pull) exploits.</li>
             </ul>
           </div>
         </details>
@@ -962,18 +962,18 @@
           <summary class="flex items-center justify-between cursor-pointer list-none select-none">
             <div class="flex items-center gap-3 pr-2">
               <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">04</span>
-              <span class="text-sm md:text-base font-bold text-white">Neden Kibble'a yatırım yapalım?</span>
+              <span class="text-sm md:text-base font-bold text-white">Why invest in Kibble?</span>
             </div>
             <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed space-y-2">
-            <p>Kibble, piyasadaki klasik spekülatif projelerden 3 temel noktada ayrışır:</p>
+            <p>Kibble differentiates itself through three foundational pillars:</p>
             <ul class="list-disc list-inside space-y-1 text-gray-400 pl-1">
-              <li><strong class="text-white">Gerçek Dünya Faydası (Real-World Utility):</strong> Yalnızca grafik hareketliliği değil, her işlemde barınaklara ulaşan somut bir fayda döngüsü bulunur.</li>
-              <li><strong class="text-white">Adil Dağıtım (Fair Launch):</strong> Ön satış (presale), risk sermayesi (VC) veya ekibe bedava token ayrılmamıştır; içeriden toplu satış riski yoktur.</li>
-              <li><strong class="text-white">Sürdürülebilir Viral Güç:</strong> Vicdani misyon ile Solana'nın yüksek hızını birleştirerek küresel çapta sadık bir topluluk inşa eder.</li>
+              <li><strong class="text-white">Real-World Utility:</strong> Unlike purely narrative plays, every transaction directly fuels tangible feeding missions.</li>
+              <li><strong class="text-white">100% Fair Launch:</strong> Zero private presales, zero venture capital allocations, and zero team supply allocations—eliminating insider dumping risks.</li>
+              <li><strong class="text-white">Sustainable Community Moat:</strong> Merging philanthropic impact with high-velocity Solana culture creates durable community loyalty.</li>
             </ul>
           </div>
         </details>
@@ -983,14 +983,14 @@
           <summary class="flex items-center justify-between cursor-pointer list-none select-none">
             <div class="flex items-center gap-3 pr-2">
               <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">05</span>
-              <span class="text-sm md:text-base font-bold text-white">Kurucuya neden güvenelim?</span>
+              <span class="text-sm md:text-base font-bold text-white">Why trust the founder and team?</span>
             </div>
             <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed">
-            Kripto felsefesinde güven şahıslara değil, koda dayanır. Kibble mimarisinde kurucu istese dahi yeni token basamaz, işlem vergilerini değiştiremez veya likidite havuzunu geri çekemez; çünkü tüm yetkiler blokzincir üzerinde geri dönülemez şekilde iptal edilmiştir. Geliştirici ekibe gizli token ayrılmadığından kurucunun topluluk üzerine satış yapması söz konusu olamaz.
+            In Web3, trust should be placed in code, not promises. The Kibble architecture eliminates discretionary admin control: the developer cannot mint new tokens, modify fee rates, or remove liquidity pool capital because all administrative keys are permanently revoked on-chain. Additionally, with zero creator token allocations, there is no treasury overhang to dump on the open market.
           </div>
         </details>
 
@@ -999,18 +999,18 @@
           <summary class="flex items-center justify-between cursor-pointer list-none select-none">
             <div class="flex items-center gap-3 pr-2">
               <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">06</span>
-              <span class="text-sm md:text-base font-bold text-white">Sistem nasıl işliyor?</span>
+              <span class="text-sm md:text-base font-bold text-white">How does the system operate?</span>
             </div>
             <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed">
-            Sistem 3 temel adımdan oluşan kapalı bir döngü şeklinde çalışır:
+            The protocol operates through a three-stage closed-loop feedback mechanism:
             <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-400 pl-1">
-              <li><strong class="text-white">İşlem Hacmi:</strong> Kullanıcılar DEX üzerinden token alıp sattığında %2 protokol kesintisi gerçekleşir.</li>
-              <li><strong class="text-white">Hazine Fonu:</strong> Kesintiler aracı olmaksızın doğrudan barınak mama rezervi cüzdanında toplanır.</li>
-              <li><strong class="text-white">Mama & Doğrulama:</strong> Fonlar toptan mamaya dönüştürülüp anlaşmalı barınaklara teslim edilir; video kanıtları zincir üstü hash kayıtlarıyla birlikte kamuoyuna sunulur.</li>
+              <li><strong class="text-white">Trading Volume:</strong> Every decentralized exchange swap or peer-to-peer transfer incurs a 2% native protocol fee.</li>
+              <li><strong class="text-white">Treasury Accumulation:</strong> Fees route deterministically to the dedicated animal shelter reserve wallet without manual intermediaries.</li>
+              <li><strong class="text-white">Food Conversion & Verification:</strong> Reserves are converted to bulk animal food and delivered to partner shelters, followed by video and photo proofs published with on-chain verification data.</li>
             </ol>
           </div>
         </details>
@@ -1184,7 +1184,7 @@
 
   <!-- Scripts -->
   <script>
-    // Güvenli View Switcher (FAQ ve Tokenomics Dahil Edildi)
+    // Navigation View Switcher (Includes FAQ, Tokenomics, Tracker, Contact)
     function switchView(viewName) {
       closeSidebarDrawer();
       const homeView = document.getElementById('home-view');
@@ -1199,7 +1199,7 @@
       const navFaq = document.getElementById('nav-faq');
       const navContact = document.getElementById('nav-contact');
 
-      // Önce tüm görünümleri gizle
+      // Hide all views first
       [homeView, trackerView, tokenomicsView, faqView, contactView].forEach(v => {
         if (v) {
           v.classList.add('hidden');
@@ -1207,12 +1207,12 @@
         }
       });
 
-      // Menü aktifliklerini sıfırla
+      // Reset menu active states
       [navHome, navTracker, navTokenomics, navFaq, navContact].forEach(n => {
         if (n) n.classList.remove('active');
       });
 
-      // İstenen görünüme geç
+      // Activate selected view
       let targetView = homeView;
       let targetNav = navHome;
 
