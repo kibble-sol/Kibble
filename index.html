@@ -226,6 +226,14 @@
       font-weight: 700;
     }
 
+    /* Details/Summary Accordion Styling */
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+    details[open] summary .faq-chevron {
+      transform: rotate(180deg);
+    }
+
     /* Animations */
     .mascot-img-active {
       transform: scale(1.08);
@@ -344,7 +352,7 @@
         <span class="coming-badge">Soon</span>
       </div>
 
-      <!-- 5. Tokenomics & Security (Aktif Görünüm) -->
+      <!-- 5. Tokenomics & Security -->
       <a href="#tokenomics" id="nav-tokenomics" class="nav-item" onclick="switchView('tokenomics')">
         <div class="nav-left">
           <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
@@ -380,13 +388,12 @@
       </div>
 
       <!-- 9. FAQ -->
-      <div class="nav-item" onclick="triggerComingSoon('Frequently Asked Questions')">
+      <a href="#faq" id="nav-faq" class="nav-item" onclick="switchView('faq')">
         <div class="nav-left">
           <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           <span>FAQ</span>
         </div>
-        <span class="coming-badge">Soon</span>
-      </div>
+      </a>
 
       <!-- 10. Community & Contact -->
       <a href="#contact" id="nav-contact" class="nav-item" onclick="switchView('contact')">
@@ -474,68 +481,6 @@
         </div>
       </section>
 
-      <!-- Technical Architecture & Supply -->
-      <section class="py-6">
-        <div class="text-center mb-6">
-          <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-1">Architecture</div>
-          <h2 class="text-2xl font-bold text-white">Tokenomics & Supply Security</h2>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center mb-4">
-          <div class="card-dark p-4 rounded-2xl">
-            <div class="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Total Supply</div>
-            <div class="text-xl font-black text-white mt-1">10,000,000</div>
-            <div class="text-[10px] text-purple-400 mt-0.5">Fixed 10M Cap</div>
-          </div>
-
-          <div class="card-dark p-4 rounded-2xl">
-            <div class="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Liquidity Pool</div>
-            <div class="text-xl font-black text-emerald-400 mt-1">100% LP</div>
-            <div class="text-[10px] text-gray-400 mt-0.5">100% Locked & Burned</div>
-          </div>
-
-          <div class="card-dark p-4 rounded-2xl">
-            <div class="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Transfer Fee</div>
-            <div class="text-xl font-black text-white mt-1">2%</div>
-            <div class="text-[10px] text-purple-400 mt-0.5">Token-2022 Tax</div>
-          </div>
-
-          <div class="card-dark p-4 rounded-2xl">
-            <div class="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Team Allocation</div>
-            <div class="text-xl font-black text-white mt-1">0%</div>
-            <div class="text-[10px] text-purple-400 mt-0.5">Zero Presale / Zero Team</div>
-          </div>
-        </div>
-
-        <!-- Security Specs -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <div class="card-dark p-3.5 rounded-xl flex items-center gap-3">
-            <span class="text-emerald-400 text-lg">🛡️</span>
-            <div>
-              <div class="text-xs font-bold text-white">Mint Authority Revoked</div>
-              <div class="text-[11px] text-gray-400">No new tokens can ever be minted</div>
-            </div>
-          </div>
-          <div class="card-dark p-3.5 rounded-xl flex items-center gap-3">
-            <span class="text-emerald-400 text-lg">🔒</span>
-            <div>
-              <div class="text-xs font-bold text-white">Freeze Authority Revoked</div>
-              <div class="text-[11px] text-gray-400">Wallets cannot be frozen or blacklisted</div>
-            </div>
-          </div>
-          <div onclick="switchView('tokenomics')" class="card-dark p-3.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-purple-500/50 transition">
-            <div class="flex items-center gap-3">
-              <span class="text-purple-400 text-lg">📑</span>
-              <div class="text-left">
-                <div class="text-xs font-bold text-white">Full Security Breakdown</div>
-                <div class="text-[11px] text-purple-300 font-medium">Read protocol architecture ↗</div>
-              </div>
-            </div>
-            <span class="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full font-bold border border-purple-500/30">View</span>
-          </div>
-        </div>
-      </section>
-
       <!-- The Feedback Loop -->
       <section class="py-6">
         <div class="card-highlight p-6 md:p-8 rounded-3xl">
@@ -594,6 +539,9 @@
           </button>
           <button onclick="switchView('tokenomics')" class="hover:text-purple-400 transition flex items-center gap-1 cursor-pointer">
             <span>🛡️</span> Tokenomics & Security
+          </button>
+          <button onclick="switchView('faq')" class="hover:text-purple-400 transition flex items-center gap-1 cursor-pointer">
+            <span>❓</span> FAQ
           </button>
           <button onclick="switchView('contact')" class="hover:text-purple-400 transition flex items-center gap-1 cursor-pointer">
             <span>💬</span> Community & Contact
@@ -732,6 +680,7 @@
         <div class="flex items-center gap-5">
           <button onclick="switchView('home')" class="hover:text-purple-400 transition cursor-pointer">Back to Home</button>
           <button onclick="switchView('tokenomics')" class="hover:text-purple-400 transition cursor-pointer">Tokenomics</button>
+          <button onclick="switchView('faq')" class="hover:text-purple-400 transition cursor-pointer">FAQ</button>
           <button onclick="switchView('contact')" class="hover:text-purple-400 transition cursor-pointer">Community & Contact</button>
         </div>
       </div>
@@ -919,13 +868,172 @@
         <div class="flex items-center gap-5">
           <button onclick="switchView('home')" class="hover:text-purple-400 transition cursor-pointer">Back to Home</button>
           <button onclick="switchView('tracker')" class="hover:text-purple-400 transition cursor-pointer">Live Kibble Tracker</button>
+          <button onclick="switchView('faq')" class="hover:text-purple-400 transition cursor-pointer">FAQ</button>
           <button onclick="switchView('contact')" class="hover:text-purple-400 transition cursor-pointer">Community & Contact</button>
         </div>
       </div>
     </footer>
   </div>
 
-  <!-- 4. COMMUNITY & CONTACT VIEW -->
+  <!-- 4. FAQ VIEW -->
+  <div id="faq-view" class="w-full flex-grow flex flex-col justify-between hidden">
+    <main class="flex-grow max-w-3xl mx-auto px-5 w-full py-8">
+      
+      <!-- Back to Home -->
+      <div class="mb-4">
+        <button onclick="switchView('home')" class="inline-flex items-center gap-2 text-xs font-semibold text-purple-400 hover:text-purple-300 transition cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          Back to Home
+        </button>
+      </div>
+
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-950/80 border border-purple-500/40 text-purple-300 text-xs font-semibold mb-3">
+          <span>❓</span> Clarifications & Protocol Mechanics
+        </div>
+        <h2 class="text-3xl md:text-4xl font-black text-white mb-2">Frequently Asked Questions</h2>
+        <p class="text-gray-300 text-sm max-w-lg mx-auto">
+          Everything you need to know about Kibble, smart contract security, shelter allocations, and founder commitments.
+        </p>
+      </div>
+
+      <!-- Accordion FAQ Items -->
+      <div class="space-y-3.5 mb-10">
+
+        <!-- Q1 -->
+        <details class="card-dark rounded-2xl p-4 md:p-5 border border-purple-500/20 group transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+            <div class="flex items-center gap-3 pr-2">
+              <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">01</span>
+              <span class="text-sm md:text-base font-bold text-white">Kibble nedir? (What is Kibble?)</span>
+            </div>
+            <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed">
+            Kibble ($KIBBLE), Solana blokzinciri üzerinde inşa edilmiş, Web3 kültürünü ve işlem hacmini doğrudan sokak hayvanlarına ve bakıma muhtaç barınaklara somut gıda (mama) desteğine dönüştüren şeffaf bir sosyal refah projesidir. Tipik, içi boş memecoin'lerin aksine her işlemde gerçek dünyaya pozitif bir ayak izi bırakır.
+          </div>
+        </details>
+
+        <!-- Q2 -->
+        <details class="card-dark rounded-2xl p-4 md:p-5 border border-purple-500/20 group transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+            <div class="flex items-center gap-3 pr-2">
+              <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">02</span>
+              <span class="text-sm md:text-base font-bold text-white">Bağış barınaklara nasıl ulaşıyor?</span>
+            </div>
+            <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed">
+            Topluluktan hiçbir zaman manuel para veya bağış toplanmaz. Solana Token-2022 transfer hook mekanizmasıyla her işlemden otomatik ve deterministik olarak kesilen %2'lik pay barınak hazinesinde toplanır. Biriken fonlar periyodik olarak toptan kuru mama alımına aktarılır; faturalar, teslimat kayıtları ve besleme süreçleri <strong class="text-purple-300">"Proof-of-Feed"</strong> video ve fotoğraflarıyla zincir üstü verilerle eş zamanlı yayınlanır.
+          </div>
+        </details>
+
+        <!-- Q3 -->
+        <details class="card-dark rounded-2xl p-4 md:p-5 border border-purple-500/20 group transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+            <div class="flex items-center gap-3 pr-2">
+              <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">03</span>
+              <span class="text-sm md:text-base font-bold text-white">Kibble sözleşmesi güvenli mi?</span>
+            </div>
+            <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed space-y-2">
+            <p>Evet, sözleşme en katı merkeziyetsiz Web3 güvenlik prensiplerine göre yapılandırılmıştır:</p>
+            <ul class="list-disc list-inside space-y-1 text-gray-400 pl-1">
+              <li><strong class="text-white">Solana Token-2022:</strong> En gelişmiş Solana yerel standart programı.</li>
+              <li><strong class="text-white">Mint Authority Revoked:</strong> Yeni token basma yetkisi kalıcı olarak iptal edilmiştir; arz 10.000.000 ile sınırlıdır ve asla artırılamaz.</li>
+              <li><strong class="text-white">Freeze Authority Revoked:</strong> Cüzdan dondurma veya kara listeye alma yetkisi tamamen kaldırılmıştır.</li>
+              <li><strong class="text-white">%100 LP Burned:</strong> Likidite havuzu oluşturulduğunda LP tokenları yakılır; likiditenin çekilmesi (rug-pull) matematiksel olarak imkansızdır.</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- Q4 -->
+        <details class="card-dark rounded-2xl p-4 md:p-5 border border-purple-500/20 group transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+            <div class="flex items-center gap-3 pr-2">
+              <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">04</span>
+              <span class="text-sm md:text-base font-bold text-white">Neden Kibble'a yatırım yapalım?</span>
+            </div>
+            <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed space-y-2">
+            <p>Kibble, piyasadaki klasik spekülatif projelerden 3 temel noktada ayrışır:</p>
+            <ul class="list-disc list-inside space-y-1 text-gray-400 pl-1">
+              <li><strong class="text-white">Gerçek Dünya Faydası (Real-World Utility):</strong> Yalnızca grafik hareketliliği değil, her işlemde barınaklara ulaşan somut bir fayda döngüsü bulunur.</li>
+              <li><strong class="text-white">Adil Dağıtım (Fair Launch):</strong> Ön satış (presale), risk sermayesi (VC) veya ekibe bedava token ayrılmamıştır; içeriden toplu satış riski yoktur.</li>
+              <li><strong class="text-white">Sürdürülebilir Viral Güç:</strong> Vicdani misyon ile Solana'nın yüksek hızını birleştirerek küresel çapta sadık bir topluluk inşa eder.</li>
+            </ul>
+          </div>
+        </details>
+
+        <!-- Q5 -->
+        <details class="card-dark rounded-2xl p-4 md:p-5 border border-purple-500/20 group transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+            <div class="flex items-center gap-3 pr-2">
+              <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">05</span>
+              <span class="text-sm md:text-base font-bold text-white">Kurucuya neden güvenelim?</span>
+            </div>
+            <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed">
+            Kripto felsefesinde güven şahıslara değil, koda dayanır. Kibble mimarisinde kurucu istese dahi yeni token basamaz, işlem vergilerini değiştiremez veya likidite havuzunu geri çekemez; çünkü tüm yetkiler blokzincir üzerinde geri dönülemez şekilde iptal edilmiştir. Geliştirici ekibe gizli token ayrılmadığından kurucunun topluluk üzerine satış yapması söz konusu olamaz.
+          </div>
+        </details>
+
+        <!-- Q6 -->
+        <details class="card-dark rounded-2xl p-4 md:p-5 border border-purple-500/20 group transition">
+          <summary class="flex items-center justify-between cursor-pointer list-none select-none">
+            <div class="flex items-center gap-3 pr-2">
+              <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">06</span>
+              <span class="text-sm md:text-base font-bold text-white">Sistem nasıl işliyor?</span>
+            </div>
+            <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed">
+            Sistem 3 temel adımdan oluşan kapalı bir döngü şeklinde çalışır:
+            <ol class="list-decimal list-inside mt-2 space-y-1 text-gray-400 pl-1">
+              <li><strong class="text-white">İşlem Hacmi:</strong> Kullanıcılar DEX üzerinden token alıp sattığında %2 protokol kesintisi gerçekleşir.</li>
+              <li><strong class="text-white">Hazine Fonu:</strong> Kesintiler aracı olmaksızın doğrudan barınak mama rezervi cüzdanında toplanır.</li>
+              <li><strong class="text-white">Mama & Doğrulama:</strong> Fonlar toptan mamaya dönüştürülüp anlaşmalı barınaklara teslim edilir; video kanıtları zincir üstü hash kayıtlarıyla birlikte kamuoyuna sunulur.</li>
+            </ol>
+          </div>
+        </details>
+
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-purple-900/30 bg-[#07050d] py-6">
+      <div class="max-w-4xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+        <div>🐾 2026 <span class="notranslate font-semibold" translate="no">Kibble Sol</span>. Built for the paws.</div>
+        <div class="flex items-center gap-5">
+          <button onclick="switchView('home')" class="hover:text-purple-400 transition cursor-pointer">Back to Home</button>
+          <button onclick="switchView('tracker')" class="hover:text-purple-400 transition cursor-pointer">Live Kibble Tracker</button>
+          <button onclick="switchView('tokenomics')" class="hover:text-purple-400 transition cursor-pointer">Tokenomics</button>
+          <button onclick="switchView('contact')" class="hover:text-purple-400 transition cursor-pointer">Community & Contact</button>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- 5. COMMUNITY & CONTACT VIEW -->
   <div id="contact-view" class="w-full flex-grow flex flex-col justify-between hidden">
     <main class="flex-grow max-w-3xl mx-auto px-5 w-full py-10">
       
@@ -1076,21 +1184,23 @@
 
   <!-- Scripts -->
   <script>
-    // Güvenli View Switcher (Tokenomics View Dahil Edildi)
+    // Güvenli View Switcher (FAQ ve Tokenomics Dahil Edildi)
     function switchView(viewName) {
       closeSidebarDrawer();
       const homeView = document.getElementById('home-view');
       const trackerView = document.getElementById('tracker-view');
       const tokenomicsView = document.getElementById('tokenomics-view');
+      const faqView = document.getElementById('faq-view');
       const contactView = document.getElementById('contact-view');
 
       const navHome = document.getElementById('nav-home');
       const navTracker = document.getElementById('nav-tracker');
       const navTokenomics = document.getElementById('nav-tokenomics');
+      const navFaq = document.getElementById('nav-faq');
       const navContact = document.getElementById('nav-contact');
 
       // Önce tüm görünümleri gizle
-      [homeView, trackerView, tokenomicsView, contactView].forEach(v => {
+      [homeView, trackerView, tokenomicsView, faqView, contactView].forEach(v => {
         if (v) {
           v.classList.add('hidden');
           v.style.display = 'none';
@@ -1098,7 +1208,7 @@
       });
 
       // Menü aktifliklerini sıfırla
-      [navHome, navTracker, navTokenomics, navContact].forEach(n => {
+      [navHome, navTracker, navTokenomics, navFaq, navContact].forEach(n => {
         if (n) n.classList.remove('active');
       });
 
@@ -1112,6 +1222,9 @@
       } else if (viewName === 'tokenomics') {
         targetView = tokenomicsView;
         targetNav = navTokenomics;
+      } else if (viewName === 'faq') {
+        targetView = faqView;
+        targetNav = navFaq;
       } else if (viewName === 'contact') {
         targetView = contactView;
         targetNav = navContact;
