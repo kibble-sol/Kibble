@@ -344,14 +344,13 @@
         <span class="coming-badge">Soon</span>
       </div>
 
-      <!-- 5. Tokenomics & Security -->
-      <div class="nav-item" onclick="triggerComingSoon('Tokenomics & Security Overview')">
+      <!-- 5. Tokenomics & Security (Aktif Görünüm) -->
+      <a href="#tokenomics" id="nav-tokenomics" class="nav-item" onclick="switchView('tokenomics')">
         <div class="nav-left">
           <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
           <span>Tokenomics & Security</span>
         </div>
-        <span class="coming-badge">Soon</span>
-      </div>
+      </a>
 
       <!-- 6. Distribution & Bubblemaps -->
       <div class="nav-item" onclick="triggerComingSoon('Holder Distribution & Bubblemaps')">
@@ -406,7 +405,7 @@
       <section class="pt-10 pb-8 text-center">
         <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-950/80 border border-purple-500/40 text-purple-300 text-xs font-semibold mb-6">
           <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          Pre-Launch Stage • <span class="notranslate" translate="no">Solana SPL</span> Standard
+          Pre-Launch Stage • <span class="notranslate" translate="no">Solana Token-2022</span> Standard
         </div>
         
         <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-5 leading-tight text-white">
@@ -425,9 +424,8 @@
             <span>🥣</span>
             <span>Feed the Dog (Tracker)</span>
           </button>
-          <button onclick="openModal()" class="px-6 py-3.5 rounded-xl bg-[#171228] hover:bg-[#201938] border border-purple-500/40 text-white font-bold text-xs md:text-sm shadow-lg shadow-purple-600/10 transition flex items-center gap-2 cursor-pointer">
-            <span>Buy <span class="notranslate" translate="no">$KIBBLE</span></span>
-            <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded text-purple-200 font-bold uppercase tracking-wide">Coming Soon</span>
+          <button onclick="switchView('tokenomics')" class="px-6 py-3.5 rounded-xl bg-[#171228] hover:bg-[#201938] border border-purple-500/40 text-white font-bold text-xs md:text-sm shadow-lg shadow-purple-600/10 transition flex items-center gap-2 cursor-pointer">
+            <span>🛡️ View Tokenomics</span>
           </button>
           <a href="https://t.me/kibblesol" target="_blank" class="px-6 py-3.5 rounded-xl bg-[#171228] hover:bg-[#201938] border border-purple-500/40 text-white font-bold text-xs md:text-sm shadow-lg shadow-purple-600/10 transition">
             Join Telegram 💬
@@ -497,15 +495,15 @@
           </div>
 
           <div class="card-dark p-4 rounded-2xl">
-            <div class="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Team Allocation</div>
-            <div class="text-xl font-black text-white mt-1">0%</div>
-            <div class="text-[10px] text-purple-400 mt-0.5">Zero Team Dumps</div>
+            <div class="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Transfer Fee</div>
+            <div class="text-xl font-black text-white mt-1">2%</div>
+            <div class="text-[10px] text-purple-400 mt-0.5">Token-2022 Tax</div>
           </div>
 
           <div class="card-dark p-4 rounded-2xl">
-            <div class="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Presale / Insiders</div>
+            <div class="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Team Allocation</div>
             <div class="text-xl font-black text-white mt-1">0%</div>
-            <div class="text-[10px] text-purple-400 mt-0.5">Fair Launch Model</div>
+            <div class="text-[10px] text-purple-400 mt-0.5">Zero Presale / Zero Team</div>
           </div>
         </div>
 
@@ -515,7 +513,7 @@
             <span class="text-emerald-400 text-lg">🛡️</span>
             <div>
               <div class="text-xs font-bold text-white">Mint Authority Revoked</div>
-              <div class="text-[11px] text-gray-400">No new tokens can ever be created</div>
+              <div class="text-[11px] text-gray-400">No new tokens can ever be minted</div>
             </div>
           </div>
           <div class="card-dark p-3.5 rounded-xl flex items-center gap-3">
@@ -525,15 +523,15 @@
               <div class="text-[11px] text-gray-400">Wallets cannot be frozen or blacklisted</div>
             </div>
           </div>
-          <div onclick="openModal()" class="card-dark p-3.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-purple-500/50 transition">
+          <div onclick="switchView('tokenomics')" class="card-dark p-3.5 rounded-xl flex items-center justify-between cursor-pointer hover:border-purple-500/50 transition">
             <div class="flex items-center gap-3">
-              <span class="text-purple-400 text-lg">⚡</span>
+              <span class="text-purple-400 text-lg">📑</span>
               <div class="text-left">
-                <div class="text-xs font-bold text-white">Live Chart & Swap</div>
-                <div class="text-[11px] text-yellow-400 font-medium">Coming Soon on Launch</div>
+                <div class="text-xs font-bold text-white">Full Security Breakdown</div>
+                <div class="text-[11px] text-purple-300 font-medium">Read protocol architecture ↗</div>
               </div>
             </div>
-            <span class="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full font-bold border border-purple-500/30">Soon</span>
+            <span class="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded-full font-bold border border-purple-500/30">View</span>
           </div>
         </div>
       </section>
@@ -593,6 +591,9 @@
         <div class="flex items-center gap-5">
           <button onclick="switchView('tracker')" class="hover:text-purple-400 transition flex items-center gap-1 cursor-pointer">
             <span>🥣</span> Live Kibble Tracker
+          </button>
+          <button onclick="switchView('tokenomics')" class="hover:text-purple-400 transition flex items-center gap-1 cursor-pointer">
+            <span>🛡️</span> Tokenomics & Security
           </button>
           <button onclick="switchView('contact')" class="hover:text-purple-400 transition flex items-center gap-1 cursor-pointer">
             <span>💬</span> Community & Contact
@@ -730,13 +731,201 @@
         <div>🐾 2026 <span class="notranslate font-semibold" translate="no">Kibble Sol</span>. Built for the paws.</div>
         <div class="flex items-center gap-5">
           <button onclick="switchView('home')" class="hover:text-purple-400 transition cursor-pointer">Back to Home</button>
+          <button onclick="switchView('tokenomics')" class="hover:text-purple-400 transition cursor-pointer">Tokenomics</button>
           <button onclick="switchView('contact')" class="hover:text-purple-400 transition cursor-pointer">Community & Contact</button>
         </div>
       </div>
     </footer>
   </div>
 
-  <!-- 3. COMMUNITY & CONTACT VIEW -->
+  <!-- 3. TOKENOMICS & SECURITY VIEW -->
+  <div id="tokenomics-view" class="w-full flex-grow flex flex-col justify-between hidden">
+    <main class="flex-grow max-w-4xl mx-auto px-5 w-full py-8">
+      
+      <!-- Back to Home -->
+      <div class="mb-4">
+        <button onclick="switchView('home')" class="inline-flex items-center gap-2 text-xs font-semibold text-purple-400 hover:text-purple-300 transition cursor-pointer">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          Back to Home
+        </button>
+      </div>
+
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-950/80 border border-purple-500/40 text-purple-300 text-xs font-semibold mb-3">
+          <span>🛡️</span> Protocol Specifications
+        </div>
+        <h2 class="text-3xl md:text-4xl font-black text-white mb-2">Tokenomics & Security</h2>
+        <p class="text-gray-300 text-sm max-w-xl mx-auto">
+          Deterministic on-chain mechanics with 0% presale, 100% burned liquidity, and strictly verified Solana Token-2022 architecture.
+        </p>
+      </div>
+
+      <!-- Key Metrics Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center mb-6">
+        <div class="card-highlight p-5 rounded-2xl">
+          <div class="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Total Supply</div>
+          <div class="text-2xl font-black text-white mt-1">10,000,000</div>
+          <div class="text-[11px] text-purple-300 mt-1 font-mono">10M $KIBBLE</div>
+        </div>
+
+        <div class="card-highlight p-5 rounded-2xl">
+          <div class="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Blockchain Standard</div>
+          <div class="text-2xl font-black text-purple-300 mt-1">Token-2022</div>
+          <div class="text-[11px] text-gray-400 mt-1">Solana Native Program</div>
+        </div>
+
+        <div class="card-highlight p-5 rounded-2xl">
+          <div class="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Transfer Fee (Tax)</div>
+          <div class="text-2xl font-black text-cyan-400 mt-1">2%</div>
+          <div class="text-[11px] text-gray-400 mt-1">Deterministic Routing</div>
+        </div>
+
+        <div class="card-highlight p-5 rounded-2xl">
+          <div class="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Initial Liquidity</div>
+          <div class="text-2xl font-black text-emerald-400 mt-1">100%</div>
+          <div class="text-[11px] text-emerald-400/90 mt-1 font-bold">Burned Forever 🔥</div>
+        </div>
+      </div>
+
+      <!-- Allocation & Security Deep Dive -->
+      <div class="grid md:grid-cols-2 gap-5 mb-8">
+        
+        <!-- Supply Breakdown -->
+        <div class="card-dark p-6 rounded-3xl flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <span>📊</span> Token Supply Distribution
+              </h3>
+              <span class="text-xs bg-purple-950 border border-purple-500/30 text-purple-300 px-2.5 py-0.5 rounded-full font-bold">Fair Launch</span>
+            </div>
+
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between text-xs font-semibold mb-1">
+                  <span class="text-gray-300">DEX Liquidity Pool (Burned)</span>
+                  <span class="text-emerald-400 font-bold">100% (10,000,000 $KIBBLE)</span>
+                </div>
+                <div class="w-full h-2.5 bg-purple-950/80 rounded-full overflow-hidden border border-purple-500/20">
+                  <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full w-full"></div>
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-purple-900/30 grid grid-cols-2 gap-3 text-xs">
+                <div class="p-3 rounded-xl bg-purple-950/20 border border-purple-500/10">
+                  <div class="text-gray-400 text-[10px] uppercase font-bold">Team Allocation</div>
+                  <div class="text-white font-bold text-sm mt-0.5">0%</div>
+                  <div class="text-[10px] text-gray-500">Zero dev tokens</div>
+                </div>
+                <div class="p-3 rounded-xl bg-purple-950/20 border border-purple-500/10">
+                  <div class="text-gray-400 text-[10px] uppercase font-bold">Presale / VCs</div>
+                  <div class="text-white font-bold text-sm mt-0.5">0%</div>
+                  <div class="text-[10px] text-gray-500">No insider dumping</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 p-3 rounded-xl bg-[#07050d] border border-purple-500/20 text-xs text-gray-300 flex items-center gap-2.5">
+            <span class="text-base">🔥</span>
+            <span>All 10,000,000 $KIBBLE tokens are directly deployed to the decentralized liquidity pool and burned at genesis.</span>
+          </div>
+        </div>
+
+        <!-- Security Hardening -->
+        <div class="card-dark p-6 rounded-3xl flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                <span>🔒</span> Smart Contract Security
+              </h3>
+              <span class="text-xs bg-emerald-950 border border-emerald-500/30 text-emerald-400 px-2.5 py-0.5 rounded-full font-bold">Immutable</span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="p-3.5 rounded-2xl bg-purple-950/30 border border-purple-500/20 flex items-start gap-3">
+                <span class="text-emerald-400 text-lg">✓</span>
+                <div>
+                  <div class="text-xs font-bold text-white">Mint Authority Revoked</div>
+                  <p class="text-[11px] text-gray-300 mt-0.5 leading-relaxed">
+                    The mint function is permanently revoked. The total token supply cannot exceed 10,000,000 under any circumstances.
+                  </p>
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-2xl bg-purple-950/30 border border-purple-500/20 flex items-start gap-3">
+                <span class="text-emerald-400 text-lg">✓</span>
+                <div>
+                  <div class="text-xs font-bold text-white">Freeze Authority Revoked</div>
+                  <p class="text-[11px] text-gray-300 mt-0.5 leading-relaxed">
+                    No administrator has the capability to freeze balances, censor transfers, or blacklist individual wallet holders.
+                  </p>
+                </div>
+              </div>
+
+              <div class="p-3.5 rounded-2xl bg-purple-950/30 border border-purple-500/20 flex items-start gap-3">
+                <span class="text-emerald-400 text-lg">✓</span>
+                <div>
+                  <div class="text-xs font-bold text-white">100% Liquidity Burn (LP Burned)</div>
+                  <p class="text-[11px] text-gray-300 mt-0.5 leading-relaxed">
+                    Initial DEX liquidity tokens are transferred to an inaccessible burn address, making rug-pulls mathematically impossible.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Transfer Fee Breakdown -->
+      <div class="card-highlight p-6 rounded-3xl mb-8">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="text-2xl">⚙️</span>
+          <div>
+            <h3 class="text-lg font-bold text-white">How the 2% Transfer Fee Works</h3>
+            <p class="text-xs text-gray-300">Solana Token-2022 Transfer Hook Extension architecture</p>
+          </div>
+        </div>
+        <p class="text-xs text-gray-300 leading-relaxed mb-4">
+          Unlike legacy SPL tokens requiring third-party DEX routers for taxation, <span class="notranslate font-semibold text-purple-300" translate="no">$KIBBLE</span> uses the native Token-2022 fee harvest program. The 2% fee is automatically extracted at the blockchain protocol level on each transfer and routed toward our verified animal shelter food procurement reserves.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
+          <div class="p-3 rounded-xl bg-[#0f0a1c] border border-purple-500/20">
+            <div class="text-[10px] uppercase font-bold text-gray-400">P2P & DEX Transfers</div>
+            <div class="text-base font-black text-white mt-1">2% Flat Rate</div>
+          </div>
+          <div class="p-3 rounded-xl bg-[#0f0a1c] border border-purple-500/20">
+            <div class="text-[10px] uppercase font-bold text-gray-400">Execution Layer</div>
+            <div class="text-base font-black text-cyan-400 mt-1">Solana Native</div>
+          </div>
+          <div class="p-3 rounded-xl bg-[#0f0a1c] border border-purple-500/20">
+            <div class="text-[10px] uppercase font-bold text-gray-400">Primary Purpose</div>
+            <div class="text-base font-black text-emerald-400 mt-1">Shelter Food Supply</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-purple-900/30 bg-[#07050d] py-6">
+      <div class="max-w-4xl mx-auto px-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+        <div>🐾 2026 <span class="notranslate font-semibold" translate="no">Kibble Sol</span>. Built for the paws.</div>
+        <div class="flex items-center gap-5">
+          <button onclick="switchView('home')" class="hover:text-purple-400 transition cursor-pointer">Back to Home</button>
+          <button onclick="switchView('tracker')" class="hover:text-purple-400 transition cursor-pointer">Live Kibble Tracker</button>
+          <button onclick="switchView('contact')" class="hover:text-purple-400 transition cursor-pointer">Community & Contact</button>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- 4. COMMUNITY & CONTACT VIEW -->
   <div id="contact-view" class="w-full flex-grow flex flex-col justify-between hidden">
     <main class="flex-grow max-w-3xl mx-auto px-5 w-full py-10">
       
@@ -887,19 +1076,21 @@
 
   <!-- Scripts -->
   <script>
-    // Güvenli View Switcher (Çakışma önleyici display yönetimiyle)
+    // Güvenli View Switcher (Tokenomics View Dahil Edildi)
     function switchView(viewName) {
       closeSidebarDrawer();
       const homeView = document.getElementById('home-view');
       const trackerView = document.getElementById('tracker-view');
+      const tokenomicsView = document.getElementById('tokenomics-view');
       const contactView = document.getElementById('contact-view');
 
       const navHome = document.getElementById('nav-home');
       const navTracker = document.getElementById('nav-tracker');
+      const navTokenomics = document.getElementById('nav-tokenomics');
       const navContact = document.getElementById('nav-contact');
 
       // Önce tüm görünümleri gizle
-      [homeView, trackerView, contactView].forEach(v => {
+      [homeView, trackerView, tokenomicsView, contactView].forEach(v => {
         if (v) {
           v.classList.add('hidden');
           v.style.display = 'none';
@@ -907,7 +1098,7 @@
       });
 
       // Menü aktifliklerini sıfırla
-      [navHome, navTracker, navContact].forEach(n => {
+      [navHome, navTracker, navTokenomics, navContact].forEach(n => {
         if (n) n.classList.remove('active');
       });
 
@@ -918,6 +1109,9 @@
       if (viewName === 'tracker') {
         targetView = trackerView;
         targetNav = navTracker;
+      } else if (viewName === 'tokenomics') {
+        targetView = tokenomicsView;
+        targetNav = navTokenomics;
       } else if (viewName === 'contact') {
         targetView = contactView;
         targetNav = navContact;
