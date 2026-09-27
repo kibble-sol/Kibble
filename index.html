@@ -226,16 +226,20 @@
       font-weight: 700;
     }
 
-    /* Telegram Widget Embed Styling */
-    .tg-embed-wrapper {
-      display: flex;
-      justify-content: center;
+    /* Live Feed Iframe Container */
+    .feed-container {
       width: 100%;
+      height: 650px;
+      border-radius: 20px;
       overflow: hidden;
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      background-color: #0b0716;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     }
-    .tg-embed-wrapper iframe {
-      max-width: 100% !important;
-      border-radius: 16px !important;
+    .feed-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     /* Details/Summary Accordion Styling */
@@ -883,7 +887,7 @@
         <div class="flex items-center gap-5">
           <button onclick="switchView('home')" class="hover:text-purple-400 transition cursor-pointer">Back to Home</button>
           <button onclick="switchView('tracker')" class="hover:text-purple-400 transition cursor-pointer">Live Kibble Tracker</button>
-          <button onclick="switchView('announcements')" class="hover:text-purple-400 transition cursor-pointer">Announcements</button>
+          <button onclick="switchView('tokenomics')" class="hover:text-purple-400 transition cursor-pointer">Tokenomics</button>
           <button onclick="switchView('faq')" class="hover:text-purple-400 transition cursor-pointer">FAQ</button>
           <button onclick="switchView('contact')" class="hover:text-purple-400 transition cursor-pointer">Community & Contact</button>
         </div>
@@ -891,7 +895,7 @@
     </footer>
   </div>
 
-  <!-- 4. LIVE DEV ANNOUNCEMENTS VIEW -->
+  <!-- 4. LIVE DEV ANNOUNCEMENTS VIEW (TELEGRAM LIVE FEED VIA EMBEDDED IFRAME) -->
   <div id="announcements-view" class="w-full flex-grow flex flex-col justify-between hidden">
     <main class="flex-grow max-w-3xl mx-auto px-5 w-full py-8">
       
@@ -913,28 +917,29 @@
         </div>
         <h2 class="text-3xl md:text-4xl font-black text-white mb-2">Developer Announcements</h2>
         <p class="text-gray-300 text-sm max-w-lg mx-auto">
-          Direct real-time development feed synced from our official Telegram channel. Follow transparent progress, smart contract tests, and release stages.
+          Direct real-time development feed synced automatically from our official Telegram channel. Follow transparent progress, smart contract tests, and release stages.
         </p>
       </div>
 
-      <!-- Telegram Widget Container -->
-      <div class="card-highlight p-6 md:p-8 rounded-3xl mb-8 flex flex-col items-center">
-        <div class="w-full flex items-center justify-between mb-5 border-b border-purple-900/40 pb-3">
+      <!-- Telegram Channel Live Feed Embed -->
+      <div class="card-highlight p-4 md:p-6 rounded-3xl mb-8 flex flex-col items-center">
+        <div class="w-full flex items-center justify-between mb-4 border-b border-purple-900/40 pb-3">
           <div class="flex items-center gap-2">
             <span class="text-xl">📢</span>
-            <span class="text-xs uppercase font-extrabold text-purple-300 tracking-wider">Latest Official Telegram Dispatch</span>
+            <span class="text-xs uppercase font-extrabold text-purple-300 tracking-wider">Official Telegram Channel Stream</span>
           </div>
           <a href="https://t.me/kibblesol" target="_blank" class="text-xs text-purple-400 hover:text-purple-300 font-bold transition flex items-center gap-1">
-            Open Channel ↗
+            Open App ↗
           </a>
         </div>
 
-        <div class="tg-embed-wrapper w-full">
-          <script async src="https://telegram.org/js/telegram-widget.js?22" 
-                  data-telegram-post="kibblesol/2" 
-                  data-width="100%" 
-                  data-userpic="true" 
-                  data-dark="1"></script>
+        <!-- Live Channel Feed -->
+        <div class="feed-container">
+          <iframe 
+            src="https://t.me/s/kibblesol" 
+            title="Kibble Telegram Live Stream"
+            loading="lazy">
+          </iframe>
         </div>
       </div>
 
@@ -1062,7 +1067,7 @@
           <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed space-y-2">
             <p>Kibble differentiates itself through three foundational pillars:</p>
             <ul class="list-disc list-inside space-y-1 text-gray-400 pl-1">
-              <li><strong class="text-white">Real-World Utility:</strong> Unlike purely narrative plays, every transaction directly fuels tangible feeding missions.</li>
+              <li><strong class="text-white">Real-World Utility:</strong> Bulundurduğu kullanım alanları sayesinde işlem hacmi sokak hayvanlarına mama olarak döner.</li>
               <li><strong class="text-white">100% Fair Launch:</strong> Zero private presales, zero venture capital allocations, and zero team supply allocations—eliminating insider dumping risks.</li>
               <li><strong class="text-white">Sustainable Community Moat:</strong> Merging philanthropic impact with high-velocity Solana culture creates durable community loyalty.</li>
             </ul>
@@ -1118,7 +1123,7 @@
           <button onclick="switchView('home')" class="hover:text-purple-400 transition cursor-pointer">Back to Home</button>
           <button onclick="switchView('tracker')" class="hover:text-purple-400 transition cursor-pointer">Live Kibble Tracker</button>
           <button onclick="switchView('tokenomics')" class="hover:text-purple-400 transition cursor-pointer">Tokenomics</button>
-          <button onclick="switchView('announcements')" class="hover:text-purple-400 transition cursor-pointer">Announcements</button>
+          <button onclick="switchView('faq')" class="hover:text-purple-400 transition cursor-pointer">FAQ</button>
           <button onclick="switchView('contact')" class="hover:text-purple-400 transition cursor-pointer">Community & Contact</button>
         </div>
       </div>
