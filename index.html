@@ -369,11 +369,11 @@
         <span class="coming-badge">Soon</span>
       </div>
 
-      <!-- 7. Live Dev Announcements -->
+      <!-- 7. Announcements -->
       <a href="#announcements" id="nav-announcements" class="nav-item" onclick="switchView('announcements')">
         <div class="nav-left">
           <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
-          <span>Live Dev Announcements</span>
+          <span>Announcements</span>
         </div>
       </a>
 
@@ -879,9 +879,9 @@
     </footer>
   </div>
 
-  <!-- 4. LIVE DEV ANNOUNCEMENTS VIEW (REAL-TIME FIREBASE SYNC FROM TOPIC #2) -->
+  <!-- 4. ANNOUNCEMENTS VIEW (MINIMAL & CLEAN) -->
   <div id="announcements-view" class="w-full flex-grow flex flex-col justify-between hidden">
-    <main class="flex-grow max-w-3xl mx-auto px-5 w-full py-8">
+    <main class="flex-grow max-w-2xl mx-auto px-5 w-full py-8">
       
       <!-- Back to Home -->
       <div class="mb-4">
@@ -897,47 +897,20 @@
       <div class="text-center mb-8">
         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-950/80 border border-purple-500/40 text-purple-300 text-xs font-semibold mb-3">
           <span class="inline-block w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-          <span>Live Dev Broadcast</span>
+          <span>Feed</span>
         </div>
-        <h2 class="text-3xl md:text-4xl font-black text-white mb-2">Developer Announcements</h2>
-        <p class="text-gray-300 text-sm max-w-lg mx-auto">
-          Direct real-time feed synced instantly from the official Telegram forum topic. Follow development progress, smart contract tests, and release stages.
+        <h2 class="text-3xl font-black text-white mb-2">Announcements</h2>
+        <p class="text-gray-400 text-xs max-w-sm mx-auto">
+          Direct updates and news from the Kibble team.
         </p>
       </div>
 
-      <!-- Feed Subheading -->
-      <div class="flex items-center justify-between px-2 mb-4">
-        <div class="flex items-center gap-2">
-          <span class="text-lg">📢</span>
-          <span class="text-xs uppercase font-extrabold text-purple-300 tracking-wider">Live Forum Feed (Topic #2)</span>
+      <!-- Feed Container -->
+      <div id="announcements-feed" class="flex flex-col gap-3 mb-8 min-h-[120px]">
+        <div class="card-highlight p-5 rounded-2xl flex flex-col gap-3 animate-pulse">
+          <div class="h-3 bg-purple-900/50 rounded w-1/4"></div>
+          <div class="h-3 bg-purple-900/30 rounded w-full"></div>
         </div>
-        <a href="https://t.me/kibblesol/2" target="_blank" class="text-xs text-purple-400 hover:text-purple-300 font-bold transition flex items-center gap-1">
-          Open Forum ↗
-        </a>
-      </div>
-
-      <!-- Announcements Cards Container (Dynamically Synced via Firebase) -->
-      <div id="announcements-feed" class="flex flex-col gap-4 mb-8 min-h-[160px]">
-        <!-- Loading Skeleton -->
-        <div class="card-highlight p-6 rounded-3xl flex flex-col gap-3 animate-pulse">
-          <div class="flex items-center justify-between">
-            <div class="h-4 bg-purple-900/50 rounded w-1/4"></div>
-            <div class="h-3 bg-purple-900/40 rounded w-16"></div>
-          </div>
-          <div class="h-3 bg-purple-900/30 rounded w-full mt-2"></div>
-          <div class="h-3 bg-purple-900/30 rounded w-4/5"></div>
-        </div>
-      </div>
-
-      <!-- Official Links Info Banner -->
-      <div class="p-4 rounded-2xl bg-[#0f0a1c] border border-purple-500/20 text-xs text-gray-400 flex items-center justify-between gap-3">
-        <div class="flex items-center gap-2.5">
-          <span class="text-lg">🔔</span>
-          <span>Never miss an update. Join our Telegram group and enable notifications.</span>
-        </div>
-        <a href="https://t.me/kibblesol/2" target="_blank" class="shrink-0 px-3.5 py-1.5 rounded-xl bg-purple-900/60 hover:bg-purple-800 border border-purple-500/40 text-purple-200 text-xs font-bold transition">
-          Join Topic
-        </a>
       </div>
 
     </main>
@@ -1025,7 +998,7 @@
               <span class="text-sm md:text-base font-bold text-white">Is the Kibble smart contract secure?</span>
             </div>
             <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
           </summary>
           <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed space-y-2">
@@ -1109,7 +1082,6 @@
           <button onclick="switchView('home')" class="hover:text-purple-400 transition cursor-pointer">Back to Home</button>
           <button onclick="switchView('tracker')" class="hover:text-purple-400 transition cursor-pointer">Live Kibble Tracker</button>
           <button onclick="switchView('tokenomics')" class="hover:text-purple-400 transition cursor-pointer">Tokenomics</button>
-          <button onclick="switchView('announcements')" class="hover:text-purple-400 transition cursor-pointer">Announcements</button>
           <button onclick="switchView('faq')" class="hover:text-purple-400 transition cursor-pointer">FAQ</button>
           <button onclick="switchView('contact')" class="hover:text-purple-400 transition cursor-pointer">Community & Contact</button>
         </div>
@@ -1268,7 +1240,7 @@
 
   <!-- Scripts -->
   <script>
-    // Navigation View Switcher (Includes FAQ, Tokenomics, Tracker, Announcements, Contact)
+    // Navigation View Switcher
     function switchView(viewName) {
       closeSidebarDrawer();
       const homeView = document.getElementById('home-view');
@@ -1285,7 +1257,6 @@
       const navFaq = document.getElementById('nav-faq');
       const navContact = document.getElementById('nav-contact');
 
-      // Hide all views first
       [homeView, trackerView, tokenomicsView, announcementsView, faqView, contactView].forEach(v => {
         if (v) {
           v.classList.add('hidden');
@@ -1293,12 +1264,10 @@
         }
       });
 
-      // Reset menu active states
       [navHome, navTracker, navTokenomics, navAnnouncements, navFaq, navContact].forEach(n => {
         if (n) n.classList.remove('active');
       });
 
-      // Activate selected view
       let targetView = homeView;
       let targetNav = navHome;
 
@@ -1330,7 +1299,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // REAL-TIME FORUM ANNOUNCEMENTS LISTENER VIA FIREBASE
+    // REAL-TIME ANNOUNCEMENTS LISTENER (SADE & TEMİZ)
     let isAnnouncementsListening = false;
     function listenForumAnnouncements() {
       if (isAnnouncementsListening) return;
@@ -1345,15 +1314,8 @@
         const data = snapshot.val();
         if (!data) {
           feedContainer.innerHTML = `
-            <div class="card-highlight p-6 rounded-3xl text-center border border-purple-500/30">
-              <span class="text-3xl block mb-2">📢</span>
-              <h4 class="text-base font-bold text-white mb-1">Henüz Duyuru Yok</h4>
-              <p class="text-xs text-gray-300 max-w-md mx-auto mb-4">
-                Telegram forumundaki resmi "Announcements" başlığına (Topic #2) atılan mesajlar otomatik olarak burada canlı listelenecektir.
-              </p>
-              <a href="https://t.me/kibblesol/2" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition">
-                <span>✈️</span> Foruma Git
-              </a>
+            <div class="card-dark p-6 rounded-2xl text-center border border-purple-500/20 text-gray-400 text-xs">
+              No announcements yet.
             </div>
           `;
           return;
@@ -1362,30 +1324,17 @@
         feedContainer.innerHTML = "";
         const items = Object.values(data).reverse();
 
-        items.forEach((item, index) => {
+        items.forEach((item) => {
           const card = document.createElement("div");
-          card.className = "card-dark p-5 md:p-6 rounded-3xl border border-purple-500/25 flex flex-col justify-between hover:border-purple-400/50 transition duration-200";
+          card.className = "card-dark p-5 rounded-2xl border border-purple-500/20 flex flex-col gap-2 hover:border-purple-500/40 transition";
           card.innerHTML = `
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-3">
-                <div class="flex items-center gap-2">
-                  <span class="text-xs bg-purple-950 border border-purple-500/40 text-purple-300 font-bold px-2.5 py-0.5 rounded-full">
-                    ${index === 0 ? '✨ EN SON DUYURU' : 'DUYURU'}
-                  </span>
-                  <span class="text-[11px] font-mono text-cyan-400 font-semibold">${item.date || 'Az önce'}</span>
-                </div>
-                <a href="https://t.me/kibblesol/2/${item.message_id || ''}" target="_blank" class="text-[11px] text-gray-400 hover:text-white transition flex items-center gap-1 font-semibold">
-                  Telegram'da Gör ↗
-                </a>
-              </div>
-              <p class="text-xs md:text-sm text-gray-200 leading-relaxed whitespace-pre-line font-normal">
-                ${item.text}
-              </p>
+            <div class="flex items-center justify-between text-[11px] text-gray-400">
+              <span class="text-cyan-400 font-mono">${item.date || ''}</span>
+              <a href="https://t.me/kibblesol/2/${item.message_id || ''}" target="_blank" class="hover:text-purple-300 transition">Telegram ↗</a>
             </div>
-            <div class="mt-4 pt-3 border-t border-purple-900/30 flex items-center justify-between text-[11px] text-gray-400">
-              <span class="text-purple-300 font-medium">🐾 Kibble Forum Yayını</span>
-              <span class="text-emerald-400 font-bold">Topic #2</span>
-            </div>
+            <p class="text-xs md:text-sm text-gray-200 leading-relaxed whitespace-pre-line font-normal">
+              ${item.text}
+            </p>
           `;
           feedContainer.appendChild(card);
         });
@@ -1503,7 +1452,7 @@
     const database = firebase.database();
     const clickRef = database.ref('global_kibble_clicks');
 
-    // Başlangıçta forum dinleyicisini aktif et
+    // Aktif et
     listenForumAnnouncements();
 
     const TARGET = 1000;
