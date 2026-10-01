@@ -545,7 +545,7 @@
             <span>🥣</span> Live Kibble Tracker
           </button>
           <button onclick="switchView('tokenomics')" class="hover:text-purple-400 transition flex items-center gap-1 cursor-pointer">
-            <span>🛡️</span> Tokenomics & Security
+            <span>🛡️️</span> Tokenomics & Security
           </button>
           <button onclick="switchView('roadmap')" class="hover:text-purple-400 transition flex items-center gap-1 cursor-pointer">
             <span>🗺️</span> Roadmap
@@ -553,10 +553,10 @@
           <button onclick="switchView('announcements')" class="hover:text-purple-400 transition flex items-center gap-1 cursor-pointer">
             <span>📢</span> Announcements
           </button>
-          <button onclick="switchView('faq')" class="hover:text-purple-400 transition flex items-center gap-1 cursor-pointer">
+          <button onclick="switchView('faq')" class="hover:text-purple-400 transition cursor-pointer">
             <span>❓</span> FAQ
           </button>
-          <button onclick="switchView('contact')" class="hover:text-purple-400 transition flex items-center gap-1 cursor-pointer">
+          <button onclick="switchView('contact')" class="hover:text-purple-400 transition cursor-pointer">
             <span>💬</span> Community & Contact
           </button>
         </div>
@@ -692,7 +692,7 @@
         <div>🐾 2026 <span class="notranslate font-semibold" translate="no">Kibble Sol</span>. Built for the paws.</div>
         <div class="flex items-center gap-5">
           <button onclick="switchView('home')" class="hover:text-purple-400 transition cursor-pointer">Back to Home</button>
-          <button onclick="switchView('tracker')" class="hover:text-purple-400 transition cursor-pointer">Live Kibble Tracker</button>
+          <button onclick="switchView('tokenomics')" class="hover:text-purple-400 transition cursor-pointer">Tokenomics</button>
           <button onclick="switchView('roadmap')" class="hover:text-purple-400 transition cursor-pointer">Roadmap</button>
           <button onclick="switchView('announcements')" class="hover:text-purple-400 transition cursor-pointer">Announcements</button>
           <button onclick="switchView('faq')" class="hover:text-purple-400 transition cursor-pointer">FAQ</button>
@@ -883,7 +883,7 @@
         <div class="flex items-center gap-5">
           <button onclick="switchView('home')" class="hover:text-purple-400 transition cursor-pointer">Back to Home</button>
           <button onclick="switchView('tracker')" class="hover:text-purple-400 transition cursor-pointer">Live Kibble Tracker</button>
-          <button onclick="switchView('tokenomics')" class="hover:text-purple-400 transition cursor-pointer">Tokenomics</button>
+          <button onclick="switchView('roadmap')" class="hover:text-purple-400 transition cursor-pointer">Roadmap</button>
           <button onclick="switchView('announcements')" class="hover:text-purple-400 transition cursor-pointer">Announcements</button>
           <button onclick="switchView('faq')" class="hover:text-purple-400 transition cursor-pointer">FAQ</button>
           <button onclick="switchView('contact')" class="hover:text-purple-400 transition cursor-pointer">Community & Contact</button>
@@ -1031,7 +1031,6 @@
           <button onclick="switchView('tokenomics')" class="hover:text-purple-400 transition cursor-pointer">Tokenomics</button>
           <button onclick="switchView('roadmap')" class="hover:text-purple-400 transition cursor-pointer">Roadmap</button>
           <button onclick="switchView('announcements')" class="hover:text-purple-400 transition cursor-pointer">Announcements</button>
-          <button onclick="switchView('faq')" class="hover:text-purple-400 transition cursor-pointer">FAQ</button>
           <button onclick="switchView('contact')" class="hover:text-purple-400 transition cursor-pointer">Community & Contact</button>
         </div>
       </div>
@@ -1154,11 +1153,11 @@
         <details class="card-dark rounded-2xl p-4 md:p-5 border border-purple-500/20 group transition">
           <summary class="flex items-center justify-between cursor-pointer list-none select-none">
             <div class="flex items-center gap-3 pr-2">
-              <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">02</span>
+              <span class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 text-purple-300 flex items-center justify-center text-xs font-bold shrink-0">03</span>
               <span class="text-sm md:text-base font-bold text-white">Is the Kibble smart contract secure?</span>
             </div>
             <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
           </summary>
           <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed space-y-2">
@@ -1201,7 +1200,7 @@
               <span class="text-sm md:text-base font-bold text-white">Why trust the founder and team?</span>
             </div>
             <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
           </summary>
           <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed">
@@ -1401,6 +1400,24 @@
 
   <!-- Scripts -->
   <script>
+    // 1. FIREBASE CONFIGURATION & INITIALIZATION FIRST
+    const firebaseConfig = {
+      apiKey: "AIzaSyAdnz_l6Q-E3TpqQCV4x037qNRd2s93XA4",
+      authDomain: "kibble-tracker.firebaseapp.com",
+      databaseURL: "https://kibble-tracker-default-rtdb.firebaseio.com",
+      projectId: "kibble-tracker",
+      storageBucket: "kibble-tracker.firebasestorage.app",
+      messagingSenderId: "969620731918",
+      appId: "1:969620731918:web:88d59753499e2aec04645f",
+      measurementId: "G-XYSJCYTWFF"
+    };
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const database = firebase.database();
+    const clickRef = database.ref('global_kibble_clicks');
+
     // Navigation View Switcher
     function switchView(viewName) {
       closeSidebarDrawer();
@@ -1469,11 +1486,10 @@
     let isAnnouncementsListening = false;
     function listenForumAnnouncements() {
       if (isAnnouncementsListening) return;
-      isAnnouncementsListening = true;
-
       const feedContainer = document.getElementById('announcements-feed');
-      if (!feedContainer) return;
+      if (!feedContainer || !database) return;
 
+      isAnnouncementsListening = true;
       const announcementsRef = database.ref('forum_announcements').limitToLast(10);
 
       announcementsRef.on('value', (snapshot) => {
@@ -1564,35 +1580,40 @@
     const overlay = document.getElementById('overlay');
 
     function openSidebarDrawer() {
-      sidebar.classList.add('active');
-      overlay.classList.add('active');
+      if (sidebar) sidebar.classList.add('active');
+      if (overlay) overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
 
     function closeSidebarDrawer() {
-      sidebar.classList.remove('active');
-      overlay.classList.remove('active');
+      if (sidebar) sidebar.classList.remove('active');
+      if (overlay) overlay.classList.remove('active');
       document.body.style.overflow = '';
     }
 
-    openMenuBtn.addEventListener('click', openSidebarDrawer);
-    closeMenuBtn.addEventListener('click', closeSidebarDrawer);
-    overlay.addEventListener('click', closeSidebarDrawer);
+    if (openMenuBtn) openMenuBtn.addEventListener('click', openSidebarDrawer);
+    if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeSidebarDrawer);
+    if (overlay) overlay.addEventListener('click', closeSidebarDrawer);
 
     function openModal() {
-      document.getElementById('comingSoonModal').classList.remove('hidden');
+      const m = document.getElementById('comingSoonModal');
+      if (m) m.classList.remove('hidden');
     }
     function closeModal() {
-      document.getElementById('comingSoonModal').classList.add('hidden');
+      const m = document.getElementById('comingSoonModal');
+      if (m) m.classList.add('hidden');
     }
 
     function triggerComingSoon(featureName) {
       closeSidebarDrawer();
-      document.getElementById('featureTitle').innerText = featureName + ' - Coming Soon...';
-      document.getElementById('featureComingSoonModal').classList.remove('hidden');
+      const t = document.getElementById('featureTitle');
+      const m = document.getElementById('featureComingSoonModal');
+      if (t) t.innerText = featureName + ' - Coming Soon...';
+      if (m) m.classList.remove('hidden');
     }
     function closeFeatureModal() {
-      document.getElementById('featureComingSoonModal').classList.add('hidden');
+      const m = document.getElementById('featureComingSoonModal');
+      if (m) m.classList.add('hidden');
     }
 
     window.onclick = function(event) {
@@ -1601,24 +1622,6 @@
       if (event.target === modal1) closeModal();
       if (event.target === modal2) closeFeatureModal();
     };
-
-    // FIREBASE CONFIGURATION
-    const firebaseConfig = {
-      apiKey: "AIzaSyAdnz_l6Q-E3TpqQCV4x037qNRd2s93XA4",
-      authDomain: "kibble-tracker.firebaseapp.com",
-      databaseURL: "https://kibble-tracker-default-rtdb.firebaseio.com",
-      projectId: "kibble-tracker",
-      storageBucket: "kibble-tracker.firebasestorage.app",
-      messagingSenderId: "969620731918",
-      appId: "1:969620731918:web:88d59753499e2aec04645f",
-      measurementId: "G-XYSJCYTWFF"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-    const clickRef = database.ref('global_kibble_clicks');
-
-    listenForumAnnouncements();
 
     const TARGET = 1000;
     const MAX_DAILY_CLICKS = 200;
@@ -1688,14 +1691,16 @@
       if (dailyClicksEl) {
         dailyClicksEl.innerText = `${remaining} / ${MAX_DAILY_CLICKS}`;
       }
-      if (remaining <= 0) {
-        feedBtn.disabled = true;
-        feedBtn.classList.add('opacity-50', 'cursor-not-allowed');
-        feedBtn.innerHTML = `<span>⏳</span> DAILY LIMIT REACHED`;
-      } else {
-        feedBtn.disabled = false;
-        feedBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-        feedBtn.innerHTML = `<span>🥣</span> FILL THE BOWL (+1)`;
+      if (feedBtn) {
+        if (remaining <= 0) {
+          feedBtn.disabled = true;
+          feedBtn.classList.add('opacity-50', 'cursor-not-allowed');
+          feedBtn.innerHTML = `<span>⏳</span> DAILY LIMIT REACHED`;
+        } else {
+          feedBtn.disabled = false;
+          feedBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+          feedBtn.innerHTML = `<span>🥣</span> FILL THE BOWL (+1)`;
+        }
       }
     }
 
@@ -1725,23 +1730,24 @@
 
     function renderGame(score) {
       if (!totalEl) return;
-      totalEl.innerText = score.toLocaleString();
+      totalEl.innerText = Number(score).toLocaleString();
       
       const unlockedPouches = Math.floor(score / TARGET);
-      pouchCountEl.innerText = unlockedPouches.toLocaleString();
+      if (pouchCountEl) pouchCountEl.innerText = unlockedPouches.toLocaleString();
 
       const current = score % TARGET;
       const pct = Math.floor((current / TARGET) * 100);
       const left = TARGET - current;
 
-      barFill.style.width = `${pct}%`;
-      targetPct.innerText = `${pct}%`;
-      remText.innerText = `${left.toLocaleString()} kibbles left for next wet food pouch 🐾`;
+      if (barFill) barFill.style.width = `${pct}%`;
+      if (targetPct) targetPct.innerText = `${pct}%`;
+      if (remText) remText.innerText = `${left.toLocaleString()} kibbles left for next wet food pouch 🐾`;
     }
 
+    // Global Click Listener from Firebase
     clickRef.on('value', (snapshot) => {
       const data = snapshot.val();
-      currentGlobalScore = data !== null ? data : 0;
+      currentGlobalScore = data !== null ? Number(data) : 0;
       renderGame(currentGlobalScore);
     });
 
@@ -1856,6 +1862,7 @@
 
     function listenUserWeeklyScore() {
       const weekKey = getUTCWeekKey();
+      if (!userWeeklyEl) return;
       if (!connectedWalletAddress) {
         const localWeekKey = `kibble_anon_week_${weekKey}`;
         const localScore = parseInt(localStorage.getItem(localWeekKey) || "0", 10);
@@ -1869,7 +1876,6 @@
         userWeeklyEl.innerText = `${score.toLocaleString()} Clicks`;
       });
     }
-    listenUserWeeklyScore();
 
     function listenLeaderboard() {
       const weekKey = getUTCWeekKey();
@@ -1883,6 +1889,7 @@
         items.reverse();
 
         const listEl = document.getElementById('leaderboard-list');
+        if (!listEl) return;
         listEl.innerHTML = '';
 
         const medals = ['🥇', '🥈', '🥉'];
@@ -1905,6 +1912,10 @@
         }
       });
     }
+
+    // Start Listeners safely
+    listenForumAnnouncements();
+    listenUserWeeklyScore();
     listenLeaderboard();
 
     if (feedBtn) {
@@ -1934,15 +1945,17 @@
           const localWeekKey = `kibble_anon_week_${weekKey}`;
           let localScore = parseInt(localStorage.getItem(localWeekKey) || "0", 10) + 1;
           localStorage.setItem(localWeekKey, localScore);
-          userWeeklyEl.innerText = `${localScore.toLocaleString()} Clicks`;
+          if (userWeeklyEl) userWeeklyEl.innerText = `${localScore.toLocaleString()} Clicks`;
         }
 
         if ((currentGlobalScore + 1) > 0 && (currentGlobalScore + 1) % TARGET === 0) {
           triggerCelebration(e.clientX, e.clientY);
         }
 
-        mascot.classList.add('mascot-img-active');
-        setTimeout(() => mascot.classList.remove('mascot-img-active'), 140);
+        if (mascot) {
+          mascot.classList.add('mascot-img-active');
+          setTimeout(() => mascot.classList.remove('mascot-img-active'), 140);
+        }
 
         dropKibble(e.clientX, e.clientY);
       });
