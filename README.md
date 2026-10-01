@@ -67,7 +67,7 @@ Run the dApp locally in seconds without complex toolchains:
 - [x] **01. Project Idea & Ideation**
   - Transforming trading volume into direct animal shelter relief via Solana Token-2022 architecture.
 
-- [🔄] **02. Core Infrastructure Setup**
+- [ ] ⏳ **02. Core Infrastructure Setup**
   - Web application buildout, Token-2022 transfer fee configuration, official Litepaper, and autonomous harvester logic.
 
 - [ ] **03. Public Devnet Testing**
