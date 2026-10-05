@@ -420,9 +420,10 @@
     </div>
   </aside>
 
-  <!-- 1. HOME VIEW -->
+  <!-- 1. HOME VIEW (REVAMPED: FOCUSED & CLEAN) -->
   <div id="home-view" class="w-full flex-grow flex flex-col justify-between">
     <main class="flex-grow max-w-4xl mx-auto px-5 w-full">
+      
       <!-- Hero Section -->
       <section class="pt-10 pb-8 text-center">
         <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-purple-950/80 border border-purple-500/40 text-purple-300 text-xs font-semibold mb-6">
@@ -438,100 +439,158 @@
         </h1>
         
         <p class="text-base md:text-lg text-gray-300 max-w-2xl mx-auto mb-8 leading-relaxed font-normal">
-          Millions of stray animals struggle for survival every single day. <span class="notranslate font-semibold text-purple-300" translate="no">$KIBBLE</span> bridges the viral momentum of Solana meme culture with direct, real-world relief—turning decentralized trading volume into bowls of food and shelter support.
+          Millions of stray animals struggle for survival every single day. <span class="notranslate font-semibold text-purple-300" translate="no">$KIBBLE</span> turns Web3 engagement into direct physical nourishment—converting on-chain transfer fees directly into bowls of food on the street.
         </p>
 
-        <div class="flex flex-wrap items-center justify-center gap-3 max-w-md mx-auto mb-8">
-          <button onclick="switchView('tracker')" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs md:text-sm shadow-lg shadow-purple-600/40 transition flex items-center gap-2 cursor-pointer border border-purple-400/30">
-            <span>🥣</span>
-            <span>Feed the Dog (Tracker)</span>
+        <!-- CTA & Interactive Actions Section -->
+        <div class="flex flex-col items-center justify-center gap-4 max-w-md mx-auto mb-8">
+          
+          <!-- Highlighted Feed The Dog Button -->
+          <button onclick="switchView('tracker')" class="w-full py-4 px-8 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 hover:from-purple-500 hover:to-pink-500 active:scale-95 text-white font-black text-sm md:text-base tracking-wide shadow-[0_0_30px_rgba(168,85,247,0.5)] transition flex items-center justify-center gap-3 cursor-pointer border-2 border-purple-300/40 animate-pulse">
+            <span class="text-xl">🥣</span>
+            <span>FEED THE DOG (TAP TO FEED)</span>
+            <span class="text-xl">🐾</span>
           </button>
-          <button onclick="switchView('tokenomics')" class="px-6 py-3.5 rounded-xl bg-[#171228] hover:bg-[#201938] border border-purple-500/40 text-white font-bold text-xs md:text-sm shadow-lg shadow-purple-600/10 transition flex items-center gap-2 cursor-pointer">
-            <span>🛡️ View Tokenomics</span>
+
+          <!-- Devnet Faucet Button with Coming Soon Badge -->
+          <button onclick="triggerComingSoon('Devnet Faucet')" class="w-full py-3 px-6 rounded-xl bg-[#140e26] hover:bg-[#1c1436] border border-cyan-500/40 text-cyan-300 font-bold text-xs md:text-sm shadow-md transition flex items-center justify-between cursor-pointer group">
+            <div class="flex items-center gap-2">
+              <span class="text-base">🚰</span>
+              <span>Devnet $KIBBLE Faucet</span>
+            </div>
+            <span class="text-[10px] bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 px-2 py-0.5 rounded font-extrabold uppercase tracking-wider">Coming Soon</span>
           </button>
-          <a href="https://t.me/kibblesol" target="_blank" class="px-6 py-3.5 rounded-xl bg-[#171228] hover:bg-[#201938] border border-purple-500/40 text-white font-bold text-xs md:text-sm shadow-lg shadow-purple-600/10 transition">
-            Join Telegram 💬
-          </a>
+
+          <!-- Contract Address Box with Coming Soon and Copy -->
+          <div class="w-full p-3 rounded-xl bg-[#0f0a1c] border border-purple-500/30 flex items-center justify-between gap-2">
+            <div class="flex flex-col text-left overflow-hidden">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] uppercase font-bold text-gray-400">Contract Address (Token-2022)</span>
+                <span class="text-[9px] bg-purple-950 border border-purple-500/30 text-purple-300 px-1.5 py-0.2 rounded font-bold uppercase">Coming Soon</span>
+              </div>
+              <span id="ca-text" class="text-xs font-mono text-gray-300 truncate">Token-2022 Devnet Contract Deployment...</span>
+            </div>
+            <button onclick="copyContractAddress()" class="shrink-0 p-2 rounded-lg bg-purple-950/70 hover:bg-purple-900 border border-purple-500/30 text-purple-300 hover:text-white transition text-xs flex items-center gap-1 font-semibold cursor-pointer" title="Copy Address">
+              <span id="copy-btn-label">Copy</span>
+            </button>
+          </div>
+
         </div>
       </section>
 
-      <!-- Narrative & The Story -->
-      <section class="py-6">
-        <div class="grid md:grid-cols-2 gap-5">
-          <div class="card-highlight p-6 md:p-7 rounded-3xl flex flex-col justify-between">
-            <div>
-              <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider mb-2">The Philosophy</div>
-              <h2 class="text-xl md:text-2xl font-bold text-white mb-3">Meme Culture Meets Direct Action</h2>
-              <p class="text-gray-300 text-sm leading-relaxed mb-3">
-                Most memecoins fade into obscurity without leaving any positive footprint. <span class="notranslate font-semibold" translate="no">$KIBBLE</span> proves that internet culture and financial liquidity can be organized into a tangible force for good.
-              </p>
-              <p class="text-gray-400 text-xs leading-relaxed">
-                We do not ask for public donations. Instead, creator and protocol revenues generated from market activity are deployed directly to feed street animals and assist underfunded shelters.
-              </p>
-            </div>
-            <div class="mt-4 pt-4 border-t border-purple-900/40 flex items-center justify-between text-xs font-semibold text-purple-300">
-              <span>✨ 100% Community Driven</span>
-              <span>🥣 Real Feeding Operations</span>
-            </div>
-          </div>
-
-          <div class="card-dark p-6 md:p-7 rounded-3xl flex flex-col justify-between">
-            <div>
-              <div class="text-xs uppercase font-extrabold text-cyan-400 tracking-wider mb-2">Our Mission</div>
-              <h2 class="text-xl md:text-2xl font-bold text-white mb-3">On-Chain Transparency</h2>
-              <p class="text-gray-300 text-sm leading-relaxed mb-3">
-                Trust in Web3 is earned through immutable on-chain data. Every protocol-level allocation, wallet disbursement, and feed execution is public and verifiable directly on <span class="notranslate" translate="no">Solana</span> explorers.
-              </p>
-              <p class="text-gray-400 text-xs leading-relaxed">
-                All ground-level feeding operations, photo drops, and community updates are published exclusively on our official channels for maximum reach and transparency.
-              </p>
-            </div>
-            <div class="mt-4 pt-4 border-t border-purple-900/40 flex items-center justify-between text-xs font-semibold">
-              <button onclick="openModal()" class="text-cyan-300 hover:text-cyan-200 transition flex items-center gap-1 cursor-pointer">
-                <span>🔗</span> <span class="notranslate" translate="no">Solscan</span> Explorer ↗
-              </button>
-              <span class="text-[10px] bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 px-2 py-0.5 rounded-md font-bold uppercase tracking-wide">Coming Soon</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- The Feedback Loop -->
+      <!-- Clean Project Overview (Replaces Text Clutter) -->
       <section class="py-6">
         <div class="card-highlight p-6 md:p-8 rounded-3xl">
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <div class="text-xs uppercase font-extrabold text-cyan-400 tracking-wider">Closed-Loop Ecosystem</div>
-              <h3 class="text-xl md:text-2xl font-bold text-white">Volume ➔ Kibble ➔ Proof Feedback Loop</h3>
-            </div>
+          <div class="flex items-center gap-3 mb-4">
             <span class="text-3xl">🥣</span>
+            <div>
+              <div class="text-xs uppercase font-extrabold text-purple-400 tracking-wider">Project Summary</div>
+              <h2 class="text-xl md:text-2xl font-bold text-white">Transparent On-Chain Animal Relief</h2>
+            </div>
           </div>
-          <p class="text-gray-300 text-sm leading-relaxed mb-6">
-            <span class="notranslate font-semibold" translate="no">$KIBBLE</span> operates on a sustainable closed-loop mechanism where on-chain volume directly powers tangible feeding initiatives and sends verifiable proof back to the community.
+          <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6">
+            Kibble introduces a verifiable public good protocol built on the high-speed Solana blockchain. Powered by the native <strong>Token-2022 Transfer Fee extension</strong>, each transaction automatically dedicates a transparent micro-contribution to animal food procurement. No opaque charities, no administrative leakage—every meal delivered is verified directly through on-chain transactions and photographic proof.
           </p>
 
-          <div class="grid md:grid-cols-3 gap-4">
-            <div class="card-dark p-5 rounded-2xl border-t-2 border-emerald-500">
-              <div class="text-emerald-400 font-bold text-xs uppercase mb-1">01 • Volume & Protocol Fees</div>
-              <p class="text-xs text-gray-300 leading-relaxed">
-                Decentralized trading activity generates developer proceeds. Zero public donation campaigns.
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="card-dark p-4 rounded-2xl border-t-2 border-purple-500">
+              <div class="text-purple-300 font-bold text-xs uppercase mb-1">01 • Tap & Interact</div>
+              <p class="text-xs text-gray-400 leading-relaxed">
+                Users interact with the gamified tap-to-feed dApp, triggering real-time engagement and community milestones.
               </p>
             </div>
 
-            <div class="card-dark p-5 rounded-2xl border-t-2 border-cyan-500">
-              <div class="text-cyan-400 font-bold text-xs uppercase mb-1">02 • Wholesale Kibble & Shelter Support</div>
-              <p class="text-xs text-gray-300 leading-relaxed">
-                Proceeds fund wholesale dry pet food purchases, street feeding routes, and direct shelter aid.
+            <div class="card-dark p-4 rounded-2xl border-t-2 border-cyan-500">
+              <div class="text-cyan-300 font-bold text-xs uppercase mb-1">02 • Programmatic Transfer Fee</div>
+              <p class="text-xs text-gray-400 leading-relaxed">
+                Protocol-level fees automatically route into public shelter treasuries without developer intervention.
               </p>
             </div>
 
-            <div class="card-dark p-5 rounded-2xl border-t-2 border-purple-500">
-              <div class="text-purple-400 font-bold text-xs uppercase mb-1">03 • On-Chain Verification</div>
-              <p class="text-xs text-gray-300 leading-relaxed">
-                Disbursements and operations are verifiable directly on <span class="notranslate" translate="no">Solana</span> blockchain explorers.
+            <div class="card-dark p-4 rounded-2xl border-t-2 border-emerald-500">
+              <div class="text-emerald-300 font-bold text-xs uppercase mb-1">03 • Physical Proof of Feed</div>
+              <p class="text-xs text-gray-400 leading-relaxed">
+                Wholesale food purchases and street feedings are logged with photo and video proof published to the community.
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- Proof of Feed / Field Operation Photo Album -->
+      <section class="py-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-6">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-[11px] font-bold mb-2">
+              <span>📸</span> Traction & Real-World Impact
+            </div>
+            <h2 class="text-2xl md:text-3xl font-black text-white">Proof-of-Feed Gallery</h2>
+            <p class="text-gray-400 text-xs mt-1">Direct photographic documentation from our on-the-ground street animal feeding operations.</p>
+          </div>
+          <div class="mt-3 md:mt-0 text-xs font-mono text-purple-300 bg-purple-950/50 px-3 py-1.5 rounded-xl border border-purple-500/30">
+            7/7 Operations Documented
+          </div>
+        </div>
+
+        <!-- 4-Photo Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <!-- Photo 1 -->
+          <div class="card-dark rounded-2xl overflow-hidden border border-purple-500/20 group hover:border-purple-500/50 transition">
+            <div class="w-full h-52 overflow-hidden bg-black/40">
+              <img src="assets/proof-feed-1.jpg" alt="Field Operation #1" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" />
+            </div>
+            <div class="p-3.5">
+              <div class="flex items-center justify-between text-[11px] mb-1">
+                <span class="font-bold text-purple-300">Operation #01</span>
+                <span class="text-emerald-400 font-semibold text-[10px] bg-emerald-950/70 px-2 py-0.5 rounded border border-emerald-500/30">✓ Verified</span>
+              </div>
+              <p class="text-[11px] text-gray-400 leading-snug">Street feeding route & kibble distribution in urban animal clusters.</p>
+            </div>
+          </div>
+
+          <!-- Photo 2 -->
+          <div class="card-dark rounded-2xl overflow-hidden border border-purple-500/20 group hover:border-purple-500/50 transition">
+            <div class="w-full h-52 overflow-hidden bg-black/40">
+              <img src="assets/proof-feed-2.jpg" alt="Field Operation #2" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" />
+            </div>
+            <div class="p-3.5">
+              <div class="flex items-center justify-between text-[11px] mb-1">
+                <span class="font-bold text-purple-300">Operation #02</span>
+                <span class="text-emerald-400 font-semibold text-[10px] bg-emerald-950/70 px-2 py-0.5 rounded border border-emerald-500/30">✓ Verified</span>
+              </div>
+              <p class="text-[11px] text-gray-400 leading-snug">Clean water & dry pet kibble bowls delivered to community cats.</p>
+            </div>
+          </div>
+
+          <!-- Photo 3 -->
+          <div class="card-dark rounded-2xl overflow-hidden border border-purple-500/20 group hover:border-purple-500/50 transition">
+            <div class="w-full h-52 overflow-hidden bg-black/40">
+              <img src="assets/proof-feed-3.jpg" alt="Field Operation #3" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" />
+            </div>
+            <div class="p-3.5">
+              <div class="flex items-center justify-between text-[11px] mb-1">
+                <span class="font-bold text-purple-300">Operation #03</span>
+                <span class="text-emerald-400 font-semibold text-[10px] bg-emerald-950/70 px-2 py-0.5 rounded border border-emerald-500/30">✓ Verified</span>
+              </div>
+              <p class="text-[11px] text-gray-400 leading-snug">Sustenance support for stray dogs during daily field rounds.</p>
+            </div>
+          </div>
+
+          <!-- Photo 4 -->
+          <div class="card-dark rounded-2xl overflow-hidden border border-purple-500/20 group hover:border-purple-500/50 transition">
+            <div class="w-full h-52 overflow-hidden bg-black/40">
+              <img src="assets/proof-feed-4.jpg" alt="Field Operation #4" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" loading="lazy" />
+            </div>
+            <div class="p-3.5">
+              <div class="flex items-center justify-between text-[11px] mb-1">
+                <span class="font-bold text-purple-300">Operation #04</span>
+                <span class="text-emerald-400 font-semibold text-[10px] bg-emerald-950/70 px-2 py-0.5 rounded border border-emerald-500/30">✓ Verified</span>
+              </div>
+              <p class="text-[11px] text-gray-400 leading-snug">Direct feeding stations refreshed with high-nutrition dry food.</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -881,7 +940,7 @@
       <!-- Header -->
       <div class="text-center mb-8">
         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-950/80 border border-purple-500/40 text-purple-300 text-xs font-semibold mb-3">
-          <span>🗺️️</span> Genesis Execution Track
+          <span>🗺</span> Genesis Execution Track
         </div>
         <h2 class="text-3xl md:text-4xl font-black text-white mb-2">Roadmap #1</h2>
         <p class="text-gray-300 text-sm max-w-lg mx-auto">
@@ -1345,6 +1404,22 @@
 
   <!-- Scripts -->
   <script>
+    // Copy Contract Address Helper
+    function copyContractAddress() {
+      const textToCopy = "Token-2022 Devnet Contract Deployment Pending...";
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const btnLabel = document.getElementById('copy-btn-label');
+        if (btnLabel) {
+          btnLabel.innerText = "Copied! ✓";
+          setTimeout(() => {
+            btnLabel.innerText = "Copy";
+          }, 2000);
+        }
+      }).catch(err => {
+        console.error("Copy failed:", err);
+      });
+    }
+
     // 1. FIREBASE CONFIGURATION & INITIALIZATION FIRST
     const firebaseConfig = {
       apiKey: "AIzaSyAdnz_l6Q-E3TpqQCV4x037qNRd2s93XA4",
