@@ -744,7 +744,7 @@
       <div class="mb-4">
         <a href="#home" class="inline-flex items-center gap-2 text-xs font-semibold text-purple-400 hover:text-purple-300 transition cursor-pointer">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" border-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
           </svg>
           Back to Home
         </a>
@@ -980,7 +980,7 @@
         </div>
 
         <!-- 03: Public Devnet (UPCOMING) -->
-        <div class="card-dark p-5 rounded-2xl border border-purple-500/20 opacity-80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="card-dark p-5 rounded-2xl border border-purple-500/20 opacity-80 flex flex-col sm:row sm:items-center justify-between gap-3">
           <div>
             <div class="flex items-center gap-2 mb-1">
               <span class="text-xs font-mono font-bold text-gray-500">03</span>
@@ -1166,7 +1166,7 @@
               <span class="text-sm md:text-base font-bold text-white">Why trust the founder and team?</span>
             </div>
             <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
           </summary>
           <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed">
@@ -1313,8 +1313,12 @@
   <div id="walletSelectionModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-[#0f0a1c] border border-purple-500/40 rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl relative">
       <div class="flex items-center justify-between mb-5 border-b border-purple-900/40 pb-3">
-        <div class="flex items-center gap-2">
-          <span class="text-xl">👛</span>
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-lg bg-purple-950/60 border border-purple-500/30 flex items-center justify-center text-purple-300">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h.01M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
           <h3 class="text-base font-bold text-white">Select Solana Wallet</h3>
         </div>
         <button onclick="closeWalletModal()" class="text-gray-400 hover:text-white transition cursor-pointer">
