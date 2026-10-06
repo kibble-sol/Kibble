@@ -1,6 +1,8 @@
 {
   "version": 2,
-  "rewrites": [
-    { "source": "/api/faucet", "destination": "/api/faucet.js" }
-  ]
+  "functions": {
+    "api/faucet.js": {
+      "maxDuration": 10
+    }
+  }
 }
