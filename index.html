@@ -1460,7 +1460,7 @@
               <svg viewBox="0 0 128 128" class="w-full h-full" fill="none">
                 <rect width="128" height="128" rx="28" fill="#181528"/>
                 <path d="M64 18l12.4 29.6L106 60l-29.6 12.4L64 102l-12.4-29.6L22 60l29.6-12.4L64 18z" fill="url(#solflare_grad)"/>
-                <defs>
+                <defs>wa
                   <linearGradient id="solflare_grad" x1="22" y1="18" x2="106" y2="102" gradientUnits="userSpaceOnUse">
                     <stop stop-color="#FF5C00"/>
                     <stop offset="1" stop-color="#FFC700"/>
@@ -2137,41 +2137,79 @@
       claimText.innerText = "DISPATCHING ON DEVNET...";
       statusBox.classList.remove('hidden');
       statusBox.className = "p-4 rounded-xl text-xs leading-relaxed bg-cyan-950/60 border border-cyan-500/40 text-cyan-200 block";
-      statusBox.innerHTML = `⏳ Sending request to Cloudflare dispatcher for 0.005 SOL & 100 $KIBBLE...`;
+      statusBox.innerHTML = `⏳ Step 1: Getting latest Devnet blockhash...`;
 
       try {
-        const res = await fetch(FAUCET_API_URL, {
+        const rpcRes = await fetch("https://api.devnet.solana.com", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ recipient: connectedWalletAddress })
+          body: JSON.stringify({
+            jsonrpc: "2.0",
+            id: 1,
+            method: "getLatestBlockhash",
+            params: [{ commitment: "finalized" }]
+          })
+        });
+        const rpcData = await rpcRes.json();
+        if (!rpcData.result) throw new Error("Could not fetch blockhash from Devnet");
+        const blockhash = rpcData.result.value.blockhash;
+
+        statusBox.innerHTML = `⏳ Step 2: Requesting signature from Kibble Vault...`;
+
+        const signRes = await fetch(FAUCET_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            recipient: connectedWalletAddress,
+            blockhash: blockhash
+          })
         });
 
-        const data = await res.json();
-        if (!res.ok || !data.success) {
-          throw new Error(data.error || "Faucet dispatch failed");
+        const signData = await signRes.json();
+        if (!signRes.ok || !signData.success) {
+          throw new Error(signData.error || "Vault signing failed");
         }
 
-        // Increment claim count in Firebase
+        statusBox.innerHTML = `⏳ Step 3: Broadcasting transaction to Solana Devnet...`;
+
+        const sendRes = await fetch("https://api.devnet.solana.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            jsonrpc: "2.0",
+            id: 2,
+            method: "sendTransaction",
+            params: [signData.signedTxBase64, { encoding: "base64" }]
+          })
+        });
+
+        const sendData = await sendRes.json();
+        if (sendData.error) {
+          throw new Error(sendData.error.message);
+        }
+
+        const solSig = sendData.result;
+
         const claimRef = database.ref(`faucet_claims/${connectedWalletAddress}`);
         await claimRef.transaction((curr) => {
           const c = curr || { count: 0 };
           c.count = (c.count || 0) + 1;
           c.last_claimed = new Date().toISOString();
-          c.solSig = data.solSig || null;
+          c.solSig = solSig;
           return c;
         });
 
         statusBox.className = "p-4 rounded-xl text-xs leading-relaxed bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 block";
         statusBox.innerHTML = `
           <div class="font-bold text-emerald-300 text-sm mb-1.5">✓ Test Kit Dispatched Successfully!</div>
-          <div class="mb-2"><strong>100 $KIBBLE & 0.005 SOL</strong> sent to your wallet. With the <strong>2% Token-2022 Transfer Fee</strong> applied, <strong>98 $KIBBLE</strong> arrived in your balance.</div>
-          <a href="https://solscan.io/tx/${data.solSig}?cluster=devnet" target="_blank" class="inline-flex items-center gap-1 text-cyan-300 underline font-mono text-[11px]">View SOL Grant on Solscan Devnet ↗</a>
+          <div class="mb-2"><strong>0.005 SOL</strong> has been transferred from the Kibble Vault directly to your wallet!</div>
+          <a href="https://solscan.io/tx/${solSig}?cluster=devnet" target="_blank" class="inline-flex items-center gap-1 text-cyan-300 underline font-mono text-[11px]">View on Solscan Devnet ↗</a>
         `;
 
       } catch (err) {
         console.error("Faucet error:", err);
         statusBox.className = "p-4 rounded-xl text-xs leading-relaxed bg-rose-950/60 border border-rose-500/40 text-rose-200 block";
-        statusBox.innerHTML = `❌ Error: ${err.message || "Failed to dispatch test tokens. Please retry."}`;
+        statusBox.innerHTML = `❌ Error: ${err.message || "Failed to dispatch test kit. Please retry."}`;
       } finally {
         updateFaucetClaimsUI();
       }
