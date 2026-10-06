@@ -1,8 +1,6 @@
 {
   "version": 2,
-  "functions": {
-    "api/faucet.js": {
-      "maxDuration": 10
-    }
-  }
+  "builds": [
+    { "src": "api/faucet.js", "use": "@vercel/node" }
+  ]
 }
