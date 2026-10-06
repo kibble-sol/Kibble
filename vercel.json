@@ -1,9 +1,6 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "api/faucet.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/api/faucet", "dest": "/api/faucet.js" }
+  "rewrites": [
+    { "source": "/api/faucet", "destination": "/api/faucet.js" }
   ]
 }
