@@ -1166,7 +1166,7 @@
               <span class="text-sm md:text-base font-bold text-white">Why trust the founder and team?</span>
             </div>
             <svg class="w-4 h-4 text-purple-400 faq-chevron transition-transform duration-200 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7-7m0 0l7-7m-7 7h18"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
             </svg>
           </summary>
           <div class="pt-3.5 mt-3 border-t border-purple-900/30 text-xs text-gray-300 leading-relaxed">
@@ -1307,6 +1307,51 @@
         <div>🐾 2026 <span class="notranslate font-semibold" translate="no">Kibble Sol</span>. Built for the paws.</div>
       </div>
     </footer>
+  </div>
+
+  <!-- Wallet Selection Modal -->
+  <div id="walletSelectionModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-[#0f0a1c] border border-purple-500/40 rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl relative">
+      <div class="flex items-center justify-between mb-4 border-b border-purple-900/40 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">👛</span>
+          <h3 class="text-base font-bold text-white">Connect Solana Wallet</h3>
+        </div>
+        <button onclick="closeWalletModal()" class="text-gray-400 hover:text-white transition">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <p class="text-xs text-gray-300 leading-relaxed mb-5">
+        Choose your preferred wallet to sync your weekly Kibble leaderboard contributions:
+      </p>
+
+      <div class="flex flex-col gap-3">
+        <!-- Phantom Option -->
+        <button onclick="selectWalletProvider('phantom')" class="w-full p-3.5 rounded-2xl bg-[#17102b] hover:bg-[#231742] border border-purple-500/30 hover:border-purple-400 text-white font-bold text-sm transition flex items-center justify-between cursor-pointer group shadow-md">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-[#AB9FF2]/20 border border-[#AB9FF2]/40 flex items-center justify-center text-base">
+              👻
+            </div>
+            <span class="group-hover:text-purple-300 transition">Phantom</span>
+          </div>
+          <span class="text-xs text-purple-400 group-hover:translate-x-1 transition">→</span>
+        </button>
+
+        <!-- Solflare Option -->
+        <button onclick="selectWalletProvider('solflare')" class="w-full p-3.5 rounded-2xl bg-[#17102b] hover:bg-[#231742] border border-purple-500/30 hover:border-orange-400 text-white font-bold text-sm transition flex items-center justify-between cursor-pointer group shadow-md">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-[#FC7B00]/20 border border-[#FC7B00]/40 flex items-center justify-center text-base">
+              🔥
+            </div>
+            <span class="group-hover:text-orange-300 transition">Solflare</span>
+          </div>
+          <span class="text-xs text-orange-400 group-hover:translate-x-1 transition">→</span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Modals -->
@@ -1566,11 +1611,23 @@
       if (m) m.classList.add('hidden');
     }
 
+    function openWalletModal() {
+      const m = document.getElementById('walletSelectionModal');
+      if (m) m.classList.remove('hidden');
+    }
+
+    function closeWalletModal() {
+      const m = document.getElementById('walletSelectionModal');
+      if (m) m.classList.add('hidden');
+    }
+
     window.onclick = function(event) {
       const modal1 = document.getElementById('comingSoonModal');
       const modal2 = document.getElementById('featureComingSoonModal');
+      const modalWallet = document.getElementById('walletSelectionModal');
       if (event.target === modal1) closeModal();
       if (event.target === modal2) closeFeatureModal();
+      if (event.target === modalWallet) closeWalletModal();
     };
 
     const TARGET = 1000;
@@ -1708,36 +1765,62 @@
         disconnectWallet();
         return;
       }
+      openWalletModal();
+    }
 
-      const provider = window.solana || (window.solflare && window.solflare.isSolflare ? window.solflare : null);
+    async function selectWalletProvider(walletType) {
+      closeWalletModal();
 
-      if (provider) {
-        try {
-          const resp = await provider.connect();
-          setConnectedWallet(resp.publicKey.toString());
-          return;
-        } catch (err) {
-          console.error("Wallet connection rejected:", err);
-          return;
+      if (walletType === 'phantom') {
+        const phantom = window.phantom?.solana || (window.solana?.isPhantom ? window.solana : null);
+        if (phantom) {
+          try {
+            const resp = await phantom.connect();
+            setConnectedWallet(resp.publicKey.toString());
+            return;
+          } catch (err) {
+            console.error("Phantom connection rejected:", err);
+            return;
+          }
         }
-      }
-
-      const encodedUrl = encodeURIComponent(SITE_URL);
-      const phantomBrowserDeepLink = `https://phantom.app/ul/browse/${encodedUrl}?ref=${encodedUrl}`;
-
-      if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openLink) {
-        window.Telegram.WebApp.openLink(phantomBrowserDeepLink);
-      } else {
-        window.location.href = phantomBrowserDeepLink;
+        const encodedUrl = encodeURIComponent(SITE_URL);
+        const phantomDeepLink = `https://phantom.app/ul/browse/${encodedUrl}?ref=${encodedUrl}`;
+        if (window.Telegram?.WebApp?.openLink) {
+          window.Telegram.WebApp.openLink(phantomDeepLink);
+        } else {
+          window.location.href = phantomDeepLink;
+        }
+      } else if (walletType === 'solflare') {
+        const solflare = window.solflare;
+        if (solflare && solflare.isSolflare) {
+          try {
+            await solflare.connect();
+            setConnectedWallet(solflare.publicKey.toString());
+            return;
+          } catch (err) {
+            console.error("Solflare connection rejected:", err);
+            return;
+          }
+        }
+        const encodedUrl = encodeURIComponent(SITE_URL);
+        const solflareDeepLink = `https://solflare.com/ul/v1/browse/${encodedUrl}?ref=${encodedUrl}`;
+        if (window.Telegram?.WebApp?.openLink) {
+          window.Telegram.WebApp.openLink(solflareDeepLink);
+        } else {
+          window.location.href = solflareDeepLink;
+        }
       }
     }
 
     function disconnectWallet() {
-      const provider = window.solana || (window.solflare && window.solflare.isSolflare ? window.solflare : null);
-      if (provider && provider.disconnect) {
-        try {
-          provider.disconnect();
-        } catch (e) {}
+      const phantom = window.phantom?.solana || (window.solana?.isPhantom ? window.solana : null);
+      const solflare = window.solflare;
+
+      if (phantom && phantom.disconnect) {
+        try { phantom.disconnect(); } catch (e) {}
+      }
+      if (solflare && solflare.disconnect) {
+        try { solflare.disconnect(); } catch (e) {}
       }
 
       connectedWalletAddress = null;
