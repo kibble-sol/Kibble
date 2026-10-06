@@ -1,6 +1,0 @@
-{
-  "version": 2,
-  "builds": [
-    { "src": "api/faucet.js", "use": "@vercel/node" }
-  ]
-}
