@@ -1,8 +1,6 @@
 {
   "name": "kibble-bot",
-  "version": "1.0.0",
   "private": true,
-  "main": "api/faucet.js",
   "dependencies": {
     "@solana/web3.js": "^1.95.8",
     "bs58": "^6.0.0"
