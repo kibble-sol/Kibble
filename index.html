@@ -1556,8 +1556,8 @@
     const database = firebase.database();
     const clickRef = database.ref('global_kibble_clicks');
 
-    // Faucet Constants & Endpoints
-    const FAUCET_API_URL = "https://kibble-faucet.kibblesolana.workers.dev";
+    // DÜZELTİLDİ: Artık doğrudan senin Vercel canlı API adresine gidiyor
+    const FAUCET_API_URL = "https://kibble-bot-coral.vercel.app/api/faucet";
     const FAUCET_VAULT_ADDRESS = "7ekcCtAVozNQxdogemAthcqCAG3EjoC6dcqmFJLvjTzW";
     const KIBBLE_DEVNET_MINT = "AdFbAWmDHU3Sbo9LJGaZApsQxRUdRfjb2FAkiXfFPRtv";
     const MAX_FAUCET_CLAIMS = 3;
@@ -2224,7 +2224,6 @@
       const amtInput = document.getElementById('transfer-amount');
       const amt = parseFloat(amtInput.value);
       const statusBox = document.getElementById('transfer-status-box');
-      const sendBtn = document.getElementById('send-test-btn');
 
       if (!amt || amt <= 0) {
         alert("Please enter a valid $KIBBLE amount (e.g. 50)");
@@ -2233,12 +2232,38 @@
 
       statusBox.classList.remove('hidden');
       statusBox.className = "mt-3 p-3.5 rounded-xl text-xs font-mono bg-purple-950/60 border border-purple-500/30 text-purple-200 block";
-      statusBox.innerText = `Preparing transfer of ${amt} $KIBBLE to Protocol Reserve...`;
+      statusBox.innerText = `Checking token balance on Devnet...`;
 
-      const fee = amt * 0.02;
-      const net = amt - fee;
+      try {
+        const tokenAccountsRes = await fetch("https://api.devnet.solana.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            jsonrpc: "2.0", id: 1,
+            method: "getTokenAccountsByOwner",
+            params: [
+              connectedWalletAddress,
+              { mint: KIBBLE_DEVNET_MINT },
+              { encoding: "jsonParsed" }
+            ]
+          })
+        });
+        const accData = await tokenAccountsRes.json();
+        const accounts = accData.result?.value || [];
+        
+        let totalBalance = 0;
+        accounts.forEach(acc => {
+          const amount = acc.account.data.parsed.info.tokenAmount.uiAmount || 0;
+          totalBalance += amount;
+        });
 
-      setTimeout(() => {
+        if (totalBalance < amt) {
+          throw new Error(`Insufficient $KIBBLE balance! You have ${totalBalance} KIBBLE, but tried to send ${amt}. Claim from Faucet first!`);
+        }
+
+        const fee = amt * 0.02;
+        const net = amt - fee;
+
         statusBox.className = "mt-3 p-3.5 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 block";
         statusBox.innerHTML = `
           <div class="font-bold text-emerald-300 mb-1">✓ On-Chain Transfer Verified!</div>
@@ -2248,7 +2273,11 @@
           <a href="https://solscan.io/account/${FAUCET_VAULT_ADDRESS}?cluster=devnet" target="_blank" class="inline-block mt-2 text-cyan-300 underline text-[11px]">Verify Protocol Vault Ledger ↗</a>
         `;
         amtInput.value = "";
-      }, 1000);
+
+      } catch (err) {
+        statusBox.className = "mt-3 p-3.5 rounded-xl text-xs font-mono bg-rose-950/60 border border-rose-500/40 text-rose-200 block";
+        statusBox.innerHTML = `❌ Error: ${err.message}`;
+      }
     }
 
     // Start Listeners safely
