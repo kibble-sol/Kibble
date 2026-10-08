@@ -2087,7 +2087,7 @@
     }
 
     // ==========================================
-    // FAUCET ENGINE & INTERACTIVE DEVNET LOGIC (RENDER API BAĞLANTISI)
+    // FAUCET ENGINE & INTERACTIVE DEVNET LOGIC
     // ==========================================
     function updateFaucetClaimsUI() {
       const badge = document.getElementById('faucet-claims-badge');
@@ -2188,7 +2188,7 @@
       }
     }
 
-    // REAL WALLET SIGN AND SEND TRANSACTION (GÖNDER & ONAYLA FONKSİYONU)
+    // GERÇEK CÜZDAN ONAYLI VE TOKEN-2022 UYUMLU TRANSFER TESTİ
     async function executeTestTransfer() {
       if (!connectedWalletAddress) {
         openWalletModal();
@@ -2199,7 +2199,7 @@
       const amt = parseFloat(amtInput.value);
       const statusBox = document.getElementById('transfer-status-box');
 
-      if (!amt || amt <=0) {
+      if (!amt || amt <= 0) {
         alert("Please enter a valid $KIBBLE amount!");
         return;
       }
@@ -2360,4 +2360,4 @@
     }
   </script>
 </body>
-                                                             </html>
+        </html>
