@@ -1,5 +1,5 @@
 import { Connection, Keypair, PublicKey, SystemProgram, Transaction, sendAndConfirmTransaction } from "@solana/web3.js";
-import { createTransferCheckedInstruction, getAssociatedTokenAddress } from "@solana/spl-token";
+import { createTransferCheckedInstruction, getAssociatedTokenAddress, createAssociatedTokenAccountInstruction, getAccount } from "@solana/spl-token";
 import bs58 from "bs58";
 
 const DEVNET_RPC = "https://api.devnet.solana.com";
@@ -40,8 +40,10 @@ export default async function handler(req, res) {
     const recipientPubkey = new PublicKey(recipient);
     const connection = new Connection(DEVNET_RPC, "confirmed");
 
-    // 1. SOL Transferi (0.005 SOL = 5,000,000 Lamports)
-    const transaction = new Transaction().add(
+    const transaction = new Transaction();
+
+    // 1. SOL Transferi (0.005 SOL)
+    transaction.add(
       SystemProgram.transfer({
         fromPubkey: payer.publicKey,
         toPubkey: recipientPubkey,
@@ -49,23 +51,40 @@ export default async function handler(req, res) {
       })
     );
 
-    // 2. $KIBBLE Transferi (100 Token - 9 ondalık varsayımıyla veya token decimals değerine göre)
+    // 2. $KIBBLE (Token-2022) Hesap Kontrolü ve Transferi
     const sourceATA = await getAssociatedTokenAddress(KIBBLE_MINT, payer.publicKey);
     const recipientATA = await getAssociatedTokenAddress(KIBBLE_MINT, recipientPubkey);
 
+    // Alıcının Token-2022 hesabı var mı kontrol ediyoruz, yoksa işlem içine oluşturma talimatı ekliyoruz
+    try {
+      await getAccount(connection, recipientATA, "confirmed");
+    } catch (e) {
+      transaction.add(
+        createAssociatedTokenAccountInstruction(
+          payer.publicKey,
+          recipientATA,
+          recipientPubkey,
+          KIBBLE_MINT
+        )
+      );
+    }
+
+    // $KIBBLE Transfer Talimatı (100 Token, 9 decimals)
     transaction.add(
       createTransferCheckedInstruction(
         sourceATA,
         KIBBLE_MINT,
         recipientATA,
         payer.publicKey,
-        100 * 10**9, // 100 Token (Eğer tokenın decimals değeri farklıysa buradan ayarlayabilirsin)
+        100 * 10**9,
         9
       )
     );
 
-    // İşlemi dağıtıcı cüzdan (payer) ile imzalayıp Devnet'e gönderiyoruz
-    const txSig = await sendAndConfirmTransaction(connection, transaction, [payer]);
+    const txSig = await sendAndConfirmTransaction(connection, transaction, [payer], {
+      commitment: "confirmed",
+      skipPreflight: false,
+    });
 
     return res.status(200).json({
       success: true,
