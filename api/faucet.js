@@ -10,30 +10,21 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+  if (req.method === "OPTIONS") return res.status(200).end();
+  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
   try {
     const { recipient } = req.body;
-    if (!recipient) {
-      return res.status(400).json({ success: false, error: "Recipient address required" });
-    }
+    if (!recipient) return res.status(400).json({ success: false, error: "Recipient required" });
 
-    const privateKeyStr = process.env.FAUCET_PRIVATE_KEY;
-    if (!privateKeyStr) {
-      return res.status(500).json({ success: false, error: "FAUCET_PRIVATE_KEY is missing on Vercel." });
-    }
+    const pkEnv = process.env.FAUCET_PRIVATE_KEY;
+    if (!pkEnv) return res.status(500).json({ success: false, error: "FAUCET_PRIVATE_KEY missing" });
 
     let secretKey;
-    if (privateKeyStr.trim().startsWith("[")) {
-      secretKey = Uint8Array.from(JSON.parse(privateKeyStr));
+    if (pkEnv.trim().startsWith("[")) {
+      secretKey = Uint8Array.from(JSON.parse(pkEnv));
     } else {
-      secretKey = bs58.decode(privateKeyStr.trim());
+      secretKey = bs58.decode(pkEnv.trim());
     }
 
     const payer = Keypair.fromSecretKey(secretKey);
@@ -42,7 +33,7 @@ export default async function handler(req, res) {
 
     const transaction = new Transaction();
 
-    // 1. SOL Transferi (0.005 SOL)
+    // 1. SOL Transfer (0.005 SOL)
     transaction.add(
       SystemProgram.transfer({
         fromPubkey: payer.publicKey,
@@ -51,11 +42,10 @@ export default async function handler(req, res) {
       })
     );
 
-    // 2. $KIBBLE (Token-2022) Hesap Kontrolü ve Transferi
+    // 2. KIBBLE Transfer (100 Token) ve Hesap Kontrolü
     const sourceATA = await getAssociatedTokenAddress(KIBBLE_MINT, payer.publicKey);
     const recipientATA = await getAssociatedTokenAddress(KIBBLE_MINT, recipientPubkey);
 
-    // Alıcının Token-2022 hesabı var mı kontrol ediyoruz, yoksa işlem içine oluşturma talimatı ekliyoruz
     try {
       await getAccount(connection, recipientATA, "confirmed");
     } catch (e) {
@@ -69,7 +59,6 @@ export default async function handler(req, res) {
       );
     }
 
-    // $KIBBLE Transfer Talimatı (100 Token, 9 decimals)
     transaction.add(
       createTransferCheckedInstruction(
         sourceATA,
@@ -81,19 +70,18 @@ export default async function handler(req, res) {
       )
     );
 
+    const { blockhash } = await connection.getLatestBlockhash("confirmed");
+    transaction.recentBlockhash = blockhash;
+    transaction.feePayer = payer.publicKey;
+    
+    // Gerçek imza ve ağa gönderim
     const txSig = await sendAndConfirmTransaction(connection, transaction, [payer], {
-      commitment: "confirmed",
-      skipPreflight: false,
+      commitment: "confirmed"
     });
 
-    return res.status(200).json({
-      success: true,
-      solSig: txSig,
-      message: "0.005 SOL and 100 KIBBLE successfully dispatched from vault!"
-    });
-
+    return res.status(200).json({ success: true, solSig: txSig });
   } catch (err) {
-    console.error("Faucet execution error:", err);
+    console.error("Transfer error:", err);
     return res.status(500).json({ success: false, error: err.message });
   }
 }
