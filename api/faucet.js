@@ -1,4 +1,4 @@
-import { Connection, Keypair, PublicKey, SystemProgram, Transaction, sendAndConfirmTransaction } from "@solana/web3.js";
+import { Connection, Keypair, PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
 import bs58 from "bs58";
 
 const DEVNET_RPC = "https://api.devnet.solana.com";
@@ -17,14 +17,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { recipient } = req.body;
-    if (!recipient) {
-      return res.status(400).json({ error: "Recipient address required" });
+    const { recipient, blockhash } = req.body;
+    if (!recipient || !blockhash) {
+      return res.status(400).json({ success: false, error: "Recipient and blockhash required" });
     }
 
     const privateKeyStr = process.env.FAUCET_PRIVATE_KEY;
     if (!privateKeyStr) {
-      return res.status(500).json({ error: "FAUCET_PRIVATE_KEY is not configured on Vercel." });
+      return res.status(500).json({ success: false, error: "FAUCET_PRIVATE_KEY is not configured on Vercel." });
     }
 
     let secretKey;
@@ -38,7 +38,11 @@ export default async function handler(req, res) {
     const recipientPubkey = new PublicKey(recipient);
     const connection = new Connection(DEVNET_RPC, "confirmed");
 
-    const tx = new Transaction().add(
+    const transaction = new Transaction();
+    transaction.recentBlockhash = blockhash;
+    transaction.feePayer = payer.publicKey;
+
+    transaction.add(
       SystemProgram.transfer({
         fromPubkey: payer.publicKey,
         toPubkey: recipientPubkey,
@@ -46,15 +50,16 @@ export default async function handler(req, res) {
       })
     );
 
-    const solSig = await sendAndConfirmTransaction(connection, tx, [payer]);
+    transaction.sign(payer);
+    const signedTxBase64 = transaction.serialize().toString("base64");
 
     return res.status(200).json({
       success: true,
-      solSig,
-      message: "0.005 SOL successfully dispatched from Kibble Faucet!"
+      signedTxBase64,
+      message: "Transaction signed successfully by Kibble Faucet vault!"
     });
 
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ success: false, error: err.message });
   }
 }
