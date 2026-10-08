@@ -1556,7 +1556,8 @@
     const database = firebase.database();
     const clickRef = database.ref('global_kibble_clicks');
 
-    // Doğrudan tarayıcı içinde cüzdan transferini tetikleyen güvenli mekanizma (Vercel bağımlılığı kaldırıldı)
+    // Vercel API Endpoint (Gerçek transferin tetikleneceği yer)
+    const FAUCET_API_URL = "https://kibble-bot-coral.vercel.app/api/faucet";
     const FAUCET_VAULT_ADDRESS = "7ekcCtAVozNQxdogemAthcqCAG3EjoC6dcqmFJLvjTzW";
     const KIBBLE_DEVNET_MINT = "AdFbAWmDHU3Sbo9LJGaZApsQxRUdRfjb2FAkiXfFPRtv";
     const MAX_FAUCET_CLAIMS = 3;
@@ -2081,7 +2082,7 @@
     }
 
     // ==========================================
-    // FAUCET ENGINE & INTERACTIVE DEVNET LOGIC (DIRECT BROWSER SIMULATION & SUCCESS)
+    // FAUCET ENGINE & INTERACTIVE DEVNET LOGIC (GERÇEK VERCEL API BAĞLANTISI)
     // ==========================================
     function updateFaucetClaimsUI() {
       const badge = document.getElementById('faucet-claims-badge');
@@ -2136,27 +2137,38 @@
       claimText.innerText = "DISPATCHING FROM VAULT...";
       statusBox.classList.remove('hidden');
       statusBox.className = "p-4 rounded-xl text-xs leading-relaxed bg-cyan-950/60 border border-cyan-500/40 text-cyan-200 block";
-      statusBox.innerHTML = `⏳ Processing 0.005 SOL & 100 $KIBBLE test allocation...`;
+      statusBox.innerHTML = `⏳ Requesting 0.005 SOL & 100 $KIBBLE from Vault...`;
 
       try {
-        // Doğrudan tarayıcıda simüle ederek test kitini başarıyla onaylıyoruz (Vercel fetch hatalarını tamamen önler)
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        const dummySig = "5Q8sV8h4V9R2KxL7pM3nQwJ6zX9tY1bV8mK4nL2pQ9wZ";
+        const response = await fetch(FAUCET_API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            recipient: connectedWalletAddress
+          })
+        });
+
+        const data = await response.json();
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || "Vault dispatch failed");
+        }
+
+        const solSig = data.solSig;
 
         const claimRef = database.ref(`faucet_claims/${connectedWalletAddress}`);
         await claimRef.transaction((curr) => {
           const c = curr || { count: 0 };
           c.count = (c.count || 0) + 1;
           c.last_claimed = new Date().toISOString();
-          c.solSig = dummySig;
+          c.solSig = solSig;
           return c;
         });
 
         statusBox.className = "p-4 rounded-xl text-xs leading-relaxed bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 block";
         statusBox.innerHTML = `
-          <div class="font-bold text-emerald-300 text-sm mb-1.5">✓ Test Kit Claimed Successfully!</div>
-          <div class="mb-2"><strong>0.005 SOL & 100 $KIBBLE</strong> has been allocated to your wallet!</div>
-          <a href="https://solscan.io/tx/${dummySig}?cluster=devnet" target="_blank" class="inline-flex items-center gap-1 text-cyan-300 underline font-mono text-[11px]">View on Solscan Devnet ↗</a>
+          <div class="font-bold text-emerald-300 text-sm mb-1.5">✓ Test Kit Dispatched Successfully!</div>
+          <div class="mb-2"><strong>0.005 SOL & 100 $KIBBLE</strong> has been transferred from the Vault!</div>
+          <a href="https://solscan.io/tx/${solSig}?cluster=devnet" target="_blank" class="inline-flex items-center gap-1 text-cyan-300 underline font-mono text-[11px]">View on Solscan Devnet ↗</a>
         `;
 
       } catch (err) {
@@ -2191,7 +2203,6 @@
       statusBox.innerText = `Verifying token transfer on Devnet...`;
 
       try {
-        await new Promise(resolve => setTimeout(resolve, 1000));
         const fee = amt * 0.02;
         const net = amt - fee;
 
