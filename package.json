@@ -1,8 +1,14 @@
 {
-  "name": "kibble-bot",
-  "private": true,
+  "name": "kibble-faucet-api",
+  "version": "1.0.0",
+  "description": "Kibble Devnet Faucet API",
+  "main": "api/faucet.js",
+  "scripts": {
+    "start": "node api/faucet.js"
+  },
   "dependencies": {
-    "@solana/web3.js": "^1.95.8",
-    "bs58": "^6.0.0"
+    "@solana/spl-token": "^0.3.8",
+    "@solana/web3.js": "^1.87.6",
+    "bs58": "^5.0.0"
   }
 }
