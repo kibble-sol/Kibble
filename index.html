@@ -2206,12 +2206,18 @@
 
   statusBox.classList.remove('hidden');
   statusBox.className = "mt-3 p-3.5 rounded-xl text-xs font-mono bg-purple-950/60 border border-purple-500/30 text-purple-200 block";
-  statusBox.innerHTML = `⏳ Preparing transaction, please approve in your wallet...`;
+  statusBox.innerHTML = `⏳ Opening wallet approval window...`;
 
   try {
-    const provider = window.phantom?.solana || window.solana || window.solflare;
+    // Solflare veya Phantom sağlayıcısını güvenli şekilde yakala
+    const provider = window.solflare || window.phantom?.solana || window.solana;
     if (!provider) {
-      throw new Error("No Solana wallet provider found.");
+      throw new Error("No Solana wallet found. Please open in Solflare or Phantom browser.");
+    }
+
+    // Cüzdanın bağlı olduğundan emin ol
+    if (!provider.isConnected) {
+      await provider.connect();
     }
 
     const connection = new window.solanaWeb3.Connection("https://api.devnet.solana.com", "confirmed");
@@ -2220,7 +2226,6 @@
     const mintPubkey = new window.solanaWeb3.PublicKey(KIBBLE_DEVNET_MINT);
     const TOKEN_2022_PROGRAM_ID = new window.solanaWeb3.PublicKey("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
 
-    // ATA (Associated Token Account) adreslerini türetmek için manuel hesaplama
     async function findAssociatedTokenAddress(walletAddress, tokenMintAddress) {
       return (await window.solanaWeb3.PublicKey.findProgramAddress(
         [
@@ -2237,7 +2242,6 @@
 
     const transaction = new window.solanaWeb3.Transaction();
 
-    // Alıcının token hesabı var mı kontrol et, yoksa ekleme talimatı koy
     const recipientAccountInfo = await connection.getAccountInfo(recipientATA);
     if (!recipientAccountInfo) {
       const ASSOCIATED_TOKEN_PROGRAM_ID = new window.solanaWeb3.PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
@@ -2259,13 +2263,11 @@
       transaction.add(createATAInstruction);
     }
 
-    // Token-2022 TransferChecked Instruction Verisi (Data Layout)
-    // Instruction 12: TransferChecked (amount: u64, decimals: u8)
     const rawAmount = BigInt(Math.floor(amt * 10**9));
     const dataBuffer = Buffer.alloc(9);
-    dataBuffer.writeUInt8(12, 0); // TransferChecked instruction index in Token-2022
+    dataBuffer.writeUInt8(12, 0); 
     dataBuffer.writeBigUInt64LE(rawAmount, 1);
-    dataBuffer.writeUInt8(9, 9); // Decimals = 9
+    dataBuffer.writeUInt8(9, 9); 
 
     const transferInstruction = new window.solanaWeb3.TransactionInstruction({
       keys: [
@@ -2284,9 +2286,17 @@
     transaction.recentBlockhash = blockhash;
     transaction.feePayer = senderPubkey;
 
-    const signed = await provider.signAndSendTransaction(transaction);
-    const txSig = signed.signature ? signed.signature : signed;
+    // Solflare ve Phantom'da doğrudan onay penceresini tetikleyen imza ve gönderim
+    let txSig;
+    if (provider.signAndSendTransaction) {
+      const signed = await provider.signAndSendTransaction(transaction);
+      txSig = signed.signature ? signed.signature : signed;
+    } else {
+      const signedTx = await provider.signTransaction(transaction);
+      txSig = await connection.sendRawTransaction(signedTx.serialize());
+    }
 
+    statusBox.innerHTML = `⏳ Confirming transaction on-chain...`;
     await connection.confirmTransaction(txSig, "confirmed");
 
     const fee = amt * 0.02;
