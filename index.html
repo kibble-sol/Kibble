@@ -2189,7 +2189,108 @@
     }
 
     // GERÇEK CÜZDAN ONAYLI VE TOKEN-2022 UYUMLU TRANSFER TESTİ
-    async function executeTestTransfer() {
+async function executeTestTransfer() {
+  if (!connectedWalletAddress) {
+    openWalletModal();
+    return;
+  }
+
+  const amtInput = document.getElementById('transfer-amount');
+  const amt = parseFloat(amtInput.value);
+  const statusBox = document.getElementById('transfer-status-box');
+
+  if (!amt || amt <= 0) {
+    alert("Please enter a valid amount!");
+    return;
+  }
+
+  statusBox.classList.remove('hidden');
+  statusBox.className = "mt-3 p-3.5 rounded-xl text-xs font-mono bg-purple-950/60 border border-purple-500/30 text-purple-200 block";
+  statusBox.innerHTML = `⏳ Opening wallet signature window...`;
+
+  try {
+    const provider = window.solflare || window.phantom?.solana || window.solana;
+    if (!provider) {
+      throw new Error("No Solana wallet found.");
+    }
+
+    if (!provider.isConnected) {
+      await provider.connect();
+    }
+
+    const connection = new window.solanaWeb3.Connection("https://api.devnet.solana.com", "confirmed");
+    const senderPubkey = new window.solanaWeb3.PublicKey(connectedWalletAddress);
+    const recipientPubkey = new window.solanaWeb3.PublicKey(FAUCET_VAULT_ADDRESS);
+    const mintPubkey = new window.solanaWeb3.PublicKey(KIBBLE_DEVNET_MINT);
+    
+    // Token-2022 ve ATA program ID'leri
+    const TOKEN_2022_PRG = new window.solanaWeb3.PublicKey("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
+    const ASSOCIATED_TOKEN_PRG = new window.solanaWeb3.PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
+
+    // Derivation (ATA adreslerini bulma)
+    function findProgramAddressSync(seeds, programId) {
+      return window.solanaWeb3.PublicKey.findProgramAddressSync(seeds, programId);
+    }
+
+    const sourceATA = findProgramAddressSync(
+      [senderPubkey.toBuffer(), TOKEN_2022_PRG.toBuffer(), mintPubkey.toBuffer()],
+      ASSOCIATED_TOKEN_PRG
+    )[0];
+
+    const recipientATA = findProgramAddressSync(
+      [recipientPubkey.toBuffer(), TOKEN_2022_PRG.toBuffer(), mintPubkey.toBuffer()],
+      ASSOCIATED_TOKEN_PRG
+    )[0];
+
+    const transaction = new window.solanaWeb3.Transaction();
+
+    // Alıcının hesabı zincirde var mı kontrol et, yoksa oluşturma talimatı ekle
+    const recipientAccountInfo = await connection.getAccountInfo(recipientATA);
+    if (!recipientAccountInfo) {
+      const SYSVAR_RENT = new window.solanaWeb3.PublicKey("SysvarRent111111111111111111111111111111111");
+      
+      const createATAIx = new window.solanaWeb3.TransactionInstruction({
+        keys: [
+          { pubkey: senderPubkey, isSigner: true, isWritable: true },
+          { pubkey: recipientATA, isSigner: false, isWritable: true },
+          { pubkey: recipientPubkey, isSigner: false, isWritable: false },
+          { pubkey: mintPubkey, isSigner: false, isWritable: false },
+          { pubkey: window.solanaWeb3.SystemProgram.programId, isSigner: false, isWritable: false },
+          { pubkey: TOKEN_2022_PRG, isSigner: false, isWritable: false },
+          { pubkey: SYSVAR_RENT, isSigner: false, isWritable: false },
+        ],
+        programId: ASSOCIATED_TOKEN_PRG,
+        data: Buffer.alloc(0),
+      });
+      transaction.add(createATAIx);
+    }
+
+    // Token-2022 TransferChecked Talimat Verisi (Cüzdanın asla reddetmeyeceği ham byte düzeni)
+    const rawAmount = BigInt(Math.floor(amt * 10**9));
+    const dataBuffer = Buffer.alloc(10);
+    dataBuffer.writeUInt8(12, 0); // TransferChecked instruction index = 12
+    dataBuffer.writeBigUInt64LE(rawAmount, 1);
+    dataBuffer.writeUInt8(9, 9); // Decimals = 9
+
+    const transferIx = new window.solanaWeb3.TransactionInstruction({
+      keys: [
+        { pubkey: sourceATA, isSigner: false, isWritable: true },
+        { pubkey: mintPubkey, isSigner: false, isWritable: false },
+        { pubkey: recipientATA, isSigner: false, isWritable: true },
+        { pubkey: senderPubkey, isSigner: true, isWritable: false },
+      ],
+      programId: TOKEN_2022_PRG,
+      data: dataBuffer,
+    });
+
+    transaction.add(transferIx);
+
+    const { blockhash } = await connection.getLatestBlockhash();
+    transaction.recentBlockhash = blockhash;
+    transaction.feePayer = senderPubkey;
+
+    // Cüzdan imza ve gönderim tetikleyicisi
+async function executeTestTransfer() {
   if (!connectedWalletAddress) {
     openWalletModal();
     return;
@@ -2206,97 +2307,122 @@
 
   statusBox.classList.remove('hidden');
   statusBox.className = "mt-3 p-3.5 rounded-xl text-xs font-mono bg-purple-950/60 border border-purple-500/30 text-purple-200 block";
-  statusBox.innerHTML = `⏳ Cüzdan onay penceresi açılıyor...`;
+  statusBox.innerHTML = `⏳ Cüzdan imza penceresi hazırlanıyor...`;
 
   try {
     const provider = window.solflare || window.phantom?.solana || window.solana;
     if (!provider) {
-      throw new Error("Cüzdan bulunamadı!");
+      throw new Error("Cüzdan bulunamadı! Lütfen Solflare veya Phantom tarayıcısında aç.");
     }
 
     if (!provider.isConnected) {
       await provider.connect();
     }
 
-    const splTokenLib = window.solanaSplToken || window.splToken;
-    if (!splTokenLib) {
-      throw new Error("SPL Token kütüphanesi yüklenemedi.");
-    }
-
     const connection = new window.solanaWeb3.Connection("https://api.devnet.solana.com", "confirmed");
     const senderPubkey = new window.solanaWeb3.PublicKey(connectedWalletAddress);
     const recipientPubkey = new window.solanaWeb3.PublicKey(FAUCET_VAULT_ADDRESS);
     const mintPubkey = new window.solanaWeb3.PublicKey(KIBBLE_DEVNET_MINT);
-    const TOKEN_2022_PRG = splTokenLib.TOKEN_2022_PROGRAM_ID;
+    
+    const TOKEN_2022_PRG = new window.solanaWeb3.PublicKey("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
+    const ASSOCIATED_TOKEN_PRG = new window.solanaWeb3.PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
 
-    // ATA adresleri
-    const sourceATA = await splTokenLib.getAssociatedTokenAddress(mintPubkey, senderPubkey, false, TOKEN_2022_PRG);
-    const recipientATA = await splTokenLib.getAssociatedTokenAddress(mintPubkey, recipientPubkey, false, TOKEN_2022_PRG);
+    // ATA adreslerini bulma
+    function findATA(wallet, mint) {
+      return window.solanaWeb3.PublicKey.findProgramAddressSync(
+        [wallet.toBuffer(), TOKEN_2022_PRG.toBuffer(), mint.toBuffer()],
+        ASSOCIATED_TOKEN_PRG
+      )[0];
+    }
+
+    const sourceATA = findATA(senderPubkey, mintPubkey);
+    const recipientATA = findATA(recipientPubkey, mintPubkey);
 
     const transaction = new window.solanaWeb3.Transaction();
 
-    // Alıcı hesabı yoksa oluştur
-    try {
-      await splTokenLib.getAccount(connection, recipientATA, "confirmed", TOKEN_2022_PRG);
-    } catch (e) {
+    // Alıcı ATA hesabı yoksa oluşturma talimatı ekle
+    const recipientAccountInfo = await connection.getAccountInfo(recipientATA);
+    if (!recipientAccountInfo) {
+      const SYSVAR_RENT = new window.solanaWeb3.PublicKey("SysvarRent111111111111111111111111111111111");
       transaction.add(
-        splTokenLib.createAssociatedTokenAccountInstruction(
-          senderPubkey,
-          recipientATA,
-          recipientPubkey,
-          mintPubkey,
-          TOKEN_2022_PRG
-        )
+        new window.solanaWeb3.TransactionInstruction({
+          keys: [
+            { pubkey: senderPubkey, isSigner: true, isWritable: true },
+            { pubkey: recipientATA, isSigner: false, isWritable: true },
+            { pubkey: recipientPubkey, isSigner: false, isWritable: false },
+            { pubkey: mintPubkey, isSigner: false, isWritable: false },
+            { pubkey: window.solanaWeb3.SystemProgram.programId, isSigner: false, isWritable: false },
+            { pubkey: TOKEN_2022_PRG, isSigner: false, isWritable: false },
+            { pubkey: SYSVAR_RENT, isSigner: false, isWritable: false },
+          ],
+          programId: ASSOCIATED_TOKEN_PRG,
+          data: Buffer.alloc(0),
+        })
       );
     }
 
-    // Doğrudan cüzdanların tanıdığı güvenli transfer talimatı
+    // Token-2022 TransferChecked verisi
+    const rawAmount = BigInt(Math.floor(amt * 10**9));
+    const dataBuffer = Buffer.alloc(10);
+    dataBuffer.writeUInt8(12, 0); // TransferChecked index
+    dataBuffer.writeBigUInt64LE(rawAmount, 1);
+    dataBuffer.writeUInt8(9, 9); // Decimals
+
     transaction.add(
-      splTokenLib.createTransferCheckedInstruction(
-        sourceATA,
-        mintPubkey,
-        recipientATA,
-        senderPubkey,
-        BigInt(Math.floor(amt * 10**9)),
-        9,
-        [],
-        TOKEN_2022_PRG
-      )
+      new window.solanaWeb3.TransactionInstruction({
+        keys: [
+          { pubkey: sourceATA, isSigner: false, isWritable: true },
+          { pubkey: mintPubkey, isSigner: false, isWritable: false },
+          { pubkey: recipientATA, isSigner: false, isWritable: true },
+          { pubkey: senderPubkey, isSigner: true, isWritable: false },
+        ],
+        programId: TOKEN_2022_PRG,
+        data: dataBuffer,
+      })
     );
 
-    const { blockhash } = await connection.getLatestBlockhash("confirmed");
-    transaction.recentBlockhash = blockhash;
+    // Güncel blockhash ve feePayer ayarları
+    const latestBlockhash = await connection.getLatestBlockhash("confirmed");
+    transaction.recentBlockhash = latestBlockhash.blockhash;
     transaction.feePayer = senderPubkey;
+
+    statusBox.innerHTML = `⏳ Cüzdanda onay bekleniyor...`;
 
     let txSig;
     if (provider.signAndSendTransaction) {
       const signed = await provider.signAndSendTransaction(transaction);
       txSig = signed.signature ? signed.signature : signed;
-    } else {
+    } else if (provider.signTransaction) {
       const signedTx = await provider.signTransaction(transaction);
       txSig = await connection.sendRawTransaction(signedTx.serialize());
+    } else {
+      throw new Error("Cüzdan imzalama metodunu desteklemiyor.");
     }
 
-    statusBox.innerHTML = `⏳ İşlem onaylanıyor...`;
-    await connection.confirmTransaction(txSig, "confirmed");
+    statusBox.innerHTML = `⏳ İşlem ağda onaylanıyor...`;
+    await connection.confirmTransaction({
+      signature: txSig,
+      blockhash: latestBlockhash.blockhash,
+      lastValidBlockHeight: latestBlockhash.lastValidBlockHeight
+    }, "confirmed");
 
     const fee = amt * 0.02;
     const net = amt - fee;
 
     statusBox.className = "mt-3 p-3.5 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 block";
     statusBox.innerHTML = `
-      <div class="font-bold text-emerald-300 mb-1">✓ İşlem Başarılı!</div>
+      <div class="font-bold text-emerald-300 mb-1">✓ İşlem Başarılı ve Doğrulandı!</div>
       <div>Gönderilen: <strong>${amt} $KIBBLE</strong></div>
-      <div>Kesinti: <strong class="text-cyan-300">-${fee.toFixed(2)} $KIBBLE</strong></div>
-      <div>Kasaya Giden: <strong class="text-white">${net.toFixed(2)} $KIBBLE</strong></div>
-      <a href="https://solscan.io/tx/${txSig}?cluster=devnet" target="_blank" class="inline-block mt-2 text-cyan-300 underline text-[11px]">Solscan'de Gör ↗</a>
+      <div>%2 Kesinti (Hook): <strong class="text-cyan-300">-${fee.toFixed(2)} $KIBBLE</strong></div>
+      <div>Kasa Hesabına Giden: <strong class="text-white">${net.toFixed(2)} $KIBBLE</strong></div>
+      <a href="https://solscan.io/tx/${txSig}?cluster=devnet" target="_blank" class="inline-block mt-2 text-cyan-300 underline text-[11px]">Solscan'de Görüntüle ↗</a>
     `;
     amtInput.value = "";
 
   } catch (err) {
     console.error("Transfer error:", err);
     statusBox.className = "mt-3 p-3.5 rounded-xl text-xs font-mono bg-rose-950/60 border border-rose-500/40 text-rose-200 block";
-    statusBox.innerHTML = `❌ Hata: ${err.message || "İşlem iptal edildi."}`;
+    statusBox.innerHTML = `❌ Hata: ${err.message || "İşlem iptal edildi veya başarısız oldu."}`;
   }
 }
 
@@ -2381,4 +2507,4 @@
     }
   </script>
 </body>
-        </html>
+  </html>
