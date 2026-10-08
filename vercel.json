@@ -1,6 +1,3 @@
 {
-  "version": 2,
-  "rewrites": [
-    { "source": "/api/faucet", "destination": "/api/faucet.js" }
-  ]
+  "version": 2
 }
