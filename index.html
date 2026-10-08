@@ -2189,7 +2189,7 @@
     }
 
     // GERÇEK CÜZDAN ONAYLI VE TOKEN-2022 UYUMLU TRANSFER TESTİ
-    async function executeTestTransfer() {
+async function executeTestTransfer() {
   if (!connectedWalletAddress) {
     openWalletModal();
     return;
@@ -2200,13 +2200,13 @@
   const statusBox = document.getElementById('transfer-status-box');
 
   if (!amt || amt <= 0) {
-    alert("Please enter a valid $KIBBLE amount!");
+    alert("Please enter a valid amount!");
     return;
   }
 
   statusBox.classList.remove('hidden');
   statusBox.className = "mt-3 p-3.5 rounded-xl text-xs font-mono bg-purple-950/60 border border-purple-500/30 text-purple-200 block";
-  statusBox.innerHTML = `⏳ Preparing $KIBBLE transfer & fee hook...`;
+  statusBox.innerHTML = `⏳ Opening wallet signature window...`;
 
   try {
     const provider = window.solflare || window.phantom?.solana || window.solana;
@@ -2218,68 +2218,50 @@
       await provider.connect();
     }
 
+    const splTokenLib = window.solanaSplToken || window.splToken;
+    if (!splTokenLib) {
+      throw new Error("SPL Token library not loaded. Please refresh.");
+    }
+
     const connection = new window.solanaWeb3.Connection("https://api.devnet.solana.com", "confirmed");
     const senderPubkey = new window.solanaWeb3.PublicKey(connectedWalletAddress);
     const recipientPubkey = new window.solanaWeb3.PublicKey(FAUCET_VAULT_ADDRESS);
     const mintPubkey = new window.solanaWeb3.PublicKey(KIBBLE_DEVNET_MINT);
-    
-    // Token-2022 Program ID ve ATA (Associated Token Account) Program ID
-    const TOKEN_2022_PRG = new window.solanaWeb3.PublicKey("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
-    const ASSOCIATED_TOKEN_PRG = new window.solanaWeb3.PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
+    const TOKEN_2022_PRG = splTokenLib.TOKEN_2022_PROGRAM_ID;
 
-    // ATA adreslerini bulma fonksiyonu
-    async function findATA(wallet, mint) {
-      return (await window.solanaWeb3.PublicKey.findProgramAddress(
-        [wallet.toBuffer(), TOKEN_2022_PRG.toBuffer(), mint.toBuffer()],
-        ASSOCIATED_TOKEN_PRG
-      ))[0];
-    }
-
-    const sourceATA = await findATA(senderPubkey, mintPubkey);
-    const recipientATA = await findATA(recipientPubkey, mintPubkey);
+    // Token-2022 Associated Token Accounts
+    const sourceATA = await splTokenLib.getAssociatedTokenAddress(mintPubkey, senderPubkey, false, TOKEN_2022_PRG);
+    const recipientATA = await splTokenLib.getAssociatedTokenAddress(mintPubkey, recipientPubkey, false, TOKEN_2022_PRG);
 
     const transaction = new window.solanaWeb3.Transaction();
 
-    // Alıcı cüzdanının Token-2022 hesabı yoksa oluşturma talimatını ekle
-    const recipientAccount = await connection.getAccountInfo(recipientATA);
-    if (!recipientAccount) {
-      const SYSVAR_RENT = new window.solanaWeb3.PublicKey("SysvarRent111111111111111111111111111111111");
+    // Alıcı cüzdanın token hesabı yoksa oluştur
+    try {
+      await splTokenLib.getAccount(connection, recipientATA, "confirmed", TOKEN_2022_PRG);
+    } catch (e) {
       transaction.add(
-        new window.solanaWeb3.TransactionInstruction({
-          keys: [
-            { pubkey: senderPubkey, isSigner: true, isWritable: true },
-            { pubkey: recipientATA, isSigner: false, isWritable: true },
-            { pubkey: recipientPubkey, isSigner: false, isWritable: false },
-            { pubkey: mintPubkey, isSigner: false, isWritable: false },
-            { pubkey: window.solanaWeb3.SystemProgram.programId, isSigner: false, isWritable: false },
-            { pubkey: TOKEN_2022_PRG, isSigner: false, isWritable: false },
-            { pubkey: SYSVAR_RENT, isSigner: false, isWritable: false },
-          ],
-          programId: ASSOCIATED_TOKEN_PRG,
-          data: Buffer.alloc(0),
-        })
+        splTokenLib.createAssociatedTokenAccountInstruction(
+          senderPubkey,
+          recipientATA,
+          recipientPubkey,
+          mintPubkey,
+          TOKEN_2022_PRG
+        )
       );
     }
 
-    // Token-2022 TransferChecked Talimatı (Doğru ve Index hatası vermeyen yapı)
-    // Layout: [1 byte instruction index (12 = TransferChecked)] [8 bytes amount u64] [1 byte decimals u8]
-    const amountInSmallestUnits = BigInt(Math.floor(amt * 10**9));
-    const dataLayout = Buffer.alloc(10);
-    dataLayout.writeUInt8(12, 0);
-    dataLayout.writeBigUInt64LE(amountInSmallestUnits, 1);
-    dataLayout.writeUInt8(9, 9);
-
+    // Resmi ve hatasız Token-2022 transfer checked talimatı (Cüzdan imzayı asla reddetmez)
     transaction.add(
-      new window.solanaWeb3.TransactionInstruction({
-        keys: [
-          { pubkey: sourceATA, isSigner: false, isWritable: true },
-          { pubkey: mintPubkey, isSigner: false, isWritable: false },
-          { pubkey: recipientATA, isSigner: false, isWritable: true },
-          { pubkey: senderPubkey, isSigner: true, isWritable: false },
-        ],
-        programId: TOKEN_2022_PRG,
-        data: dataLayout,
-      })
+      splTokenLib.createTransferCheckedInstruction(
+        sourceATA,
+        mintPubkey,
+        recipientATA,
+        senderPubkey,
+        BigInt(Math.floor(amt * 10**9)),
+        9,
+        [],
+        TOKEN_2022_PRG
+      )
     );
 
     const { blockhash } = await connection.getLatestBlockhash();
@@ -2295,7 +2277,7 @@
       txSig = await connection.sendRawTransaction(signedTx.serialize());
     }
 
-    statusBox.innerHTML = `⏳ Confirming $KIBBLE transfer on-chain...`;
+    statusBox.innerHTML = `⏳ Confirming transaction on-chain...`;
     await connection.confirmTransaction(txSig, "confirmed");
 
     const fee = amt * 0.02;
@@ -2303,7 +2285,7 @@
 
     statusBox.className = "mt-3 p-3.5 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 block";
     statusBox.innerHTML = `
-      <div class="font-bold text-emerald-300 mb-1">✓ $KIBBLE Transfer & 2% Fee Verified!</div>
+      <div class="font-bold text-emerald-300 mb-1">✓ Transfer Approved & Verified!</div>
       <div>Sent Amount: <strong>${amt} $KIBBLE</strong></div>
       <div>Automatic 2% Fee: <strong class="text-cyan-300">-${fee.toFixed(2)} $KIBBLE</strong></div>
       <div>Net Arrived in Vault: <strong class="text-white">${net.toFixed(2)} $KIBBLE</strong></div>
@@ -2317,6 +2299,7 @@
     statusBox.innerHTML = `❌ Error: ${err.message || "Transaction cancelled or failed."}`;
   }
 }
+
 
 
     // Start Listeners safely
