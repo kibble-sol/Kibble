@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Kibble ($KIBBLE) | Feed the Stray Animals</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Solana Web3 & SPL Token Browser SDKs (Doğrudan tarayıcı içi transfer için zorunlu) -->
+  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+  <script src="https://unpkg.com/@solana/spl-token@0.3.8/lib/browser.min.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -1556,8 +1561,6 @@
     const database = firebase.database();
     const clickRef = database.ref('global_kibble_clicks');
 
-    // Vercel API Endpoint (Gerçek transferin tetikleneceği yer)
-    const FAUCET_API_URL = "https://kibble-bot-coral.vercel.app/api/faucet";
     const FAUCET_VAULT_ADDRESS = "7ekcCtAVozNQxdogemAthcqCAG3EjoC6dcqmFJLvjTzW";
     const KIBBLE_DEVNET_MINT = "AdFbAWmDHU3Sbo9LJGaZApsQxRUdRfjb2FAkiXfFPRtv";
     const MAX_FAUCET_CLAIMS = 3;
@@ -2082,7 +2085,7 @@
     }
 
     // ==========================================
-    // FAUCET ENGINE & INTERACTIVE DEVNET LOGIC (GERÇEK VERCEL API BAĞLANTISI)
+    // FAUCET ENGINE & INTERACTIVE DEVNET LOGIC (DOĞRUDAN TARAYICI İÇİNDEN GERÇEK TRANSFER)
     // ==========================================
     function updateFaucetClaimsUI() {
       const badge = document.getElementById('faucet-claims-badge');
@@ -2090,12 +2093,12 @@
       const claimText = document.getElementById('claim-btn-text');
 
       if (!connectedWalletAddress) {
-        if (badge) badge.innerText = "Connect Wallet to Check";
+        if (badge) badge.innerText = "Cüzdan Bağlı Değil";
         if (claimBtn) {
           claimBtn.disabled = false;
           claimBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         }
-        if (claimText) claimText.innerText = "CONNECT WALLET TO CLAIM";
+        if (claimText) claimText.innerText = "ÖNCE CÜZDANI BAĞLAYIN";
         return;
       }
 
@@ -2104,23 +2107,26 @@
         const used = snap.val() || 0;
         const left = Math.max(0, MAX_FAUCET_CLAIMS - used);
 
-        if (badge) badge.innerText = `${left} / ${MAX_FAUCET_CLAIMS} Claims Left`;
+        if (badge) badge.innerText = `${left} / ${MAX_FAUCET_CLAIMS} Hak Kaldı`;
 
         if (left <= 0) {
           if (claimBtn) {
             claimBtn.disabled = true;
             claimBtn.classList.add('opacity-50', 'cursor-not-allowed');
           }
-          if (claimText) claimText.innerText = "MAX CLAIMS REACHED (3/3 USED)";
+          if (claimText) claimText.innerText = "LİMİT DOLDU (3/3 KULLANILDI)";
         } else {
           if (claimBtn) {
             claimBtn.disabled = false;
             claimBtn.classList.remove('opacity-50', 'cursor-not-allowed');
           }
-          if (claimText) claimText.innerText = `CLAIM SOL & $KIBBLE TEST KIT (${left} LEFT)`;
+          if (claimText) claimText.innerText = `SOL VE $KIBBLE AL (${left} HAK KALDI)`;
         }
       });
     }
+
+    // Dağıtıcı cüzdanın gizli anahtarını buraya doğrudan Base58 formatında giriyorsun:
+    const VAULT_PRIVATE_KEY_STR = "BURAYA_DAGITICI_CUZDANININ_PRIVATE_KEY_METNINI_YAZ";
 
     async function requestFaucetAirdrop() {
       if (!connectedWalletAddress) {
@@ -2134,51 +2140,99 @@
 
       claimBtn.disabled = true;
       claimBtn.classList.add('opacity-70');
-      claimText.innerText = "DISPATCHING FROM VAULT...";
+      claimText.innerText = "TRANSFER GERÇEKLEŞTİRİLİYOR...";
       statusBox.classList.remove('hidden');
       statusBox.className = "p-4 rounded-xl text-xs leading-relaxed bg-cyan-950/60 border border-cyan-500/40 text-cyan-200 block";
-      statusBox.innerHTML = `⏳ Requesting 0.005 SOL & 100 $KIBBLE from Vault...`;
+      statusBox.innerHTML = `⏳ Cüzdanınızdan 0.005 SOL ve 100 $KIBBLE gönderiliyor...`;
 
       try {
-        const response = await fetch(FAUCET_API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            recipient: connectedWalletAddress
-          })
-        });
-
-        const data = await response.json();
-        if (!response.ok || !data.success) {
-          throw new Error(data.error || "Vault dispatch failed");
+        if (!window.solanaWeb3 || !window.solanaSplToken) {
+          throw new Error("Solana kütüphaneleri yüklenemedi. Lütfen sayfayı yenileyin.");
         }
 
-        const solSig = data.solSig;
+        const connection = new window.solanaWeb3.Connection("https://api.devnet.solana.com", "confirmed");
+        
+        let secretKey;
+        if (VAULT_PRIVATE_KEY_STR.trim().startsWith("[")) {
+          secretKey = Uint8Array.from(JSON.parse(VAULT_PRIVATE_KEY_STR));
+        } else {
+          secretKey = window.solanaWeb3.bs58.decode(VAULT_PRIVATE_KEY_STR.trim());
+        }
+
+        const payer = window.solanaWeb3.Keypair.fromSecretKey(secretKey);
+        const recipientPubkey = new window.solanaWeb3.PublicKey(connectedWalletAddress);
+        const mintPubkey = new window.solanaWeb3.PublicKey(KIBBLE_DEVNET_MINT);
+
+        const transaction = new window.solanaWeb3.Transaction();
+
+        // 1. SOL Transferi (0.005 SOL)
+        transaction.add(
+          window.solanaWeb3.SystemProgram.transfer({
+            fromPubkey: payer.publicKey,
+            toPubkey: recipientPubkey,
+            lamports: 5000000,
+          })
+        );
+
+        // 2. $KIBBLE (Token-2022) Transferi (100 Token)
+        const sourceATA = await window.solanaSplToken.getAssociatedTokenAddress(mintPubkey, payer.publicKey, false, window.solanaSplToken.TOKEN_2022_PROGRAM_ID);
+        const recipientATA = await window.solanaSplToken.getAssociatedTokenAddress(mintPubkey, recipientPubkey, false, window.solanaSplToken.TOKEN_2022_PROGRAM_ID);
+
+        try {
+          await window.solanaSplToken.getAccount(connection, recipientATA, "confirmed", window.solanaSplToken.TOKEN_2022_PROGRAM_ID);
+        } catch (e) {
+          transaction.add(
+            window.solanaSplToken.createAssociatedTokenAccountInstruction(
+              payer.publicKey,
+              recipientATA,
+              recipientPubkey,
+              mintPubkey,
+              window.solanaSplToken.TOKEN_2022_PROGRAM_ID
+            )
+          );
+        }
+
+        transaction.add(
+          window.solanaSplToken.createTransferCheckedInstruction(
+            sourceATA,
+            mintPubkey,
+            recipientATA,
+            payer.publicKey,
+            100 * 10**9,
+            9,
+            [],
+            window.solanaSplToken.TOKEN_2022_PROGRAM_ID
+          )
+        );
+
+        const txSig = await window.solanaWeb3.sendAndConfirmTransaction(connection, transaction, [payer], {
+          commitment: "confirmed"
+        });
 
         const claimRef = database.ref(`faucet_claims/${connectedWalletAddress}`);
         await claimRef.transaction((curr) => {
           const c = curr || { count: 0 };
           c.count = (c.count || 0) + 1;
           c.last_claimed = new Date().toISOString();
-          c.solSig = solSig;
+          c.solSig = txSig;
           return c;
         });
 
         statusBox.className = "p-4 rounded-xl text-xs leading-relaxed bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 block";
         statusBox.innerHTML = `
-          <div class="font-bold text-emerald-300 text-sm mb-1.5">✓ Test Kit Dispatched Successfully!</div>
-          <div class="mb-2"><strong>0.005 SOL & 100 $KIBBLE</strong> has been transferred from the Vault!</div>
-          <a href="https://solscan.io/tx/${solSig}?cluster=devnet" target="_blank" class="inline-flex items-center gap-1 text-cyan-300 underline font-mono text-[11px]">View on Solscan Devnet ↗</a>
+          <div class="font-bold text-emerald-300 text-sm mb-1.5">✓ Transfer Başarıyla Tamamlandı!</div>
+          <div class="mb-2"><strong>0.005 SOL & 100 $KIBBLE</strong> cüzdanınıza iletildi.</div>
+          <a href="https://solscan.io/tx/${txSig}?cluster=devnet" target="_blank" class="inline-flex items-center gap-1 text-cyan-300 underline font-mono text-[11px]">Solscan'de İncele ↗</a>
         `;
 
       } catch (err) {
         console.error("Faucet error:", err);
         statusBox.className = "p-4 rounded-xl text-xs leading-relaxed bg-rose-950/60 border border-rose-500/40 text-rose-200 block";
-        statusBox.innerHTML = `❌ Error: ${err.message || "Failed to dispatch. Please retry."}`;
+        statusBox.innerHTML = `❌ Hata: ${err.message || "Transfer gerçekleştirilemedi."}`;
       } finally {
         claimBtn.disabled = false;
         claimBtn.classList.remove('opacity-70');
-        claimText.innerText = "CLAIM SOL & $KIBBLE TEST KIT";
+        claimText.innerText = "SOL VE $KIBBLE AL";
         updateFaucetClaimsUI();
       }
     }
@@ -2194,13 +2248,13 @@
       const statusBox = document.getElementById('transfer-status-box');
 
       if (!amt || amt <= 0) {
-        alert("Please enter a valid $KIBBLE amount (e.g. 50)");
+        alert("Lütfen geçerli bir $KIBBLE miktarı girin (Örn: 50)");
         return;
       }
 
       statusBox.classList.remove('hidden');
       statusBox.className = "mt-3 p-3.5 rounded-xl text-xs font-mono bg-purple-950/60 border border-purple-500/30 text-purple-200 block";
-      statusBox.innerText = `Verifying token transfer on Devnet...`;
+      statusBox.innerText = `Devnet üzerinde transfer doğrulanıyor...`;
 
       try {
         const fee = amt * 0.02;
@@ -2208,17 +2262,17 @@
 
         statusBox.className = "mt-3 p-3.5 rounded-xl text-xs font-mono bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 block";
         statusBox.innerHTML = `
-          <div class="font-bold text-emerald-300 mb-1">✓ On-Chain Transfer Verified!</div>
-          <div>Amount Sent: <strong>${amt} $KIBBLE</strong></div>
-          <div>Programmatic 2% Fee: <strong class="text-cyan-300">-${fee.toFixed(2)} $KIBBLE</strong></div>
-          <div>Net Arrived in Protocol Vault: <strong class="text-white">${net.toFixed(2)} $KIBBLE</strong></div>
-          <a href="https://solscan.io/account/${FAUCET_VAULT_ADDRESS}?cluster=devnet" target="_blank" class="inline-block mt-2 text-cyan-300 underline text-[11px]">Verify Protocol Vault Ledger ↗</a>
+          <div class="font-bold text-emerald-300 mb-1">✓ Zincir İçi Transfer Doğrulandı!</div>
+          <div>Gönderilen Tutar: <strong>${amt} $KIBBLE</strong></div>
+          <div>Otomatik %2 Komisyon Kesintisi: <strong class="text-cyan-300">-${fee.toFixed(2)} $KIBBLE</strong></div>
+          <div>Rezerv Kasaya Ulaşan Net Tutar: <strong class="text-white">${net.toFixed(2)} $KIBBLE</strong></div>
+          <a href="https://solscan.io/account/${FAUCET_VAULT_ADDRESS}?cluster=devnet" target="_blank" class="inline-block mt-2 text-cyan-300 underline text-[11px]">Protokol Cüzdanını Denetle ↗</a>
         `;
         amtInput.value = "";
 
       } catch (err) {
         statusBox.className = "mt-3 p-3.5 rounded-xl text-xs font-mono bg-rose-950/60 border border-rose-500/40 text-rose-200 block";
-        statusBox.innerHTML = `❌ Error: ${err.message}`;
+        statusBox.innerHTML = `❌ Hata: ${err.message}`;
       }
     }
 
