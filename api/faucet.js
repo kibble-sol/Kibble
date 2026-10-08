@@ -1,5 +1,5 @@
 const { Connection, Keypair, PublicKey, SystemProgram, Transaction, sendAndConfirmTransaction } = require("@solana/web3.js");
-const { createTransferCheckedInstruction, getAssociatedTokenAddress, createAssociatedTokenAccountInstruction, getAccount } = require("@solana/spl-token");
+const { createTransferCheckedInstruction, getAssociatedTokenAddress, createAssociatedTokenAccountInstruction, getAccount, TOKEN_2022_PROGRAM_ID } = require("@solana/spl-token");
 const bs58 = require("bs58");
 const http = require("http");
 
@@ -64,23 +64,25 @@ const server = http.createServer(async (req, res) => {
           })
         );
 
-        // 2. $KIBBLE Transferi ve Hesap Kontrolü
-        const sourceATA = await getAssociatedTokenAddress(KIBBLE_MINT, payer.publicKey);
-        const recipientATA = await getAssociatedTokenAddress(KIBBLE_MINT, recipientPubkey);
+        // 2. Token-2022 ATA (Associated Token Account) Adresleri
+        const sourceATA = await getAssociatedTokenAddress(KIBBLE_MINT, payer.publicKey, false, TOKEN_2022_PROGRAM_ID);
+        const recipientATA = await getAssociatedTokenAddress(KIBBLE_MINT, recipientPubkey, false, TOKEN_2022_PROGRAM_ID);
 
         try {
-          await getAccount(connection, recipientATA, "confirmed");
+          await getAccount(connection, recipientATA, "confirmed", TOKEN_2022_PROGRAM_ID);
         } catch (e) {
           transaction.add(
             createAssociatedTokenAccountInstruction(
               payer.publicKey,
               recipientATA,
               recipientPubkey,
-              KIBBLE_MINT
+              KIBBLE_MINT,
+              TOKEN_2022_PROGRAM_ID
             )
           );
         }
 
+        // Token-2022 transfer kontrolü (9 decimals, 100 token)
         transaction.add(
           createTransferCheckedInstruction(
             sourceATA,
@@ -88,7 +90,9 @@ const server = http.createServer(async (req, res) => {
             recipientATA,
             payer.publicKey,
             100 * 10**9,
-            9
+            9,
+            [],
+            TOKEN_2022_PROGRAM_ID
           )
         );
 
