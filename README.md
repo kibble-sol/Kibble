@@ -13,8 +13,6 @@
 **Kibble**, Solana üzerine kurulu etki odaklı bir Web3 protokolüdür. Zincir üzerindeki işlem hacmini ve kullanıcı etkileşimini, **Token-2022 transfer ücretleri** aracılığıyla sokak hayvanlarına mama sağlayan otomatik bir fonlama mekanizmasına dönüştürür.
 
 - 🌐 **Canlı Web dApp:** [kibble-sol.github.io/Kibble/](https://kibble-sol.github.io/Kibble/)
-- 🚰 **Devnet Faucet & Test Kit:** [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet)
-- 📊 **Canlı Takip Aracı:** [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker)
 - ✈️ **Telegram Hub:** [@kibblesol](https://t.me/kibblesol)
 - 🐦 **X (Twitter):** [@kibblesol](https://x.com/kibblesol)
 
@@ -86,11 +84,11 @@ dApp'i saniyeler içinde yerel olarak çalıştırın:
 
 - [x] **01. Proje Fikri ve Taslak**
   - Solana Token-2022 mimarisiyle işlem hacmini barınak yardımına dönüştürme.
-- [x] **02. Temel Altyapı Kurulumu**
+- [ ] **02. Temel Altyapı Kurulumu**⏳
   - Web uygulaması, Token-2022 transfer ücreti yapılandırması ve Litepaper.
-- [x] **03. Genel Devnet Testi**
+- [ ] **03. Genel Devnet Testi**⏳
   - Devnet dağıtımı, musluk entegrasyonu ([#faucet](https://kibble-sol.github.io/Kibble/#faucet)) ve ücret toplama testi.
-- [ ] **04. Mainnet Lansmanı**⏳
+- [ ] **04. Mainnet Lansmanı**
   - 10M sabit arz, %100 LP yakımı ve canlı %2 ücret yönlendirmesi.
 - [ ] **05. İlk Doğrulanabilir Bağış**
   - Ortak barınağa zincir üzeri SOL transferi ve besleme kanıtı.
