@@ -1,123 +1,122 @@
-# 🐾 Kibble ($KIBBLE) - Impact-First Protocol on Solana
+# 🐾 Kibble ($KIBBLE) - Solana'da Etki Odaklı Protokol
 
 [![Solana](https://img.shields.io/badge/Solana-Token--2022-14F195?style=flat-square&logo=solana)](https://solana.com)
 [![Live Demo](https://img.shields.io/badge/Demo-Live%20dApp-9945FF?style=flat-square)](https://kibble-sol.github.io/Kibble/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-> **Not just a tap-to-feed game — an automated, on-chain animal welfare protocol powered by Solana.**
+> **Bu sadece dokunarak besleme yapılan bir oyun değil; Solana tarafından desteklenen, otomatifleştirilmiş, zincir üzerinde çalışan bir hayvan refahı protokolü.**
 
 ---
 
-## 🌟 Overview
+## 🌟 Genel Bakış
 
-**Kibble** is an impact-first Web3 protocol built on Solana. Beyond the interactive front-end experience, Kibble establishes deep system-level architecture: converting on-chain trading volume and user engagement into protocol-driven funding via **Token-2022** transfer fees to buy and distribute physical food for stray animals.
+**Kibble**, Solana üzerine kurulu, etki odaklı bir Web3 protokolüdür. Etkileşimli ön uç deneyiminin ötesinde, Kibble derin bir sistem düzeyinde mimari oluşturur: zincir üzerindeki işlem hacmini ve kullanıcı etkileşimini, sokak hayvanları için fiziksel mama satın almak ve dağıtmak üzere **Token-2022 transfer ücretleri** aracılığıyla protokol odaklı fonlamaya dönüştürür.
 
-- 🌐 **Live Web dApp:** [kibble-sol.github.io/Kibble/](https://kibble-sol.github.io/Kibble/)
+- 🌐 **Canlı Web dApp:** [kibble-sol.github.io/Kibble/](https://kibble-sol.github.io/Kibble/)
 - 🚰 **Devnet Faucet & Test Kit:** [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet)
-- 📊 **Live On-Chain Tracker:** [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker)
-- ✈️ **Telegram Hub:** [@kibblesol](https://t.me/kibblesol)
+- 📊 **Canlı Zincir Üzeri Takip Aracı:** [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker)
+- ✈️ **Telegram Merkezi:** [@kibblesol](https://t.me/kibblesol)
 - 🐦 **X (Twitter):** [@kibblesol](https://x.com/kibblesol)
 
 ---
 
-## ⚙️ Core Architecture & Mechanics
+## ⚙️ Temel Mimari ve Akış Mekaniği
 
-1. **Tap-to-Feed Interface (`#tracker`):** 
-   Lightweight, highly engaging Web3 client interface that drives user acquisition and community interaction. Check out our live tracker: [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker).
+Protokolümüzün uçtan uca mantıksal çalışma sırası ve mimari katmanları şu şekildedir:
 
-2. **Token-2022 Transfer Fee Extension:**
-   Deep on-chain protocol mechanism that automatically collects protocol revenue from transactions (2% transfer fee) and routes funds directly to the animal feeding treasury.
-
-3. **Devnet Faucet & Automated Test Kit (`#faucet`):**
-   Robust testing infrastructure designed to dispense test SOL and $KIBBLE, allowing users and judges to simulate and verify transfer fee mechanics live on Solana Devnet. Test it here: [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet).
-
-4. **Proof of Feed (Real Impact):**
-   Accumulated treasury funds are converted into physical kibble bags, distributed to street animals, and verified on-chain and via video documentation.
+1. **Adım (Kullanıcı Katılımı - `#tracker`):** 
+   Kullanıcıların hafif ve yüksek etkileşimli arayüz üzerinden topluluk metriklerini artırdığı giriş katmanı. Canlı takip aracı: [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker).
+2. **Adım (Zincir İçi Değer Motoru - Token-2022):**
+   Transfer işlemlerinden programatik olarak %2 transfer ücreti keserek aracı kurum olmadan doğrudan hayvan besleme hazinesine fon aktaran akıllı sözleşme katmanı.
+3. **Adım (Simülasyon ve Test Altyapısı - `#faucet`):**
+   Kullanıcıların ve jürinin Devnet üzerinde test SOL'ü ve $KIBBLE talep ederek transfer ücreti mekanizmalarını canlı olarak simüle etmesini sağlayan altyapı. Buradan test edin: [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet).
+4. **Adım (Gerçek Dünya Etkisi - Proof of Feed):**
+   Havuzda toplanan fonların fiziksel mama torbalarına dönüştürülmesi, sokak hayvanlarına dağıtılması ve bunun zincir üzeri / video kanıtlarıyla doğrulanması.
 
 ---
 
-## 🎮 Part 1: Tap-to-Feed dApp & Real-World Impact
+## 🎮 Bölüm 1: Dokunarak Besleme dApp'i ve Gerçek Dünya Etkisi
 
-This section highlights the user-facing engagement layer and the tangible, real-world results of our protocol. Users interact with the lightweight interface to drive community metrics, while treasury funds are converted into physical food distributed on the streets.
+Bu bölüm, protokolümüzün kullanıcı odaklı etkileşim katmanını ve somut, gerçek dünya sonuçlarını vurgulamaktadır. Kullanıcılar, topluluk metriklerini yönlendirmek için hafif arayüzle etkileşim kurarken, hazine fonları sokaklarda dağıtılan fiziksel gıdalara dönüştürülmektedir.
 
-| 🎮 Tap-to-Feed dApp (`#tracker`) | 🐾 Real-World Feed (Proof of Impact) |
+| 🎮 Tap-to-Feed dApp (`#tracker`) | 🐾 Gerçek Dünyadan Örnekler (Etkinin Kanıtı) |
 | :---: | :---: |
 | <img src="assets/dapp-preview.jpg" width="340" alt="dApp Interface" /> | <img src="assets/proof-feed-1.jpg" width="340" alt="Proof of Feed #1" /> |
-| *Users engage via interactive frontend tracker* | *Proof of Feed: Real-world distribution* |
+| *Kullanıcılar etkileşimli ön uç izleyici aracılığıyla etkileşim kurar.* | *Besleme Kanıtı: Gerçek dünya dağıtımı* |
 
-🔗 **Explore the interactive tracker live:** [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker)
+🔗 **Etkileşimli takip aracını canlı olarak keşfedin:** [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker)
 
 ---
 
-## 🧪 Part 2: Devnet Integration & On-Chain Systems
+## 🧪 Bölüm 2: Devnet Entegrasyonu ve Zincir Üzeri Sistemler
 
-This section showcases our robust backend architecture and developer infrastructure. Built on Solana Devnet, it features automated token claims via faucet integration and deterministic 2% transfer fee routing to ensure trustless protocol execution.
+Bu bölüm, sağlam arka uç mimariğimizi ve geliştirici altyapımızı sergiliyor. Solana Devnet üzerine kurulu olan bu yapı, musluk entegrasyonu yoluyla otomatik token taleplerini ve güvenilir protokol yürütmesini sağlamak için %2'lik kesin transfer ücreti yönlendirmesini içerir.
 
-| 🧪 Devnet Integration & Faucet (`#faucet`) #1 | 🧪 Devnet Integration & Faucet (`#faucet`) #2 |
+| 🧪 Devnet Entegrasyonu ve Musluğu (`#faucet`) #1 | 🧪 Devnet Entegrasyonu ve Musluğu (`#faucet`) #2 |
 | :---: | :---: |
 | <img src="assets/Devnet1.jpg" width="340" alt="Devnet Testing #1" /> | <img src="assets/Devnet2.jpg" width="340" alt="Devnet Testing #2" /> |
-| *Live Devnet faucet testing & claim workflow* | *Protocol execution & transaction monitoring* |
+| *Canlı Devnet musluk testi ve talep iş akışı* | *Protokol yürütme ve işlem izleme* |
 
-🔗 **Test the Devnet faucet and protocol live:** [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet)
-
----
-
-## 📂 Repository Structure
-
-- `api/` - Faucet, backend routing scripts, and serverless API endpoints
-- `assets/` - Brand identity, icons, Devnet screenshots, and proof-of-feed media files
-- `bot/` - Telegram automation engine, scripts, and requirements
-- `CONTRIBUTING.md` - Open-source contribution guidelines
-- `Kibble-Litepaper.pdf` - Official project litepaper & architecture document
-- `LICENSE` - MIT License
-- `README.md` - Project documentation
-- `SECURITY.md` - Responsible disclosure policy
-- `index.html` - Web dApp interface & Web3 client logic (Faucet, Tracker & Game)
-- `package.json` - Project metadata and dependency configurations
+🔗 **Devnet musluğunu ve sistemi canlı test edin:** [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet)
 
 ---
 
-## 🚀 Quickstart & Local Setup
+## 📂 Depo Yapısı
 
-Run the dApp locally in seconds without complex toolchains:
-
-1. Clone the repository: `git clone https://github.com/kibble-sol/Kibble.git`
-2. Navigate to the folder: `cd Kibble`
-3. Open `index.html` directly in your browser.
-
----
-
-## 🗺️ Roadmap #1
-
-- [x] **01. Project Idea & Ideation**
-  - Transforming trading volume into direct animal shelter relief via Solana Token-2022 architecture.
-
-- [x] **02. Core Infrastructure Setup**
-  - Web application buildout, Token-2022 transfer fee configuration, official Litepaper, and autonomous harvester logic.
-
-- [x] **03. Public Devnet Testing**
-  - Public Devnet deployment, faucet integration (`#faucet`), and stress testing autonomous fee collection.
-
-- [ ] **04. Mainnet Launch**⏳
-  - 10M fixed supply deployment, 100% LP burn, revoked mint/freeze authorities, and live 2% fee routing.
-
-- [ ] **05. First Verifiable Donation**
-  - First automated Sunday loop execution: on-chain SOL transfer to partner shelter with full proof-of-feed documentation.
-
-- [ ] **06. Full Community Governance**
-  - Deployment of Quadratic Voting DAO portal, transferring protocol decisions and ecosystem reserve approvals directly to token holders.
+- `api/` - Musluk, arka uç yönlendirme komut dosyaları ve sunucusuz API uç noktaları
+- `assets/` - Marka kimliği, simgeler, Devnet ekran görüntüleri ve içerik kanıtı niteliğindeki medya dosyaları
+- `bot/` - Telegram otomasyon motoru, komut dosyaları ve gereksinimleri
+- `CONTRIBUTING.md` - Açık kaynak kodlu katkı yönergeleri
+- `Kibble-Litepaper.pdf` - Resmi proje tanıtım belgesi ve mimari dokümanı
+- `LICENSE` - MIT Lisansı
+- `README.md` - Proje dokümantasyonu
+- `SECURITY.md` - Sorumlu açıklama politikası
+- `index.html` - Web dApp arayüzü ve Web3 istemci mantığı (Musluk, Takip Aracı ve Oyun)
+- `package.json` - Proje meta verileri ve bağımlılık konfigürasyonları
 
 ---
 
-## 🛠 Tech Stack
+## 🚀 Hızlı Başlangıç ve Yerel Kurulum
 
-- **Blockchain:** Solana (Token-2022 Program with Transfer Fee Extension)
-- **Frontend:** Vanilla HTML5 / CSS3 / JavaScript (Zero dependencies, fast load)
-- **Backend & API:** Node.js / Serverless Faucet Logic (`api/`)
-- **Database & State:** Firebase Realtime Database
-- **Bot Engine:** Python (python-telegram-bot in `bot/`)
-- **Deployment:** GitHub Pages
+dApp'i karmaşık araç zincirlerine gerek kalmadan saniyeler içinde yerel olarak çalıştırın:
+
+1. Depoyu klonlayın: `git clone https://github.com/kibble-sol/Kibble.git`
+2. Klasöre gidin: `cd Kibble`
+3. `index.html` dosyasını doğrudan tarayıcınızda açın.
 
 ---
 
-*Built with ❤️ for stray animals.*
+## 🗺️ Yol Haritası #1
+
+- [x] **01. Proje Fikri ve Taslak**
+  - Solana Token-2022 mimarisi aracılığıyla işlem hacmini doğrudan hayvan barınağı yardımına dönüştürme.
+
+- [x] **02. Temel Altyapı Kurulumu**
+  - Web uygulaması oluşturma, Token-2022 transfer ücreti yapılandırması, resmi Litepaper ve otonom toplama mantığı.
+
+- [x] **03. Genel Devnet Testi**
+  - Genel Devnet dağıtımı, musluk entegrasyonu (`#faucet`) ve otonom ücret toplama stres testi.
+
+- [ ] **04. Mainnet Lansmanı**⏳
+  - 10M sabit arz dağıtımı, %100 LP yakımı, iptal edilmiş mint/freeze yetkileri ve canlı %2 ücret yönlendirmesi.
+
+- [ ] **05. İlk Doğrulanabilir Bağış**
+  - İlk otonom Pazar döngüsü yürütülmesi: Tam besleme kanıtı dokümantasyonuyla ortak barınağa zincir üzeri SOL transferi.
+
+- [ ] **06. Tam Topluluk Yönetişimi**
+  - Protokol kararlarını ve ekosistem rezerv onaylarını doğrudan token sahiplerine aktaran Karesel Oylama (Quadratic Voting) DAO portalının dağıtımı.
+
+---
+
+## 🛠 Teknoloji Yığını
+
+- **Blokzincir:** Solana (Transfer Ücreti Eklentili Token-2022 Programı)
+- **Ön Uç (Frontend):** Vanilla HTML5 / CSS3 / JavaScript (Sıfır bağımlılık, hızlı yükleme)
+- **Arka Uç & API:** Node.js / Serverless Musluk Mantığı (`api/`)
+- **Veritabanı & Durum:** Firebase Realtime Database
+- **Bot Motoru:** Python (`bot/` içinde python-telegram-bot)
+- **Dağıtım:** GitHub Pages
+
+---
+
+*Sokak hayvanları için ❤️ ile inşa edilmiştir.*
