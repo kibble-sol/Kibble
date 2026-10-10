@@ -13,8 +13,6 @@
 **Kibble** is an impact-first Web3 protocol built on Solana. Beyond the interactive front-end experience, Kibble establishes deep system-level architecture: converting on-chain trading volume and user engagement into protocol-driven funding via **Token-2022** transfer fees to buy and distribute physical food for stray animals.
 
 - 🌐 **Live Web dApp:** [kibble-sol.github.io/Kibble/](https://kibble-sol.github.io/Kibble/)
-- 🚰 **Devnet Faucet & Test Kit:** [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet)
-- 📊 **Live On-Chain Tracker:** [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker)
 - ✈️ **Telegram Hub:** [@kibblesol](https://t.me/kibblesol)
 - 🐦 **X (Twitter):** [@kibblesol](https://x.com/kibblesol)
 
