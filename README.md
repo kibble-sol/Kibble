@@ -33,17 +33,29 @@
 
 ---
 
-## 📱 Proof of Impact & Devnet Live Preview
+## 🎮 Part 1: Tap-to-Feed dApp & Real-World Impact
+
+This section highlights the user-facing engagement layer and the tangible, real-world results of our protocol. Users interact with the lightweight interface to drive community metrics, while treasury funds are converted into physical food distributed on the streets.
 
 | 🎮 Tap-to-Feed dApp (`#tracker`) | 🐾 Real-World Feed (Proof of Impact) |
 | :---: | :---: |
 | <img src="assets/dapp-preview.jpg" width="340" alt="dApp Interface" /> | <img src="assets/proof-feed-1.jpg" width="340" alt="Proof of Feed #1" /> |
 | *Users engage via interactive frontend tracker* | *Proof of Feed: Real-world distribution* |
 
+🔗 **Explore the interactive tracker live:** [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker)
+
+---
+
+## 🧪 Part 2: Devnet Integration & On-Chain Systems
+
+This section showcases our robust backend architecture and developer infrastructure. Built on Solana Devnet, it features automated token claims via faucet integration and deterministic 2% transfer fee routing to ensure trustless protocol execution.
+
 | 🧪 Devnet Integration & Faucet (`#faucet`) #1 | 🧪 Devnet Integration & Faucet (`#faucet`) #2 |
 | :---: | :---: |
 | <img src="assets/Devnet1.jpg" width="340" alt="Devnet Testing #1" /> | <img src="assets/Devnet2.jpg" width="340" alt="Devnet Testing #2" /> |
 | *Live Devnet faucet testing & claim workflow* | *Protocol execution & transaction monitoring* |
+
+🔗 **Test the Devnet faucet and protocol live:** [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet)
 
 ---
 
