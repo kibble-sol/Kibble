@@ -4,7 +4,7 @@
 [![Live Demo](https://img.shields.io/badge/Demo-Live%20dApp-9945FF?style=flat-square)](https://kibble-sol.github.io/Kibble/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-> **Bu sadece dokunarak besleme yapılan bir oyun değil; Solana tarafından desteklenen, otomatifleştirilmiş, zincir üzerinde çalışan bir hayvan refahı protokolü.**
+> **Bu sadece dokunarak besleme yapılan bir oyun değil; Solana tarafından desteklenen, otomatifleştirilmiş, zincir üzerinde çalışan bir hayvan refahı protokolüdür.**
 
 ---
 
@@ -20,18 +20,21 @@
 
 ---
 
-## ⚙️ Temel Mimari ve Akış Mekaniği
+## ⚙️ Temel Mimari ve Uçtan Uca Akış Mekaniği
 
-Protokolümüzün uçtan uca mantıksal çalışma sırası ve mimari katmanları şu şekildedir:
+Protokolümüz, kullanıcının sisteme ilk girdiği andan akıllı sözleşmelerin fon yönlendirmesine ve gerçek dünyadaki etkiye kadar mantıksal bir sıra (pipeline) izler:
 
-1. **Adım (Kullanıcı Katılımı - `#tracker`):** 
-   Kullanıcıların hafif ve yüksek etkileşimli arayüz üzerinden topluluk metriklerini artırdığı giriş katmanı. Canlı takip aracı: [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker).
-2. **Adım (Zincir İçi Değer Motoru - Token-2022):**
-   Transfer işlemlerinden programatik olarak %2 transfer ücreti keserek aracı kurum olmadan doğrudan hayvan besleme hazinesine fon aktaran akıllı sözleşme katmanı.
-3. **Adım (Simülasyon ve Test Altyapısı - `#faucet`):**
-   Kullanıcıların ve jürinin Devnet üzerinde test SOL'ü ve $KIBBLE talep ederek transfer ücreti mekanizmalarını canlı olarak simüle etmesini sağlayan altyapı. Buradan test edin: [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet).
-4. **Adım (Gerçek Dünya Etkisi - Proof of Feed):**
-   Havuzda toplanan fonların fiziksel mama torbalarına dönüştürülmesi, sokak hayvanlarına dağıtılması ve bunun zincir üzeri / video kanıtlarıyla doğrulanması.
+1. **Adım (Kullanıcı Katılımı ve Etkileşim Arayüzü - `#tracker`):** 
+   Sistemin giriş katmanıdır. Kullanıcılar, hafif ve optimize edilmiş Web3 arayüzümüz üzerinden etkileşim kurarak topluluk metriklerini ve günlük besleme hedeflerini besler. Amaç, yüksek kullanıcı edinimi (user acquisition) sağlamaktır. Detaylar için: [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker).
+
+2. **Adım (Zincir İçi Değer Motoru ve Transfer Ücreti - Token-2022):**
+   Ön yüzde başlayan etkileşim, arka planda Solana'nın **Token-2022 Transfer Fee** eklentisiyle ekonomik bir değere dönüşür. Her token transferinde akıllı sözleşme seviyesinde otomatik olarak %2'lik kesinti yapılarak aracı kurum olmaksızın doğrudan protokolün hayvan besleme hazinesine aktarılması sağlanır.
+
+3. **Adım (Simülasyon, Musluk ve Test Altyapısı - `#faucet`):**
+   Geliştiricilerin, kullanıcıların ve jürinin sistemin arkasındaki mekanizmayı test edebilmesi için kurulan robust altyapıdır. Kullanıcılar buradan test SOL'ü ve $KIBBLE talep ederek transfer ücretlerinin zincir üzerinde nasıl otomatik kesildiğini canlı olarak simüle eder ve doğrular. Canlı test paneli: [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet).
+
+4. **Adım (Gerçek Dünya Etkisi ve Dağıtım - Proof of Feed):**
+   Akıllı sözleşmelerde ve hazinede biriken fonlar periyodik olarak fiziksel mama torbalarına dönüştürülür. Sokak hayvanlarına yapılan bu gerçek dünya dağıtımları, hem on-chain işlem kanıtlarıyla hem de video dokümantasyonlarıyla şeffaf bir şekilde doğrulanarak topluluğa sunulur.
 
 ---
 
