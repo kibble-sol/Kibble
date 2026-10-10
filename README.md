@@ -13,6 +13,8 @@
 **Kibble** is an impact-first Web3 protocol built on Solana. Beyond the interactive front-end experience, Kibble establishes deep system-level architecture: converting on-chain trading volume and user engagement into protocol-driven funding via **Token-2022** transfer fees to buy and distribute physical food for stray animals.
 
 - 🌐 **Live Web dApp:** [kibble-sol.github.io/Kibble/](https://kibble-sol.github.io/Kibble/)
+- 🚰 **Devnet Faucet & Test Kit:** [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet)
+- 📊 **Live On-Chain Tracker:** [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker)
 - ✈️ **Telegram Hub:** [@kibblesol](https://t.me/kibblesol)
 - 🐦 **X (Twitter):** [@kibblesol](https://x.com/kibblesol)
 
@@ -20,44 +22,43 @@
 
 ## ⚙️ Core Architecture & Mechanics
 
-1. **Tap-to-Feed & Frontend Interface:** 
-   Lightweight, highly engaging Web3 client interface that drives user acquisition and community interaction.
+1. **Tap-to-Feed Interface (`#tracker`):** 
+   Lightweight, highly engaging Web3 client interface that drives user acquisition and community interaction. Check out our live tracker: [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker).
 
-2. **Token-2022 Native Transfer Fee Extension:**
-   Deep on-chain protocol mechanism that automatically collects revenue from token transactions, routing funds directly to the animal feeding treasury without manual friction.
+2. **On-Chain Token-2022 Transfer Fee & Faucet (`#faucet`):**
+   Deep on-chain protocol mechanism and automated faucet infrastructure designed to test test tokens, liquidity flows, and automated 2% transfer fee routing. Test it live here: [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet).
 
-3. **Autonomous Faucet & Vault Infrastructure:**
-   Backend/API integrations and smart routing designed to manage test tokens, liquidity flows, and automated distribution loops.
-
-4. **Proof of Feed (Real Impact):**
+3. **Proof of Feed (Real Impact):**
    Accumulated treasury funds are converted into physical kibble bags, distributed to street animals, and verified on-chain and via video documentation.
 
 ---
 
 ## 📱 Proof of Impact & Devnet Live Preview
 
-| 🎮 Tap-to-Feed dApp | 🧪 Devnet Integration & Faucet |
+| 🎮 Tap-to-Feed dApp (`#tracker`) | 🐾 Real-World Feed (Proof of Impact) |
 | :---: | :---: |
-| <img src="assets/dapp-preview.jpg" width="340" alt="dApp Interface" /> | <img src="assets/Devnet1.jpg" width="340" alt="Devnet Testing #1" /> |
-| *Users engage via interactive frontend* | *Live Devnet testing & faucet workflow* |
+| <img src="assets/dapp-preview.jpg" width="340" alt="dApp Interface" /> | <img src="assets/proof-feed-1.jpg" width="340" alt="Proof of Feed #1" /> |
+| *Users engage via interactive frontend tracker* | *Proof of Feed: Real-world distribution* |
 
-| ⚙️ On-Chain Architecture Flow | 🐾 Real-World Feed |
+| 🧪 Devnet Integration & Faucet (`#faucet`) #1 | 🧪 Devnet Integration & Faucet (`#faucet`) #2 |
 | :---: | :---: |
-| <img src="assets/Devnet2.jpg" width="340" alt="Devnet Testing #2" /> | <img src="assets/proof-feed-1.jpg" width="340" alt="Proof of Feed #1" /> |
-| *Protocol execution & transaction monitoring* | *Proof of Feed: Real-world distribution* |
+| <img src="assets/Devnet1.jpg" width="340" alt="Devnet Testing #1" /> | <img src="assets/Devnet2.jpg" width="340" alt="Devnet Testing #2" /> |
+| *Live Devnet faucet testing & claim workflow* | *Protocol execution & transaction monitoring* |
 
 ---
 
 ## 📂 Repository Structure
 
-- `api/` - Faucet and backend routing scripts
-- `assets/` - Brand identity, icons, and Devnet/proof media files
-- `bot/` - Telegram automation engine & requirements
+- `api/` - Faucet, backend routing scripts, and serverless API endpoints
+- `assets/` - Brand identity, icons, Devnet screenshots, and proof-of-feed media files
+- `bot/` - Telegram automation engine, scripts, and requirements
 - `CONTRIBUTING.md` - Open-source contribution guidelines
+- `Kibble-Litepaper.pdf` - Official project litepaper & architecture document
 - `LICENSE` - MIT License
 - `README.md` - Project documentation
 - `SECURITY.md` - Responsible disclosure policy
-- `index.html` - Web dApp interface & Web3 client logic
+- `index.html` - Web dApp interface & Web3 client logic (Faucet, Tracker & Game)
+- `package.json` - Project metadata and dependency configurations
 
 ---
 
@@ -80,7 +81,7 @@ Run the dApp locally in seconds without complex toolchains:
   - Web application buildout, Token-2022 transfer fee configuration, official Litepaper, and autonomous harvester logic.
 
 - [x] **03. Public Devnet Testing**
-  - Public Devnet deployment, faucet integration, and stress testing autonomous fee collection.
+  - Public Devnet deployment, faucet integration (`#faucet`), and stress testing autonomous fee collection.
 
 - [ ] **04. Mainnet Launch**⏳
   - 10M fixed supply deployment, 100% LP burn, revoked mint/freeze authorities, and live 2% fee routing.
@@ -97,9 +98,9 @@ Run the dApp locally in seconds without complex toolchains:
 
 - **Blockchain:** Solana (Token-2022 Program with Transfer Fee Extension)
 - **Frontend:** Vanilla HTML5 / CSS3 / JavaScript (Zero dependencies, fast load)
-- **Backend & API:** Node.js / Serverless Faucet Logic
+- **Backend & API:** Node.js / Serverless Faucet Logic (`api/`)
 - **Database & State:** Firebase Realtime Database
-- **Bot Engine:** Python (python-telegram-bot)
+- **Bot Engine:** Python (python-telegram-bot in `bot/`)
 - **Deployment:** GitHub Pages
 
 ---
