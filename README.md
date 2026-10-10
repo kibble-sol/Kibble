@@ -13,6 +13,8 @@
 **Kibble** is an impact-first Web3 protocol built on Solana. Beyond the interactive front-end experience, Kibble establishes deep system-level architecture: converting on-chain trading volume and user engagement into protocol-driven funding via **Token-2022** transfer fees to buy and distribute physical food for stray animals.
 
 - 🌐 **Live Web dApp:** [kibble-sol.github.io/Kibble/](https://kibble-sol.github.io/Kibble/)
+- 🚰 **Devnet Faucet & Test Kit:** [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet)
+- 📊 **Live On-Chain Tracker:** [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker)
 - ✈️ **Telegram Hub:** [@kibblesol](https://t.me/kibblesol)
 - 🐦 **X (Twitter):** [@kibblesol](https://x.com/kibblesol)
 
@@ -23,10 +25,13 @@
 1. **Tap-to-Feed Interface (`#tracker`):** 
    Lightweight, highly engaging Web3 client interface that drives user acquisition and community interaction. Check out our live tracker: [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker).
 
-2. **On-Chain Token-2022 Transfer Fee & Faucet (`#faucet`):**
-   Deep on-chain protocol mechanism and automated faucet infrastructure designed to test test tokens, liquidity flows, and automated 2% transfer fee routing. Test it live here: [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet).
+2. **Token-2022 Transfer Fee Extension:**
+   Deep on-chain protocol mechanism that automatically collects protocol revenue from transactions (2% transfer fee) and routes funds directly to the animal feeding treasury.
 
-3. **Proof of Feed (Real Impact):**
+3. **Devnet Faucet & Automated Test Kit (`#faucet`):**
+   Robust testing infrastructure designed to dispense test SOL and $KIBBLE, allowing users and judges to simulate and verify transfer fee mechanics live on Solana Devnet. Test it here: [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet).
+
+4. **Proof of Feed (Real Impact):**
    Accumulated treasury funds are converted into physical kibble bags, distributed to street animals, and verified on-chain and via video documentation.
 
 ---
@@ -87,13 +92,13 @@ Run the dApp locally in seconds without complex toolchains:
 - [x] **01. Project Idea & Ideation**
   - Transforming trading volume into direct animal shelter relief via Solana Token-2022 architecture.
 
-- [ ] **02. Core Infrastructure Setup**⏳
+- [x] **02. Core Infrastructure Setup**
   - Web application buildout, Token-2022 transfer fee configuration, official Litepaper, and autonomous harvester logic.
 
-- [ ] **03. Public Devnet Testing**⏳
+- [x] **03. Public Devnet Testing**
   - Public Devnet deployment, faucet integration (`#faucet`), and stress testing autonomous fee collection.
 
-- [ ] **04. Mainnet Launch**
+- [ ] **04. Mainnet Launch**⏳
   - 10M fixed supply deployment, 100% LP burn, revoked mint/freeze authorities, and live 2% fee routing.
 
 - [ ] **05. First Verifiable Donation**
