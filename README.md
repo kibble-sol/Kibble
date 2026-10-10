@@ -24,9 +24,9 @@
 
 Protokolümüzün uçtan uca akışı sırasıyla şöyledir:
 
-1. **Adım (Kullanıcı Katılımı - `#tracker`):** Kullanıcıların hafif arayüz üzerinden etkileşime girerek topluluk metriklerini artırdığı ve besleme hedeflerine katkı sağladığı giriş katmanı.
+1. **Adım (Kullanıcı Katılımı - [#tracker](https://kibble-sol.github.io/Kibble/#tracker)):** Kullanıcıları topluluk etkileşimine katmak ve yüksek kullanıcı edinimi (user acquisition) sağlamak için tasarlanmış hafif ön uç takip ve besleme arayüzü. Canlı incele: [kibble-sol.github.io/Kibble/#tracker](https://kibble-sol.github.io/Kibble/#tracker).
 2. **Adım (Zincir İçi Değer Motoru - Token-2022):** Token transferlerinde akıllı sözleşme seviyesinde otomatik olarak %2 transfer ücreti kesilerek aracı olmaksızın doğrudan hayvan besleme hazinesine aktarılması.
-3. **Adım (Simülasyon ve Test - `#faucet`):** Kullanıcıların ve jürinin Devnet üzerinde test SOL'ü ve $KIBBLE talep ederek transfer ücreti mekanizmalarını canlı olarak test etmesini sağlayan altyapı.
+3. **Adım (Simülasyon ve Test - [#faucet](https://kibble-sol.github.io/Kibble/#faucet)):** Kullanıcıların Devnet üzerinde test SOL'ü ve $KIBBLE talep ederek transfer ücreti mekanizmalarını canlı olarak test etmesini sağlayan altyapı. Canlı test et: [kibble-sol.github.io/Kibble/#faucet](https://kibble-sol.github.io/Kibble/#faucet).
 4. **Adım (Gerçek Dünya Etkisi - Proof of Feed):** Hazinede biriken fonların fiziksel mamaya dönüştürülmesi, sokak hayvanlarına dağıtılması ve on-chain / video kanıtlarıyla doğrulanması.
 
 ---
@@ -35,7 +35,7 @@ Protokolümüzün uçtan uca akışı sırasıyla şöyledir:
 
 Kullanıcıların ön yüzde etkileşim kurarak topluluk metriklerini artırdığı ve hazine fonlarının sokaklarda fiziksel mamaya dönüştürüldüğü katman.
 
-| 🎮 Tap-to-Feed dApp (`#tracker`) | 🐾 Gerçek Dünyadan Örnekler (Etkinin Kanıtı) |
+| 🎮 Tap-to-Feed dApp ([#tracker](https://kibble-sol.github.io/Kibble/#tracker)) | 🐾 Gerçek Dünyadan Örnekler (Etkinin Kanıtı) |
 | :---: | :---: |
 | <img src="assets/dapp-preview.jpg" width="340" alt="dApp Interface" /> | <img src="assets/proof-feed-1.jpg" width="340" alt="Proof of Feed #1" /> |
 | *Kullanıcıların etkileşim kurduğu ön uç takip arayüzü.* | *Besleme Kanıtı: Gerçek dünya dağıtımı.* |
@@ -48,7 +48,7 @@ Kullanıcıların ön yüzde etkileşim kurarak topluluk metriklerini artırdı�
 
 Solana Devnet üzerinde çalışan, musluk (faucet) entegrasyonu ve %2'lik kesin transfer ücreti yönlendirmesini test eden arka uç altyapısı.
 
-| 🧪 Devnet Entegrasyonu ve Musluğu (`#faucet`) #1 | 🧪 Devnet Entegrasyonu ve Musluğu (`#faucet`) #2 |
+| 🧪 Devnet Entegrasyonu ve Musluğu ([#faucet](https://kibble-sol.github.io/Kibble/#faucet)) #1 | 🧪 Devnet Entegrasyonu ve Musluğu ([#faucet](https://kibble-sol.github.io/Kibble/#faucet)) #2 |
 | :---: | :---: |
 | <img src="assets/Devnet1.jpg" width="340" alt="Devnet Testing #1" /> | <img src="assets/Devnet2.jpg" width="340" alt="Devnet Testing #2" /> |
 | *Canlı Devnet musluk testi ve token talep akışı.* | *Protokol yürütme ve işlem izleme ekranı.* |
@@ -89,7 +89,7 @@ dApp'i saniyeler içinde yerel olarak çalıştırın:
 - [x] **02. Temel Altyapı Kurulumu**
   - Web uygulaması, Token-2022 transfer ücreti yapılandırması ve Litepaper.
 - [x] **03. Genel Devnet Testi**
-  - Devnet dağıtımı, musluk entegrasyonu (`#faucet`) ve ücret toplama testi.
+  - Devnet dağıtımı, musluk entegrasyonu ([#faucet](https://kibble-sol.github.io/Kibble/#faucet)) ve ücret toplama testi.
 - [ ] **04. Mainnet Lansmanı**⏳
   - 10M sabit arz, %100 LP yakımı ve canlı %2 ücret yönlendirmesi.
 - [ ] **05. İlk Doğrulanabilir Bağış**
