@@ -2304,11 +2304,19 @@ async function executeTestTransfer() {
 
     const { PublicKey, Transaction, TransactionInstruction, SystemProgram } = window.solanaWeb3;
 
-const [sourceATA] = PublicKey.findProgramAddressSync(
+const findPDA = async (seeds, programId) => {
+  const PK = window.solanaWeb3.PublicKey;
+  const r = typeof PK.findProgramAddressSync === 'function'
+    ? PK.findProgramAddressSync(seeds, programId)
+    : await PK.findProgramAddress(seeds, programId);
+  return r[0];
+};
+
+const sourceATA = await findPDA(
   [senderPubkey.toBytes(), TOKEN_2022_PRG.toBytes(), mintPubkey.toBytes()],
   ASSOCIATED_TOKEN_PRG
 );
-const [recipientATA] = PublicKey.findProgramAddressSync(
+const recipientATA = await findPDA(
   [recipientPubkey.toBytes(), TOKEN_2022_PRG.toBytes(), mintPubkey.toBytes()],
   ASSOCIATED_TOKEN_PRG
 );
