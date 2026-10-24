@@ -2302,63 +2302,56 @@ async function executeTestTransfer() {
     const TOKEN_2022_PRG = new window.solanaWeb3.PublicKey("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
     const ASSOCIATED_TOKEN_PRG = new window.solanaWeb3.PublicKey("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL");
 
-    // Derivation (ATA adreslerini bulma)
-    function findProgramAddressSync(seeds, programId) {
-      return window.solanaWeb3.PublicKey.findProgramAddressSync(seeds, programId);
-    }
+    const { PublicKey, Transaction, TransactionInstruction, SystemProgram } = window.solanaWeb3;
 
-                const sourceATA = window.solanaWeb3.PublicKey.findProgramAddress(
-      [senderPubkey.toBytes(), TOKEN_2022_PRG.toBytes(), mintPubkey.toBytes()],
-      ASSOCIATED_TOKEN_PRG
-    )[0];
+const [sourceATA] = PublicKey.findProgramAddressSync(
+  [senderPubkey.toBytes(), TOKEN_2022_PRG.toBytes(), mintPubkey.toBytes()],
+  ASSOCIATED_TOKEN_PRG
+);
+const [recipientATA] = PublicKey.findProgramAddressSync(
+  [recipientPubkey.toBytes(), TOKEN_2022_PRG.toBytes(), mintPubkey.toBytes()],
+  ASSOCIATED_TOKEN_PRG
+);
 
-    const recipientATA = window.solanaWeb3.PublicKey.findProgramAddress(
-      [recipientPubkey.toBytes(), TOKEN_2022_RPGs?.toBytes() || TOKEN_2022_PRG.toBytes(), mintPubkey.toBytes()],
-      ASSOCIATED_TOKEN_PRG
-    )[0];
+const transaction = new Transaction();
 
-    const transaction = new window.solanaWeb3.Transaction();
+// Alıcı ATA yoksa oluştur (CreateIdempotent = 1)
+const info = await connection.getAccountInfo(recipientATA);
+if (!info) {
+  transaction.add(new TransactionInstruction({
+    keys: [
+      { pubkey: senderPubkey, isSigner: true, isWritable: true },
+      { pubkey: recipientATA, isSigner: false, isWritable: true },
+      { pubkey: recipientPubkey, isSigner: false, isWritable: false },
+      { pubkey: mintPubkey, isSigner: false, isWritable: false },
+      { pubkey: SystemProgram.programId, isSigner: false, isWritable: false },
+      { pubkey: TOKEN_2022_PRG, isSigner: false, isWritable: false },
+    ],
+    programId: ASSOCIATED_TOKEN_PRG,
+    data: new Uint8Array([1]),
+  }));
+}
 
-    // Alıcının hesabı zincirde var mı kontrol et, yoksa oluşturma talimatı ekle
-    const recipientAccountInfo = await connection.getAccountInfo(recipientATA);
-    if (!recipientAccountInfo) {
-      const SYSVAR_RENT = new window.solanaWeb3.PublicKey("SysvarRent111111111111111111111111111111111");
-      
-      const createATAIx = new window.solanaWeb3.TransactionInstruction({
-        keys: [
-          { pubkey: senderPubkey, isSigner: true, isWritable: true },
-          { pubkey: recipientATA, isSigner: false, isWritable: true },
-          { pubkey: recipientPubkey, isSigner: false, isWritable: false },
-          { pubkey: mintPubkey, isSigner: false, isWritable: false },
-          { pubkey: window.solanaWeb3.SystemProgram.programId, isSigner: false, isWritable: false },
-          { pubkey: TOKEN_2022_PRG, isSigner: false, isWritable: false },
-          { pubkey: SYSVAR_RENT, isSigner: false, isWritable: false },
-        ],
-        programId: ASSOCIATED_TOKEN_PRG,
-        data: Buffer.alloc(0),
-      });
-      transaction.add(createATAIx);
-    }
+// Decimals'i mint'ten oku
+const mintInfo = await connection.getParsedAccountInfo(mintPubkey);
+const decimals = mintInfo.value.data.parsed.info.decimals;
 
-    // Token-2022 TransferChecked Talimat Verisi (Cüzdanın asla reddetmeyeceği ham byte düzeni)
-    const rawAmount = BigInt(Math.floor(amt * 10**9));
-    const dataBuffer = Buffer.alloc(10);
-    dataBuffer.writeUInt8(12, 0); // TransferChecked instruction index = 12
-    dataBuffer.writeBigUInt64LE(rawAmount, 1);
-    dataBuffer.writeUInt8(9, 9); // Decimals = 9
+const rawAmount = BigInt(Math.floor(amt * 10 ** decimals));
+const data = new Uint8Array(10);
+data[0] = 12; // TransferChecked
+new DataView(data.buffer).setBigUint64(1, rawAmount, true);
+data[9] = decimals;
 
-    const transferIx = new window.solanaWeb3.TransactionInstruction({
-      keys: [
-        { pubkey: sourceATA, isSigner: false, isWritable: true },
-        { pubkey: mintPubkey, isSigner: false, isWritable: false },
-        { pubkey: recipientATA, isSigner: false, isWritable: true },
-        { pubkey: senderPubkey, isSigner: true, isWritable: false },
-      ],
-      programId: TOKEN_2022_PRG,
-      data: dataBuffer,
-    });
-
-    transaction.add(transferIx);
+transaction.add(new TransactionInstruction({
+  keys: [
+    { pubkey: sourceATA, isSigner: false, isWritable: true },
+    { pubkey: mintPubkey, isSigner: false, isWritable: false },
+    { pubkey: recipientATA, isSigner: false, isWritable: true },
+    { pubkey: senderPubkey, isSigner: true, isWritable: false },
+  ],
+  programId: TOKEN_2022_PRG,
+  data,
+}));
 
     const { blockhash } = await connection.getLatestBlockhash();
     transaction.recentBlockhash = blockhash;
