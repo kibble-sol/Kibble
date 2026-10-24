@@ -2353,7 +2353,7 @@ transaction.add(new TransactionInstruction({
   data,
 }));
 
-    const { blockhash } = await connection.getLatestBlockhash();
+    const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash();
     transaction.recentBlockhash = blockhash;
     transaction.feePayer = senderPubkey;
 
@@ -2368,7 +2368,10 @@ transaction.add(new TransactionInstruction({
     }
 
     statusBox.innerHTML = `⏳ Confirming transaction on-chain...`;
-    await connection.confirmTransaction(txSig, "confirmed");
+    const res = await connection.confirmTransaction(
+  { signature: txSig, blockhash, lastValidBlockHeight }, "confirmed"
+);
+if (res.value.err) throw new Error("Transaction failed: " + JSON.stringify(res.value.err));
 
     const fee = amt * 0.02;
     const net = amt - fee;
