@@ -2307,15 +2307,15 @@ async function executeTestTransfer() {
       return window.solanaWeb3.PublicKey.findProgramAddressSync(seeds, programId);
     }
 
-            const sourceATA = (await window.solanaWeb3.PublicKey.findProgramAddress(
+                const sourceATA = window.solanaWeb3.PublicKey.findProgramAddress(
       [senderPubkey.toBytes(), TOKEN_2022_PRG.toBytes(), mintPubkey.toBytes()],
       ASSOCIATED_TOKEN_PRG
-    ))[0];
+    )[0];
 
-    const recipientATA = (await window.solanaWeb3.PublicKey.findProgramAddress(
-      [recipientPubkey.toBytes(), TOKEN_2022_PRG.toBytes(), mintPubkey.toBytes()],
+    const recipientATA = window.solanaWeb3.PublicKey.findProgramAddress(
+      [recipientPubkey.toBytes(), TOKEN_2022_RPGs?.toBytes() || TOKEN_2022_PRG.toBytes(), mintPubkey.toBytes()],
       ASSOCIATED_TOKEN_PRG
-    ))[0];
+    )[0];
 
     const transaction = new window.solanaWeb3.Transaction();
 
